@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/padding_20dp">
+
+    <TextView
+        android:id="@+id/imgConJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app"
+        android:textColor="@color/red700"
+        android:textStyle="bold"
+        android:textSize="@dimen/fontSize_32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgOnboard"
+        android:layout_width="@dimen/layout_width_0dp"
+        android:layout_height="@dimen/layout_height_0dp"
+        android:layout_marginTop="@dimen/margin_32dp"
+        android:src="@drawable/ic_logo"
+        android:contentDescription="@string/description_logo"
+        app:layout_constraintDimensionRatio="1.1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgConJob" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_48dp"
+        android:layout_marginTop="@dimen/margin_32dp"
+        android:textColor="@color/red700"
+        android:backgroundTint="@color/red100"
+        android:paddingHorizontal="@dimen/padding_32dp"
+        android:text="@string/button_login"
+        android:textSize="@dimen/fontSize_18sp"
+        android:textStyle="bold"
+        android:insetTop="@dimen/inset_top"
+        android:insetBottom="@dimen/inset_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/imgOnboard" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_48dp"
+        android:layout_below="@id/imgOnboard"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:textColor="@color/red700"
+        android:backgroundTint="@color/red100"
+        android:insetTop="@dimen/inset_top"
+        android:insetBottom="@dimen/inset_bottom"
+        android:text="@string/button_register"
+        android:textSize="@dimen/fontSize_18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,22 @@
     <dimen name="margin_20_dp">20dp</dimen>
     <dimen name="margin_10_dp">10dp</dimen>
     <dimen name="size_avatar">100dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+    <dimen name="padding_32dp">32dp</dimen>
+    <dimen name="button_48dp">48dp</dimen>
+    <dimen name="fontSize_16sp">16sp</dimen>
+    <dimen name="fontSize_18sp">18sp</dimen>
+    <dimen name="fontSize_32sp">32sp</dimen>
+    <dimen name="inset_top">0dp</dimen>
+    <dimen name="inset_bottom">0dp</dimen>
+    <dimen name="layout_width_0dp">0dp</dimen>
+    <dimen name="layout_height_0dp">0dp</dimen>
+
+    <!--Icon-->
+    <dimen name="splash_icon">100dp</dimen>
+    <dimen name="ic_logo_width">47dp</dimen>
+    <dimen name="ic_logo_height">15dp</dimen>
 </resources>

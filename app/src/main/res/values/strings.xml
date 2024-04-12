@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">ConJob</string>
+    <string name="app">ConJob</string>
     <string name="OK">OK</string>
+
+    <!--Description-->
+    <string name="description_logo">App logo</string>
+
+    <!--Onboard-->
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
 </resources>
