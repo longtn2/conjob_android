@@ -6,4 +6,5 @@
     <color name="red100">#F3E7E9</color>
     <color name="red700">#C5091F</color>
     <color name="dark">#B6A3A3</color>
+    <color name="transparent">#00000000</color>
 </resources>

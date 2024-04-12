@@ -6,6 +6,7 @@
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_44dp">44dp</dimen>
     <dimen name="padding_20dp">20dp</dimen>
     <dimen name="padding_32dp">32dp</dimen>
     <dimen name="button_48dp">48dp</dimen>
@@ -16,6 +17,10 @@
     <dimen name="inset_bottom">0dp</dimen>
     <dimen name="layout_width_0dp">0dp</dimen>
     <dimen name="layout_height_0dp">0dp</dimen>
+
+    <!--OnBoarding-->
+    <dimen name="button_corner_radius">8dp</dimen>
+    <dimen name="button_stroke_width">1dp</dimen>
 
     <!--Icon-->
     <dimen name="splash_icon">100dp</dimen>
