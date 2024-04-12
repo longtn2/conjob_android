@@ -3,11 +3,43 @@
     <string name="app">ConJob</string>
     <string name="OK">OK</string>
 
+    <!-- Hint Text -->
+    <string name="hint_email">Enter your Email</string>
+    <string name="hint_first_name">Enter your First name</string>
+    <string name="hint_last_name">Enter your Last name</string>
+    <string name="hint_password">Enter your Password</string>
+    <string name="hint_phone">Enter your Phone</string>
+    <string name="hint_birthday">yyyy/MM/dd</string>
+
     <!--Description-->
     <string name="description_logo">App logo</string>
+    <string name="description_close_icon">Close</string>
+    <string name="description_back_arrow_icon">Press this arrow to go back to previous view</string>
+    <string name="description_date_picker">Date picker</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
     <string name="button_guest"><u>Continue as a guest</u></string>
+
+    <!-- Register -->
+    <string name="button_continue">Continue</string>
+    <string name="title_register">Register</string>
+    <string name="title_register_2">Register</string>
+    <string name="title_login">Login</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birth day</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="validate_first_name_null">Please enter your first name</string>
+    <string name="validate_last_name_null">Please enter your last name</string>
+    <string name="validate_email_null">Please enter your Email address</string>
+    <string name="validate_email">Your email is not correct!</string>
+    <string name="validate_password_require">6 or more characters</string>
+    <string name="validate_password_null">Please enter your Password</string>
+    <string name="policy"><![CDATA[By clicking Agree & Join, you agree to ConJob\'s User Agreement, Policy and ]]> <a>Cookie Policy.</a> </string>
+
 </resources>

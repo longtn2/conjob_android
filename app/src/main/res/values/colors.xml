@@ -7,4 +7,6 @@
     <color name="red700">#C5091F</color>
     <color name="dark">#B6A3A3</color>
     <color name="transparent">#00000000</color>
+    <color name="gray">#FF585858</color>
+    <color name="light_gray">#FFB6B6B6</color>
 </resources>

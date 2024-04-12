@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <stroke
+                android:color="@color/gray"
+                android:width="@dimen/custom_button_stroke_width"/>
+            <corners
+                android:radius="@dimen/custom_button_corners_radius"/>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item android:state_focused="true"
+        android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <stroke
+                android:color="@color/gray"
+                android:width="@dimen/custom_button_stroke_width"/>
+            <corners
+                android:radius="@dimen/custom_button_corners_radius"/>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <stroke
+                android:color="@color/gray"
+                android:width="@dimen/custom_button_stroke_width"/>
+            <corners
+                android:radius="@dimen/custom_button_corners_radius"/>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <stroke
+                android:color="@color/gray"
+                android:width="@dimen/custom_button_stroke_width"/>
+            <corners
+                android:radius="@dimen/custom_button_corners_radius"/>
+            <solid android:color="@color/black" />
+        </shape>
+    </item>
+</selector>
