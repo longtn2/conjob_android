@@ -9,8 +9,8 @@
     <ImageView
         android:layout_width="@dimen/splash_icon"
         android:layout_height="@dimen/splash_icon"
-        android:src="@mipmap/ic_launcher_round"
         android:contentDescription="@string/description_logo"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

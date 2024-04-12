@@ -10,7 +10,6 @@ class InitActivity : BaseActivity(R.layout.activity_splash) {
     private val millisInFuture: Long = 3000
     private val countDownInterval: Long = 1000
 
-
     override fun initialize() {
         init()
     }

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboard_nav_graph"
-    app:startDestination="@id/OnboardFragment">
+    app:startDestination="@id/OnBoardingFragment">
 
     <fragment
-        android:id="@+id/OnboardFragment"
+        android:id="@+id/OnBoardingFragment"
         android:name="com.intern.conjob.ui.onboarding.OnBoardingFragment"
         app:defaultNavHost="true"
         tools:layout="@layout/fragment_onboarding">
