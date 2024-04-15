@@ -13,17 +13,17 @@
 
         <ImageButton
             android:id="@+id/imgBtnBackArrow"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/button_48dp"
             android:layout_height="@dimen/button_48dp"
-            android:background="@color/transparent"
+            android:background="@drawable/custom_button_border"
             android:contentDescription="@string/description_back_arrow_icon"
             android:padding="@dimen/icon_padding_10dp"
-            android:src="@drawable/ic_arrow_back"
+            android:src="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_44dp"
@@ -44,7 +44,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/fontSize_small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtInputLayoutFirstName"
@@ -114,31 +114,48 @@
             android:text="@string/gender"
             android:textColor="@color/black"
             android:textSize="@dimen/fontSize_small"
+            android:layout_marginTop="@dimen/margin_16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutLastName" />
 
-        <Spinner
-            android:id="@+id/spinnerGender"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_48dp"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:background="@drawable/custom_spinner_dropdown"
-            android:gravity="center"
-            android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toTopOf="@+id/tvPhone"
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGender" />
+            app:layout_constraintTop_toBottomOf="@id/tvGender">
+            <RadioButton
+                android:id="@+id/radioBtnMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_male" />
+
+            <RadioButton
+                android:id="@+id/radioBtnFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_female"
+                android:layout_marginStart="@dimen/margin_16dp" />
+
+            <RadioButton
+                android:id="@+id/radioBtnOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_other"
+                android:layout_marginStart="@dimen/margin_16dp" />
+        </RadioGroup>
+
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
             android:text="@string/phone"
             android:textColor="@color/black"
             android:textSize="@dimen/fontSize_small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerGender" />
+            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtInputLayoutPhone"
@@ -216,11 +233,93 @@
             app:layout_constraintStart_toEndOf="@+id/txtInputLayoutBirthday"
             app:layout_constraintTop_toBottomOf="@+id/tvDob" />
 
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontSize_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutBirthday" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:boxStrokeColor="@color/gray"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@color/transparent"
+            app:errorTextAppearance="@dimen/edt_error_fontSize"
+            app:errorTextColor="@color/red"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:text="@string/password"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontSize_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutEmail" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:boxStrokeColor="@color/gray"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@null"
+            app:errorTextAppearance="@dimen/edt_error_fontSize"
+            app:hintEnabled="false"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvPassword">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:maxLength="32"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvPasswordReq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/validate_password_require"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutPassword" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinue"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_48dp"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_20_dp"
             android:background="@drawable/custom_button"
             android:enabled="false"
             android:text="@string/button_continue"
@@ -228,7 +327,8 @@
             android:textStyle="bold"
             app:backgroundTint="@color/red700"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutBirthday"
+            app:layout_constraintTop_toBottomOf="@id/tvPasswordReq"
             app:strokeColor="@color/red700" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

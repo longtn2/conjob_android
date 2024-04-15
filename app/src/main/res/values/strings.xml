@@ -45,4 +45,7 @@
     <string name="validate_password_require">8 or more characters, contains uppercase letters, lowercase letters, numbers, and symbols</string>
     <string name="validate_password_null">Please enter your Password</string>
     <string name="policy"><![CDATA[By clicking Agree & Join, you agree to ConJob\'s User Agreement, Policy and ]]> <a>Cookie Policy.</a> </string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_other">Other</string>
 </resources>

@@ -18,57 +18,5 @@
     <fragment
         android:id="@+id/RegisterFragment"
         android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
-        tools:layout="@layout/fragment_register">
-        <action
-            android:id="@+id/action_RegisterFragment_to_Register2Fragment"
-            app:destination="@id/Register2Fragment" >
-            <argument
-                android:name="firstName"
-                app:argType="string"
-                android:defaultValue=""/>
-            <argument
-                android:name="lastName"
-                app:argType="string"
-                android:defaultValue=""/>
-            <argument
-                android:name="Gender"
-                app:argType="string"
-                android:defaultValue=""/>
-            <argument
-                android:name="Birthday"
-                app:argType="string"
-                android:defaultValue=""/>
-            <argument
-                android:name="Phone"
-                app:argType="string"
-                android:defaultValue=""/>
-        </action>
-    </fragment>
-
-    <fragment
-        android:id="@+id/Register2Fragment"
-        android:name="com.intern.conjob.ui.auth.register.fragment.Register2Fragment"
-        tools:layout="@layout/fragment_register_2">
-
-        <argument
-            android:name="firstName"
-            app:argType="string"
-            android:defaultValue=""/>
-        <argument
-            android:name="lastName"
-            app:argType="string"
-            android:defaultValue=""/>
-        <argument
-            android:name="Gender"
-            app:argType="string"
-            android:defaultValue=""/>
-        <argument
-            android:name="Birthday"
-            app:argType="string"
-            android:defaultValue=""/>
-        <argument
-            android:name="Phone"
-            app:argType="string"
-            android:defaultValue=""/>
-    </fragment>
+        tools:layout="@layout/fragment_register"/>
 </navigation>
