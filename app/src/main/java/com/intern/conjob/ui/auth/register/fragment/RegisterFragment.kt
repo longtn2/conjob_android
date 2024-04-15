@@ -42,7 +42,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 controller.navigate(R.id.action_RegisterFragment_to_Register2Fragment)
             }
 
-            imgBtnClose.setOnClickListener {
+            imgBtnBackArrow.setOnClickListener {
                 controller.popBackStack()
             }
         }
