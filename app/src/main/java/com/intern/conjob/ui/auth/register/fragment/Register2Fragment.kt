@@ -27,7 +27,7 @@ class Register2Fragment : BaseFragment(R.layout.fragment_register_2) {
     private fun isButtonEnable() {
         binding.apply {
             btnContinue.isEnabled =
-                (!edtEmail.text.isNullOrEmpty() && !edtPassword.text.isNullOrEmpty())
+                (edtEmail.text.toString().isValidEmail() && edtPassword.text.toString().isValidPassword())
         }
     }
 
@@ -38,12 +38,7 @@ class Register2Fragment : BaseFragment(R.layout.fragment_register_2) {
             }
 
             btnContinue.setOnClickListener {
-                if (edtEmail.text.toString().isValidEmail() && edtPassword.text.toString().isValidPassword()) {
-                    Toast.makeText(activity, "Register", Toast.LENGTH_SHORT).show()
-                } else {
-                    edtEmail.isSelected = true
-                    txtInputLayoutEmail.error = getString(R.string.validate_email)
-                }
+                Toast.makeText(activity, getString(R.string.button_register), Toast.LENGTH_SHORT).show()
             }
 
             imgBtnClose.setOnClickListener {
@@ -56,20 +51,20 @@ class Register2Fragment : BaseFragment(R.layout.fragment_register_2) {
         binding.apply {
             edtEmail.doAfterTextChanged {
                 isButtonEnable()
-                with(it.isNullOrEmpty()) {
-                    txtInputLayoutEmail.error = getString(R.string.validate_email_null)
-                    txtInputLayoutEmail.isErrorEnabled = this
-                    edtEmail.isSelected = this
-                }
+                txtInputLayoutEmail.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
+                    else getString(R.string.validate_email)
+                txtInputLayoutEmail.isErrorEnabled = !it.toString().isValidEmail()
+
             }
 
             edtPassword.doAfterTextChanged {
                 isButtonEnable()
-                with(it.isNullOrEmpty()) {
-                    txtInputLayoutPassword.error = getString(R.string.validate_password_null)
-                    txtInputLayoutPassword.isErrorEnabled = this
-                    edtPassword.isSelected = this
-                }
+                txtInputLayoutPassword.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
+                    else getString(R.string.validate_password_require)
+                txtInputLayoutPassword.isErrorEnabled = !it.toString().isValidPassword()
+                tvPasswordReq.visibility = if (it.toString().isValidPassword()) View.VISIBLE else View.GONE
             }
         }
     }

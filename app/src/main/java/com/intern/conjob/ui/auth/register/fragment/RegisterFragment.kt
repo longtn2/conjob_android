@@ -90,6 +90,10 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
                 txtInputLayoutPhone.isErrorEnabled = !it.toString().isValidPhone()
             }
+
+            edtBirthday.doAfterTextChanged {
+                isButtonEnable()
+            }
         }
     }
 

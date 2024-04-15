@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 //[#?!@$%^&*-]
 //{8,32} chuỗi có 8 - 32 kí tự
 fun String.isValidPassword(): Boolean {
-    return Pattern.compile("^[A-Za-z0-9#?!@$%^&*-]{8,32}").matcher(this).matches()
+    return Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,32}\$").matcher(this).matches()
 }
 
 //[A-Za-z] kí tự đầu tiên là chữ
@@ -21,7 +21,7 @@ fun String.isValidPassword(): Boolean {
 // .[A-Za-z]: có dấu chấm và chữ cái
 // {2,64}: email có từ 2 đến 64 kí tự
 fun String.isValidEmail(): Boolean {
-    return Pattern.compile("[A-Za-z][A-Z0-9a-z._+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}").matcher(this).matches()
+    return Pattern.compile("^[A-Za-z][\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").matcher(this).matches()
 }
 
 //^ bắt đầu nhập chuỗi
