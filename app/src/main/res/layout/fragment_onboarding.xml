@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imgConJob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/onboard_logo_icon_width"
+        android:layout_height="@dimen/onboard_logo_icon_height"
         android:layout_margin="@dimen/margin_16dp"
         android:contentDescription="@string/description_logo"
         android:src="@drawable/ic_logo"
@@ -68,21 +68,6 @@
         android:textSize="@dimen/fontSize_medium"
         android:textStyle="bold"
         app:cornerRadius="@dimen/button_corner_radius"
-        app:layout_constraintBottom_toTopOf="@id/btnGuest"
-        app:strokeWidth="@dimen/button_stroke_width" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGuest"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_48dp"
-        android:background="@color/transparent"
-        android:insetTop="@dimen/inset_top"
-        android:insetBottom="@dimen/inset_bottom"
-        android:text="@string/button_guest"
-        android:textColor="@color/red700"
-        android:textSize="@dimen/fontSize_medium"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:strokeWidth="@dimen/button_stroke_width" />
 </androidx.constraintlayout.widget.ConstraintLayout>

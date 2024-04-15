@@ -21,6 +21,8 @@
     <!--OnBoarding-->
     <dimen name="button_corner_radius">8dp</dimen>
     <dimen name="button_stroke_width">1dp</dimen>
+    <dimen name="onboard_logo_icon_height">37dp</dimen>
+    <dimen name="onboard_logo_icon_width">116dp</dimen>
 
     <!--Icon-->
     <dimen name="splash_icon">100dp</dimen>
