@@ -35,10 +35,14 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="validate_first_name_null">Please enter your first name</string>
+    <string name="validate_first_name">Your first name is invalid</string>
     <string name="validate_last_name_null">Please enter your last name</string>
+    <string name="validate_last_name">Your last name is invalid</string>
+    <string name="validate_phone_null">Please enter your phone</string>
+    <string name="validate_phone">Your phone number is invalid</string>
     <string name="validate_email_null">Please enter your Email address</string>
     <string name="validate_email">Your email is not correct!</string>
-    <string name="validate_password_require">6 or more characters</string>
+    <string name="validate_password_require">8 or more characters</string>
     <string name="validate_password_null">Please enter your Password</string>
     <string name="policy"><![CDATA[By clicking Agree & Join, you agree to ConJob\'s User Agreement, Policy and ]]> <a>Cookie Policy.</a> </string>
 

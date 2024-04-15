@@ -24,6 +24,7 @@
     <dimen name="layout_height_0dp">0dp</dimen>
     <dimen name="edt_min_height_48dp">48dp</dimen>
     <dimen name="button_border_1dp">1dp</dimen>
+    <dimen name="text_input_layout_stroke_focused">1dp</dimen>
 
     <!--Custom Drawable-->
     <dimen name="custom_button_stroke_width">1dp</dimen>

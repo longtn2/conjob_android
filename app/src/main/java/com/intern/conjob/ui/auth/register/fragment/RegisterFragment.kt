@@ -8,6 +8,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.viewBinding
+import com.intern.conjob.arch.util.Constant.GENDER_FEMALE
+import com.intern.conjob.arch.util.Constant.GENDER_MALE
+import com.intern.conjob.arch.util.Constant.GENDER_OTHER
+import com.intern.conjob.arch.util.isValidName
+import com.intern.conjob.arch.util.isValidPhone
 import com.intern.conjob.databinding.FragmentRegisterBinding
 import com.intern.conjob.ui.auth.register.RegisterViewModel
 import com.intern.conjob.ui.base.BaseFragment
@@ -17,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class RegisterFragment: BaseFragment(R.layout.fragment_register) {
+class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private val binding by viewBinding(FragmentRegisterBinding::bind)
     private val viewModel by viewModels<RegisterViewModel>()
     private val calendar: Calendar = Calendar.getInstance()
@@ -27,7 +32,7 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
         initListener()
         initEditText()
         initDatePicker()
-        initDropdown()
+        initGenderDropdown()
     }
 
     private fun initListener() {
@@ -45,7 +50,9 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
     private fun isButtonEnable() {
         binding.apply {
             btnContinue.isEnabled =
-                (!edtFirstName.text.isNullOrEmpty() && !edtLastName.text.isNullOrEmpty())
+                (edtFirstName.text.toString().isValidName() && edtLastName.text.toString()
+                    .isValidName() && edtPhone.text.toString()
+                    .isValidPhone() && !edtBirthday.text.isNullOrEmpty())
         }
     }
 
@@ -53,20 +60,35 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
         binding.apply {
             edtFirstName.doAfterTextChanged {
                 isButtonEnable()
-                with(it.isNullOrEmpty()) {
-                    txtInputLayoutFirstName.error = getString(R.string.validate_first_name_null)
-                    txtInputLayoutFirstName.isErrorEnabled = this
-                    edtFirstName.isSelected = this
-                }
+                txtInputLayoutFirstName.error =
+                    if (it.isNullOrEmpty())
+                        getString(R.string.validate_first_name_null)
+                    else
+                        getString(R.string.validate_first_name)
+
+                txtInputLayoutFirstName.isErrorEnabled = !it.toString().isValidName()
             }
 
             edtLastName.doAfterTextChanged {
                 isButtonEnable()
-                with(it.isNullOrEmpty()) {
-                    txtInputLayoutLastName.error = getString(R.string.validate_last_name_null)
-                    txtInputLayoutLastName.isErrorEnabled = this
-                    edtLastName.isSelected = this
-                }
+                txtInputLayoutLastName.error =
+                    if (it.isNullOrEmpty())
+                        getString(R.string.validate_last_name_null)
+                    else
+                        getString(R.string.validate_last_name)
+
+                txtInputLayoutLastName.isErrorEnabled = !it.toString().isValidName()
+            }
+
+            edtPhone.doAfterTextChanged {
+                isButtonEnable()
+                txtInputLayoutPhone.error =
+                    if (it.isNullOrEmpty())
+                        getString(R.string.validate_phone_null)
+                    else
+                        getString(R.string.validate_phone)
+
+                txtInputLayoutPhone.isErrorEnabled = !it.toString().isValidPhone()
             }
         }
     }
@@ -77,26 +99,35 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
                 calendar[Calendar.YEAR] = year
                 calendar[Calendar.MONTH] = month
                 calendar[Calendar.DAY_OF_MONTH] = day
-                binding.edtBirthday.setText(SimpleDateFormat("yyyy/MM/dd", Locale.US).format(calendar.time))
+                binding.edtBirthday.setText(
+                    SimpleDateFormat("yyyy/MM/dd", Locale.US).format(
+                        calendar.time
+                    )
+                )
             }
+            val datePicker = DatePickerDialog(
+                activity as OnBoardingActivity,
+                date,
+                calendar[Calendar.YEAR],
+                calendar[Calendar.MONTH],
+                calendar[Calendar.DAY_OF_MONTH]
+            )
 
             edtBirthday.setOnClickListener {
-                DatePickerDialog(
-                    activity as OnBoardingActivity,
-                    date,
-                    calendar[Calendar.YEAR],
-                    calendar[Calendar.MONTH],
-                    calendar[Calendar.DAY_OF_MONTH]
-                ).show()
+                datePicker.show()
+            }
+
+            imgDatePicker.setOnClickListener {
+                datePicker.show()
             }
         }
     }
 
-    private fun initDropdown() {
+    private fun initGenderDropdown() {
         binding.spinnerGender.adapter = ArrayAdapter(
             activity as OnBoardingActivity,
             android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("Male", "Female", "Other")
+            arrayOf(GENDER_MALE, GENDER_FEMALE, GENDER_OTHER)
         )
     }
 
