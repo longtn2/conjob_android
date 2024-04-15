@@ -6,4 +6,5 @@ object Constants {
     const val GENDER_MALE: String = "Male"
     const val GENDER_FEMALE: String = "Female"
     const val GENDER_OTHER: String = "Other"
+    const val DATE_FORMAT: String = "yyyy/MM/dd"
 }

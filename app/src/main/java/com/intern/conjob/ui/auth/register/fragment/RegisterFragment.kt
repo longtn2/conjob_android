@@ -8,9 +8,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.viewBinding
-import com.intern.conjob.arch.util.Constant.GENDER_FEMALE
-import com.intern.conjob.arch.util.Constant.GENDER_MALE
-import com.intern.conjob.arch.util.Constant.GENDER_OTHER
+import com.intern.conjob.arch.util.Constants.DATE_FORMAT
+import com.intern.conjob.arch.util.Constants.GENDER_FEMALE
+import com.intern.conjob.arch.util.Constants.GENDER_MALE
+import com.intern.conjob.arch.util.Constants.GENDER_OTHER
 import com.intern.conjob.arch.util.isValidName
 import com.intern.conjob.arch.util.isValidPhone
 import com.intern.conjob.databinding.FragmentRegisterBinding
@@ -104,7 +105,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 calendar[Calendar.MONTH] = month
                 calendar[Calendar.DAY_OF_MONTH] = day
                 binding.edtBirthday.setText(
-                    SimpleDateFormat("yyyy/MM/dd", Locale.US).format(
+                    SimpleDateFormat(DATE_FORMAT, Locale.US).format(
                         calendar.time
                     )
                 )

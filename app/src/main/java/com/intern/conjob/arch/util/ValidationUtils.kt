@@ -2,24 +2,11 @@ package com.intern.conjob.arch.util
 
 import java.util.regex.Pattern
 
-//^ bắt đầu nhập chuỗi
-//[A-Za-z] chuỗi chứa kí tự A-Z và a-z
-//[#?!@$%^&*-]
-//{8,32} chuỗi có 8 - 32 kí tự
+//bao gồm từ 8 - 32 kí tự, gồm ít nhất một kí tự thường, kí tự in hoa, kí tự đặc biệt, số
 fun String.isValidPassword(): Boolean {
     return Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@\$%^&*-]).{8,32}\$").matcher(this).matches()
 }
 
-//[A-Za-z] kí tự đầu tiên là chữ
-// [A-Z0-9a-z. : kí tự chữ, số dấu có thể xuất hiện nhiều lần
-//_+ dấu _ có thể có 1 hoặc nhiều
-// - nối
-// +@ : @ xuất hiện 1 lần
-//[A-Za-z0-9.-]kí tự chữ, số dấu có thể xuất hiện nhiều lần
-// + : nối
-// \\ : biến kí tự đặc biệt thành kí tự thường
-// .[A-Za-z]: có dấu chấm và chữ cái
-// {2,64}: email có từ 2 đến 64 kí tự
 fun String.isValidEmail(): Boolean {
     return Pattern.compile("^[A-Za-z][\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").matcher(this).matches()
 }
