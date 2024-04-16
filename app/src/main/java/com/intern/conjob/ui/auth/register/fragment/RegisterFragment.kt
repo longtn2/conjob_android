@@ -37,7 +37,6 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private fun initListener() {
         binding.apply {
             btnContinue.setOnClickListener {
-
                 Toast.makeText(activity, getString(R.string.button_register), Toast.LENGTH_SHORT).show()
             }
 
