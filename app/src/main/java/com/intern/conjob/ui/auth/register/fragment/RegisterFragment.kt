@@ -54,6 +54,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                  edtLastName.text.toString().isValidName() &&
                  edtPhone.text.toString().isValidPhone() &&
                  !edtBirthday.text.isNullOrEmpty() &&
+                 !edtAddress.text.isNullOrEmpty() &&
                  edtEmail.text.toString().isValidEmail() &&
                  edtPassword.text.toString().isValidPassword())
         }
@@ -91,12 +92,19 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 txtInputLayoutEmail.isErrorEnabled = !it.toString().isValidEmail()
             }
 
+            edtAddress.doAfterTextChanged {
+                isButtonEnable()
+                with(it.isNullOrEmpty()) {
+                    txtInputLayoutAddress.error = getString(R.string.validate_address_null)
+                    txtInputLayoutAddress.isErrorEnabled = this
+                }
+            }
+
             edtPassword.doAfterTextChanged {
                 isButtonEnable()
                 txtInputLayoutPassword.error = if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
                     else getString(R.string.validate_password_require)
                 txtInputLayoutPassword.isErrorEnabled = !it.toString().isValidPassword()
-                tvPasswordReq.visibility = if (it.toString().isValidPassword()) View.VISIBLE else View.GONE
             }
         }
     }

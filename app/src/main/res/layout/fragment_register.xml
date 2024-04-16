@@ -234,6 +234,42 @@
             app:layout_constraintTop_toBottomOf="@+id/tvDob" />
 
         <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:text="@string/address"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fontSize_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutBirthday" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:boxStrokeColor="@color/gray"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@color/transparent"
+            app:errorTextAppearance="@dimen/edt_error_fontSize"
+            app:errorTextColor="@color/red"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/tvAddress">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_address"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -242,7 +278,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/fontSize_small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutBirthday" />
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutAddress" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtInputLayoutEmail"

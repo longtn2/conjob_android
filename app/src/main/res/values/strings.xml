@@ -5,6 +5,7 @@
 
     <!-- Hint Text -->
     <string name="hint_email">Enter your Email</string>
+    <string name="hint_address">Enter your Address</string>
     <string name="hint_first_name">Enter your First name</string>
     <string name="hint_last_name">Enter your Last name</string>
     <string name="hint_password">Enter your Password</string>
@@ -32,6 +33,7 @@
     <string name="gender">Gender</string>
     <string name="birthday">Birth day</string>
     <string name="phone">Phone</string>
+    <string name="address">Address</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="validate_first_name_null">Please enter your first name</string>
@@ -40,6 +42,7 @@
     <string name="validate_last_name">Your last name is invalid</string>
     <string name="validate_phone_null">Please enter your phone</string>
     <string name="validate_phone">Your phone number is invalid</string>
+    <string name="validate_address_null">Please enter your address</string>
     <string name="validate_email_null">Please enter your Email address</string>
     <string name="validate_email">Your email is not correct!</string>
     <string name="validate_password_require">8 or more characters, contains uppercase letters, lowercase letters, numbers, and symbols</string>
