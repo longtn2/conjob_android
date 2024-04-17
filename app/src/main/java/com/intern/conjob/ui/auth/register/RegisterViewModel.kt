@@ -1,5 +1,6 @@
 package com.intern.conjob.ui.auth.register
 
+import androidx.lifecycle.bindCommonError
 import androidx.lifecycle.bindLoading
 import com.intern.conjob.arch.extensions.FlowResult
 import com.intern.conjob.data.datasource.RegisterUserRemoteDataSource
@@ -14,6 +15,6 @@ class RegisterViewModel(
     BaseViewModel() {
 
     fun register(registerUser: RegisterUser): Flow<FlowResult<BaseResponse>> {
-        return registerRepository.register(registerUser).bindLoading(this)
+        return registerRepository.register(registerUser).bindLoading(this).bindCommonError(this)
     }
 }

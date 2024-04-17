@@ -2,15 +2,12 @@ package com.intern.conjob.ui.auth.register.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.emitErrorModel
 import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
-import com.intern.conjob.arch.extensions.onError
 import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.DATE_FORMAT
@@ -22,7 +19,6 @@ import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.arch.util.isValidName
 import com.intern.conjob.arch.util.isValidPassword
 import com.intern.conjob.arch.util.isValidPhone
-import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.databinding.FragmentRegisterBinding
 import com.intern.conjob.ui.auth.register.RegisterViewModel
@@ -62,19 +58,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                     it.message?.let {
                         Toast.makeText(activity, getString(R.string.button_register), Toast.LENGTH_SHORT).show()
                     }
-                }.onError(
-                    {
-                        if (it is ErrorModel.Http.ApiError) {
-                            it.code?.let { it1 -> Log.i("TTT", it1) }
-                        }
-                        it.message?.let {
-                            Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
-                        }
-                    },
-                    {
-                        viewModel.emitErrorModel(it)
-                    }
-                ).launchIn(lifecycleScope)
+                }.launchIn(lifecycleScope)
             }
 
             imgBtnBackArrow.setOnClickListener {
