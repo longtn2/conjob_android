@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboard_nav_graph"
+    app:startDestination="@id/OnBoardingFragment">
+
+    <fragment
+        android:id="@+id/OnBoardingFragment"
+        android:name="com.intern.conjob.ui.onboarding.OnBoardingFragment"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_OnBoardingFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
+</navigation>

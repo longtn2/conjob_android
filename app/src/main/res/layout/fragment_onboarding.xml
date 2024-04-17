@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgOnboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/description_logo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_onboarding" />
+
+    <ImageView
+        android:id="@+id/imgConJob"
+        android:layout_width="@dimen/onboard_logo_icon_width"
+        android:layout_height="@dimen/onboard_logo_icon_height"
+        android:layout_margin="@dimen/margin_16dp"
+        android:contentDescription="@string/description_logo"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintBottom_toTopOf="@id/tvConJob"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvConJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_44dp"
+        android:text="@string/app"
+        android:textColor="@color/red700"
+        android:textSize="@dimen/fontSize_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_48dp"
+        android:layout_margin="@dimen/margin_16dp"
+        android:backgroundTint="@color/red"
+        android:insetTop="@dimen/inset_top"
+        android:insetBottom="@dimen/inset_bottom"
+        android:paddingHorizontal="@dimen/padding_32dp"
+        android:text="@string/button_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fontSize_medium"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toTopOf="@id/btnRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_48dp"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_44dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="@dimen/inset_top"
+        android:insetBottom="@dimen/inset_bottom"
+        android:text="@string/button_register"
+        android:textColor="@color/red700"
+        android:textSize="@dimen/fontSize_medium"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="@dimen/button_stroke_width" />
+</androidx.constraintlayout.widget.ConstraintLayout>

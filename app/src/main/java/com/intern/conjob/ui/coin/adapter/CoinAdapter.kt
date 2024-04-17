@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intern.conjob.arch.extensions.convertDpToPx
 import com.intern.conjob.arch.extensions.onClick
-import com.intern.conjob.arch.util.Constant.IMAGE_THUMBNAIL_SIZE
+import com.intern.conjob.arch.util.Constants.IMAGE_THUMBNAIL_SIZE
 import com.intern.conjob.data.model.Coin
 import com.intern.conjob.databinding.ItemCoinBinding
 
