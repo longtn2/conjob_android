@@ -74,7 +74,7 @@ android {
         when (name) {
             "debug" -> {
                 resValue("string", "app_name", "[DEV]-${appName}")
-                buildConfigField("String", "API_URL", "\"https://api.coingecko.com/api/v3/\"")
+                buildConfigField("String", "API_URL", "\"https://maggot-intent-cicada.ngrok-free.app/api/v1/\"")
             }
 
             "staging" -> {

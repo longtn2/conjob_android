@@ -9,5 +9,5 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class BaseResponse(
-    @SerialName("message") val message: String? = ""
+    @SerialName("message") val message: String? = null
 )
