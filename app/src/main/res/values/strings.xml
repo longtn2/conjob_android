@@ -6,7 +6,6 @@
     <!-- Toast -->
     <string name="toast_login">Login</string>
     <string name="toast_forgot_password">To Forgot Password Screen</string>
-    <string name="toast_apple_login">Apple Login</string>
     <string name="toast_google_login">Google Login</string>
     <string name="toast_facebook_login">Facebook Login</string>
     <string name="toast_register">To Register Screen</string>
@@ -27,7 +26,6 @@
     <string name="description_date_picker">Date picker</string>
     <string name="description_login_facebook">Login Facebook</string>
     <string name="description_login_google">Login Google</string>
-    <string name="description_login_apple">Login Apple</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>

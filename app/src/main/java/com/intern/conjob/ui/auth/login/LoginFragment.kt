@@ -21,10 +21,10 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        initEditText()
+        initViews()
     }
 
-    private fun isButtonEnable() {
+    private fun isEnableButton() {
         binding.apply {
             btnLogin.isEnabled =
                 (edtEmail.text.toString().isValidEmail() &&
@@ -46,10 +46,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_forgot_password), Toast.LENGTH_SHORT).show()
             }
 
-            btnApple.setOnClickListener {
-                Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_apple_login), Toast.LENGTH_SHORT).show()
-            }
-
             btnGoogle.setOnClickListener {
                 Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_google_login), Toast.LENGTH_SHORT).show()
             }
@@ -64,10 +60,10 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         }
     }
 
-    private fun initEditText() {
+    private fun initViews() {
         binding.apply {
             edtEmail.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutEmail.error =
                     if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
                     else getString(R.string.validate_email)
@@ -76,7 +72,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
 
             edtPassword.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutPassword.error =
                     if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
                     else getString(R.string.validate_password_require)
