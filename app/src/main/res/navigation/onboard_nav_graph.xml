@@ -13,6 +13,20 @@
         <action
             android:id="@+id/action_OnBoardingFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/action_OnBoardingFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.intern.conjob.ui.auth.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_LoginFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment"
+            app:popUpTo="@id/OnBoardingFragment"
+            app:popUpToInclusive="false"/>
     </fragment>
 
     <fragment

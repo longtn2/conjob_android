@@ -23,6 +23,10 @@ class OnBoardingFragment : BaseFragment(R.layout.fragment_onboarding) {
             btnRegister.setOnClickListener {
                 controller.navigate(R.id.action_OnBoardingFragment_to_RegisterFragment)
             }
+
+            btnLogin.setOnClickListener {
+                controller.navigate(R.id.action_OnBoardingFragment_to_LoginFragment)
+            }
         }
     }
 

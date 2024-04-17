@@ -9,4 +9,6 @@
     <color name="transparent">#00000000</color>
     <color name="gray">#FF585858</color>
     <color name="light_gray">#FFB6B6B6</color>
+    <color name="font_color">#FF4E4E4E</color>
+    <color name="light_blue">#35C2C1</color>
 </resources>
