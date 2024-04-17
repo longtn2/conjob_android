@@ -10,5 +10,13 @@
         android:name="com.intern.conjob.ui.onboarding.OnBoardingFragment"
         app:defaultNavHost="true"
         tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_OnBoardingFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
 </navigation>
