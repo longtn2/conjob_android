@@ -3,6 +3,13 @@
     <string name="app">ConJob</string>
     <string name="OK">OK</string>
 
+    <!-- Toast -->
+    <string name="toast_login">Login</string>
+    <string name="toast_forgot_password">To Forgot Password Screen</string>
+    <string name="toast_google_login">Google Login</string>
+    <string name="toast_facebook_login">Facebook Login</string>
+    <string name="toast_register">To Register Screen</string>
+
     <!-- Hint Text -->
     <string name="hint_email">Enter your Email</string>
     <string name="hint_address">Enter your Address</string>
@@ -17,6 +24,8 @@
     <string name="description_close_icon">Close</string>
     <string name="description_back_arrow_icon">Press this arrow to go back to previous view</string>
     <string name="description_date_picker">Date picker</string>
+    <string name="description_login_facebook">Login Facebook</string>
+    <string name="description_login_google">Login Google</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
@@ -27,7 +36,6 @@
     <string name="button_continue">Continue</string>
     <string name="title_register">Register</string>
     <string name="title_register_2">Register</string>
-    <string name="title_login">Login</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="gender">Gender</string>
@@ -51,4 +59,12 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
+
+    <!-- Login -->
+    <string name="title_login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="no_account">Don’t have an account? </string>
+    <string name="register_now">Register Now</string>
+    <string name="or_login_with">Or Login with</string>
+
 </resources>

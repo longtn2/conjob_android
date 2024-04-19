@@ -8,6 +8,7 @@
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_44dp">44dp</dimen>
+    <dimen name="padding_0dp">0dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_20dp">20dp</dimen>
@@ -25,6 +26,7 @@
     <dimen name="edt_min_height_48dp">48dp</dimen>
     <dimen name="button_border_1dp">1dp</dimen>
     <dimen name="text_input_layout_stroke_focused">1dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
 
     <!--Custom Drawable-->
     <dimen name="custom_button_stroke_width">1dp</dimen>
@@ -49,4 +51,8 @@
     <dimen name="ic_logo_height">15dp</dimen>
     <dimen name="ic_close">44dp</dimen>
     <dimen name="ic_arrow_back">24dp</dimen>
+    <dimen name="ic_apple_width">22dp</dimen>
+    <dimen name="ic_apple_height">26dp</dimen>
+    <dimen name="ic_facebook">26dp</dimen>
+    <dimen name="ic_google">24dp</dimen>
 </resources>

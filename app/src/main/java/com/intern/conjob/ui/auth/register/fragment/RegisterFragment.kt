@@ -30,7 +30,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        initEditText()
+        initViews()
         initDatePicker()
     }
 
@@ -46,7 +46,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         }
     }
 
-    private fun isButtonEnable() {
+    private fun isEnableButton() {
         binding.apply {
             btnContinue.isEnabled =
                 (edtFirstName.text.toString().isValidName() &&
@@ -59,40 +59,40 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         }
     }
 
-    private fun initEditText() {
+    private fun initViews() {
         binding.apply {
             edtFirstName.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutFirstName.error = if (it.isNullOrEmpty()) getString(R.string.validate_first_name_null)
                     else getString(R.string.validate_first_name)
                 txtInputLayoutFirstName.isErrorEnabled = !it.toString().isValidName()
             }
 
             edtLastName.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutLastName.error = if (it.isNullOrEmpty()) getString(R.string.validate_last_name_null)
                     else getString(R.string.validate_last_name)
                 txtInputLayoutLastName.isErrorEnabled = !it.toString().isValidName()
             }
 
             edtPhone.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutPhone.error = if (it.isNullOrEmpty()) getString(R.string.validate_phone_null)
                     else getString(R.string.validate_phone)
                 txtInputLayoutPhone.isErrorEnabled = !it.toString().isValidPhone()
             }
 
-            edtBirthday.doAfterTextChanged { isButtonEnable() }
+            edtBirthday.doAfterTextChanged { isEnableButton() }
 
             edtEmail.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutEmail.error = if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
                     else getString(R.string.validate_email)
                 txtInputLayoutEmail.isErrorEnabled = !it.toString().isValidEmail()
             }
 
             edtAddress.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 with(it.isNullOrEmpty()) {
                     txtInputLayoutAddress.error = getString(R.string.validate_address_null)
                     txtInputLayoutAddress.isErrorEnabled = this
@@ -100,7 +100,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
             }
 
             edtPassword.doAfterTextChanged {
-                isButtonEnable()
+                isEnableButton()
                 txtInputLayoutPassword.error = if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
                     else getString(R.string.validate_password_require)
                 txtInputLayoutPassword.isErrorEnabled = !it.toString().isValidPassword()
