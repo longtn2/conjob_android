@@ -2,20 +2,24 @@ package com.intern.conjob.ui.auth.login.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.emitErrorModel
+import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
+import com.intern.conjob.arch.extensions.onError
+import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.databinding.FragmentForgotPasswordBinding
-import com.intern.conjob.ui.auth.login.LoginViewModel
+import com.intern.conjob.ui.auth.login.ForgotPasswordViewModel
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
+import kotlinx.coroutines.flow.launchIn
 
 class ForgotPasswordFragment: BaseFragment(R.layout.fragment_forgot_password) {
     private val binding by viewBinding(FragmentForgotPasswordBinding::bind)
-    private val viewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +34,17 @@ class ForgotPasswordFragment: BaseFragment(R.layout.fragment_forgot_password) {
             }
 
             btnForgotPassword.setOnClickListener {
-                Toast.makeText(activity, getString(R.string.send_code), Toast.LENGTH_SHORT).show()
+                viewModel.forgotPassword(edtEmail.text.toString())
+                    .onSuccess {
+                        controller.popBackStack()
+                    }.onError(
+                        normalAction = {
+                            txtInputLayoutEmail.error = it.message
+                        },
+                        commonAction = {
+                            viewModel.emitErrorModel(it)
+                        }
+                    ).launchIn(lifecycleScope)
             }
         }
     }
