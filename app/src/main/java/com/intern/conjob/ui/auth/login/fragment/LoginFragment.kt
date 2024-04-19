@@ -1,4 +1,4 @@
-package com.intern.conjob.ui.auth.login
+package com.intern.conjob.ui.auth.login.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +18,7 @@ import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.databinding.FragmentLoginBinding
 import com.intern.conjob.ui.MainActivity
+import com.intern.conjob.ui.auth.login.LoginViewModel
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.onboarding.OnBoardingActivity
@@ -77,7 +78,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
 
             btnForgotPassword.setOnClickListener {
-                Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_forgot_password), Toast.LENGTH_SHORT).show()
+                controller.navigate(R.id.action_LoginFragment_to_forgotPasswordFragment)
             }
 
             btnGoogle.setOnClickListener {

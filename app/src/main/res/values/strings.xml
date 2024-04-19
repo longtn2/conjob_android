@@ -68,4 +68,8 @@
     <string name="or_login_with">Or Login with</string>
     <string name="validate_login">Your email don\'t exist or your password is not correct!</string>
 
+    <!--Forgot Password-->
+    <string name="send_code">Send Code</string>
+    <string name="forgot_password_detail">Don\'t worry! It occurs. Please enter the email address linked with your account.</string>
+
 </resources>
