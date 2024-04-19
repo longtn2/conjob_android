@@ -35,7 +35,13 @@
     <fragment
         android:id="@+id/RegisterFragment"
         android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
-        tools:layout="@layout/fragment_register"/>
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_RegisterFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment"
+            app:popUpTo="@id/OnBoardingFragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
 
     <fragment
         android:id="@+id/forgotPasswordFragment"

@@ -6,18 +6,30 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.emitErrorModel
+import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
+import com.intern.conjob.arch.extensions.onError
+import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.DATE_FORMAT
+import com.intern.conjob.arch.util.Constants.GENDER_FEMALE
+import com.intern.conjob.arch.util.Constants.GENDER_MALE
+import com.intern.conjob.arch.util.Constants.GENDER_OTHER
+import com.intern.conjob.arch.util.Constants.VIEW_DATE_FORMAT
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.arch.util.isValidName
 import com.intern.conjob.arch.util.isValidPassword
 import com.intern.conjob.arch.util.isValidPhone
+import com.intern.conjob.data.error.ErrorModel
+import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.databinding.FragmentRegisterBinding
 import com.intern.conjob.ui.auth.register.RegisterViewModel
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.onboarding.OnBoardingActivity
+import kotlinx.coroutines.flow.launchIn
+import java.net.HttpURLConnection
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -37,12 +49,43 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private fun initListener() {
         binding.apply {
             btnContinue.setOnClickListener {
-                Toast.makeText(activity, getString(R.string.button_register), Toast.LENGTH_SHORT).show()
+                viewModel.register(RegisterUser(
+                    edtPassword.text.toString(),
+                    edtFirstName.text.toString(),
+                    edtLastName.text.toString(),
+                    edtEmail.text.toString(),
+                    edtPhone.text.toString(),
+                    getGenderString(),
+                    SimpleDateFormat(DATE_FORMAT, Locale.US).format(calendar.time),
+                    edtAddress.text.toString(),
+                )).onSuccess {
+                    Toast.makeText(activity, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
+                    controller.navigate(R.id.action_RegisterFragment_to_LoginFragment)
+                }.onError(
+                    normalAction = {
+                        if ((it as ErrorModel.Http.ApiError).code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
+                            txtInputLayoutEmail.error = it.message
+                        } else {
+                            viewModel.emitErrorModel(it)
+                        }
+                    },
+                    commonAction = {
+                        viewModel.emitErrorModel(it)
+                    }
+                ).launchIn(lifecycleScope)
             }
 
             imgBtnBackArrow.setOnClickListener {
                 controller.popBackStack()
             }
+        }
+    }
+
+    private fun getGenderString(): String {
+        return when (binding.radioGroup.checkedRadioButtonId) {
+            R.id.radioBtnMale -> GENDER_MALE
+            R.id.radioBtnFemale -> GENDER_FEMALE
+            else -> GENDER_OTHER
         }
     }
 
@@ -115,7 +158,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 calendar[Calendar.MONTH] = month
                 calendar[Calendar.DAY_OF_MONTH] = day
                 binding.edtBirthday.setText(
-                    SimpleDateFormat(DATE_FORMAT, Locale.US).format(calendar.time)
+                    SimpleDateFormat(VIEW_DATE_FORMAT, Locale.US).format(calendar.time)
                 )
             }
             val datePicker = DatePickerDialog(
@@ -125,7 +168,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 calendar[Calendar.MONTH],
                 calendar[Calendar.DAY_OF_MONTH]
             )
-
+            datePicker.datePicker.maxDate = calendar.time.time
             edtBirthday.setOnClickListener { datePicker.show() }
             imgDatePicker.setOnClickListener { datePicker.show() }
         }

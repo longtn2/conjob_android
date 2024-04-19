@@ -59,6 +59,7 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
+    <string name="register_success">Register success!</string>
 
     <!-- Login -->
     <string name="title_login">Login</string>
