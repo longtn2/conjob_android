@@ -14,6 +14,7 @@ import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.arch.util.isValidPassword
+import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.databinding.FragmentLoginBinding
 import com.intern.conjob.ui.MainActivity
@@ -55,14 +56,24 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 ).onSuccess {
                     (activity as OnBoardingActivity).startActivity(Intent(context, MainActivity::class.java))
                     (activity as OnBoardingActivity).finish()
-                }.onError{
-                    if (it.message != null) {
-                        tvLoginValidate.visibility = View.VISIBLE
-                        tvLoginValidate.text = it.message!!
-                    } else {
-                        viewModel.emitErrorModel(it)
+                }.onError(
+                    commonAction = {
+                        if (it.message.isNullOrEmpty()) {
+                            viewModel.emitErrorModel(it)
+                        } else {
+                            tvLoginValidate.visibility = View.VISIBLE
+                            tvLoginValidate.text = it.message
+                        }
+                    },
+                    normalAction = {
+                        if (it.message.isNullOrEmpty()) {
+                            viewModel.emitErrorModel(it)
+                        } else {
+                            tvLoginValidate.visibility = View.VISIBLE
+                            tvLoginValidate.text = it.message
+                        }
                     }
-                }.launchIn(lifecycleScope)
+                ).launchIn(lifecycleScope)
             }
 
             btnForgotPassword.setOnClickListener {
@@ -91,7 +102,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
                     else getString(R.string.validate_email)
                 txtInputLayoutEmail.isErrorEnabled = !it.toString().isValidEmail()
-
             }
 
             edtPassword.doAfterTextChanged {
