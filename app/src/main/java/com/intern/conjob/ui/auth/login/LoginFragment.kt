@@ -55,19 +55,14 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 ).onSuccess {
                     (activity as OnBoardingActivity).startActivity(Intent(context, MainActivity::class.java))
                     (activity as OnBoardingActivity).finish()
-                }.onError(
-                    commonAction = {
+                }.onError{
+                    if (it.message != null) {
+                        tvLoginValidate.visibility = View.VISIBLE
+                        tvLoginValidate.text = it.message!!
+                    } else {
                         viewModel.emitErrorModel(it)
-                    },
-                    normalAction = {
-                        if (it.message != null) {
-                            tvLoginValidate.visibility = View.VISIBLE
-                            tvLoginValidate.text = it.message!!
-                        } else {
-                            viewModel.emitErrorModel(it)
-                        }
                     }
-                ).launchIn(lifecycleScope)
+                }.launchIn(lifecycleScope)
             }
 
             btnForgotPassword.setOnClickListener {
