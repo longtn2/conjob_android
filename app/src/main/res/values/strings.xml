@@ -66,5 +66,6 @@
     <string name="no_account">Don’t have an account? </string>
     <string name="register_now">Register Now</string>
     <string name="or_login_with">Or Login with</string>
+    <string name="validate_login">Your email don\'t exist or your password is not correct!</string>
 
 </resources>

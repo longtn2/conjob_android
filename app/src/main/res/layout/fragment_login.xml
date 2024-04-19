@@ -113,12 +113,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_16dp"
-        android:paddingBottom="@dimen/padding_16dp"
         android:text="@string/forgot_password"
+        android:textSize="@dimen/fontSize_small"
+        app:layout_constraintBottom_toTopOf="@+id/tvLoginValidate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutPassword" />
+
+    <TextView
+        android:id="@+id/tvLoginValidate"
+        android:layout_width="@dimen/layout_width_0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/validate_login"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
         android:textSize="@dimen/fontSize_small"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutPassword" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword"
+        android:visibility="gone"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
@@ -131,7 +145,7 @@
         android:textSize="@dimen/fontSize_medium"
         android:textStyle="bold"
         app:backgroundTint="@color/red700"
-        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoginValidate"
         app:strokeColor="@color/red700" />
 
     <LinearLayout

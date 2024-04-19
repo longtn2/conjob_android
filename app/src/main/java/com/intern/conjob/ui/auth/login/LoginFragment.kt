@@ -1,18 +1,26 @@
 package com.intern.conjob.ui.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.emitErrorModel
+import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
+import com.intern.conjob.arch.extensions.onError
+import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.arch.util.isValidPassword
+import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.databinding.FragmentLoginBinding
+import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.onboarding.OnBoardingActivity
+import kotlinx.coroutines.flow.launchIn
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private val binding by viewBinding(FragmentLoginBinding::bind)
@@ -39,7 +47,27 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
 
             btnLogin.setOnClickListener {
-                Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_login), Toast.LENGTH_SHORT).show()
+                viewModel.login(
+                    LoginUser(
+                        edtPassword.text.toString(),
+                        edtEmail.text.toString()
+                    )
+                ).onSuccess {
+                    (activity as OnBoardingActivity).startActivity(Intent(context, MainActivity::class.java))
+                    (activity as OnBoardingActivity).finish()
+                }.onError(
+                    commonAction = {
+                        viewModel.emitErrorModel(it)
+                    },
+                    normalAction = {
+                        if (it.message != null) {
+                            tvLoginValidate.visibility = View.VISIBLE
+                            tvLoginValidate.text = it.message!!
+                        } else {
+                            viewModel.emitErrorModel(it)
+                        }
+                    }
+                ).launchIn(lifecycleScope)
             }
 
             btnForgotPassword.setOnClickListener {
