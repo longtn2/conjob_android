@@ -5,13 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class RegisterUser(
-    @SerializedName("password") val password: String? = null,
-    @SerializedName("first_name") val firstName: String? = null,
-    @SerializedName("last_name") val lastName: String? = null,
-    @SerializedName("email") val email: String? = null,
-    @SerializedName("phone_number") val phoneNumber: String? = null,
-    @SerializedName("gender") val gender: String? = null,
-    @SerializedName("dob") val dob: String? = null,
-    @SerializedName("address") val address: String? = null,
-    @SerializedName("avatar") val avatar: String? = null
+    @SerializedName("password") val password: String,
+    @SerializedName("first_name") val firstName: String,
+    @SerializedName("last_name") val lastName: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone_number") val phoneNumber: String,
+    @SerializedName("gender") val gender: String,
+    @SerializedName("dob") val dob: String,
+    @SerializedName("address") val address: String
 )
