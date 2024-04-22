@@ -3,12 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#D31616</color>
+    <color name="red50">#FFF1F0</color>
     <color name="red100">#F3E7E9</color>
     <color name="red700">#C5091F</color>
     <color name="dark">#B6A3A3</color>
     <color name="transparent">#00000000</color>
+    <color name="white_transparent">#1FFFFFFF</color>
+    <color name="dark_transparent">#80000000</color>
     <color name="gray">#FF585858</color>
     <color name="light_gray">#FFB6B6B6</color>
     <color name="font_color">#FF4E4E4E</color>
     <color name="light_blue">#35C2C1</color>
+    <color name="white_gray">#DDDDE5</color>
 </resources>

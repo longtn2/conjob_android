@@ -8,4 +8,5 @@ object Constants {
     const val GENDER_MALE = "Male"
     const val GENDER_FEMALE = "Female"
     const val GENDER_OTHER = "Other"
+    const val PAGE_LIMIT = 5
 }

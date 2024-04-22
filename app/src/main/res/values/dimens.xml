@@ -7,6 +7,7 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_44dp">44dp</dimen>
     <dimen name="padding_0dp">0dp</dimen>
@@ -23,12 +24,25 @@
     <dimen name="edt_error_fontSize">14sp</dimen>
     <dimen name="inset_top">0dp</dimen>
     <dimen name="inset_bottom">0dp</dimen>
+    <dimen name="inner_radius_0dp">0dp</dimen>
     <dimen name="layout_width_0dp">0dp</dimen>
     <dimen name="layout_height_0dp">0dp</dimen>
     <dimen name="edt_min_height_48dp">48dp</dimen>
     <dimen name="button_border_1dp">1dp</dimen>
     <dimen name="text_input_layout_stroke_focused">1dp</dimen>
     <dimen name="divider_height">1dp</dimen>
+
+    <!--Bottom Tab Bar-->
+    <dimen name="bottom_tab_height">80dp</dimen>
+    <dimen name="bottom_tab_padding">16dp</dimen>
+    <dimen name="bottom_tab_corner_radius">24dp</dimen>
+    <dimen name="bottom_tab_stroke_width">0dp</dimen>
+    <dimen name="bottom_tab_indicator_inset">-12dp</dimen>
+    <dimen name="bottom_tab_indicator_height">48dp</dimen>
+    <dimen name="bottom_tab_indicator_corner_radius">12dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="avatar_card_corner_radius">48dp</dimen>
+    <dimen name="avatar_stroke_width">1dp</dimen>
 
     <!--Custom Drawable-->
     <dimen name="custom_button_stroke_width">1dp</dimen>
@@ -57,4 +71,11 @@
     <dimen name="ic_apple_height">26dp</dimen>
     <dimen name="ic_facebook">26dp</dimen>
     <dimen name="ic_google">24dp</dimen>
+    <dimen name="ic_chat">32dp</dimen>
+    <dimen name="ic_home">32dp</dimen>
+    <dimen name="ic_plus">32dp</dimen>
+    <dimen name="ic_notification_height">32dp</dimen>
+    <dimen name="ic_notification_width">28dp</dimen>
+    <dimen name="ic_profile_height">28dp</dimen>
+    <dimen name="ic_profile_width">22dp</dimen>
 </resources>
