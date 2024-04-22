@@ -1,10 +1,8 @@
 package com.intern.conjob.arch.extensions
 
+import com.google.gson.Gson
 import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.response.BaseResponse
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import retrofit2.Response
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -25,23 +23,18 @@ fun <T> Response<T>.exceptionOnSuccessResponse(): ErrorModel.Http? {
     return null
 }
 
-private val jsonParser = Json {
-    ignoreUnknownKeys = true
-}
-
-@OptIn(ExperimentalSerializationApi::class)
 fun <T> Response<T>.toError(): ErrorModel.Http {
     return try {
         exceptionOnSuccessResponse() ?: ErrorModel.Http.ApiError(
             code = code().toString(),
-            message = jsonParser.decodeFromString<BaseResponse>(errorBody()?.string() ?: "").message
+            message = Gson().fromJson(errorBody()?.string() ?: "", BaseResponse::class.java)?.message
                 ?: ErrorModel.LocalErrorException.UN_KNOW_EXCEPTION.message,
             apiUrl = this.raw().request.url.toString()
         )
     } catch (ex: Exception) {
         ErrorModel.Http.ApiError(
             code = code().toString(),
-            message = jsonParser.decodeFromString<BaseResponse>(errorBody()?.string() ?: "").message
+            message = Gson().fromJson(errorBody()?.string() ?: "", BaseResponse::class.java)?.message
                 ?: ErrorModel.LocalErrorException.UN_KNOW_EXCEPTION.message,
             apiUrl = this.raw().request.url.toString()
         )
