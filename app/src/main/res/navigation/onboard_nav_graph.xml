@@ -20,17 +20,25 @@
 
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.intern.conjob.ui.auth.login.LoginFragment"
+        android:name="com.intern.conjob.ui.auth.login.fragment.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_LoginFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment"
             app:popUpTo="@id/OnBoardingFragment"
             app:popUpToInclusive="false"/>
+        <action
+            android:id="@+id/action_LoginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/RegisterFragment"
         android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
         tools:layout="@layout/fragment_register"/>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.intern.conjob.ui.auth.login.fragment.ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password"/>
 </navigation>
