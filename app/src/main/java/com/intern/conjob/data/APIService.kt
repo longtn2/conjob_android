@@ -2,8 +2,10 @@ package com.intern.conjob.data
 
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
+import com.intern.conjob.data.model.Token
 import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.BaseResponse
+import com.intern.conjob.data.response.TokenResponse
 import com.intern.conjob.data.response.TrendingResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -23,4 +25,7 @@ interface APIService {
 
     @POST("auth/forgot")
     suspend fun forgotPassword(@Query("email") email: String): Response<BaseResponse>
+
+    @POST("auth/refresh")
+    suspend fun refreshToken(@Body token: Token): Response<TokenResponse>
 }
