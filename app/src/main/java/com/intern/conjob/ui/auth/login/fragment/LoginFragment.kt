@@ -14,7 +14,6 @@ import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.arch.util.isValidPassword
-import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.databinding.FragmentLoginBinding
 import com.intern.conjob.ui.MainActivity

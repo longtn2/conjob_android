@@ -4,18 +4,19 @@ import com.intern.conjob.arch.extensions.apiCall
 import com.intern.conjob.arch.modules.ApiClient
 import com.intern.conjob.data.APIService
 import com.intern.conjob.data.model.LoginUser
+import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.LoginResponse
 
-class LoginRemoteDataSource(
+class AuthRemoteDataSource(
     private val api: APIService,
 ) {
     companion object {
-        private var instance: LoginRemoteDataSource? = null
+        private var instance: AuthRemoteDataSource? = null
 
-        fun getInstance(): LoginRemoteDataSource {
+        fun getInstance(): AuthRemoteDataSource {
             if (instance == null) {
                 val api: APIService = ApiClient.getInstance().apiService
-                instance = LoginRemoteDataSource(
+                instance = AuthRemoteDataSource(
                     api
                 )
             }
@@ -26,5 +27,9 @@ class LoginRemoteDataSource(
 
     suspend fun login(loginUser: LoginUser): LoginResponse = apiCall {
         api.login(loginUser)
+    }
+
+    suspend fun forgotPassword(email: String): BaseResponse = apiCall {
+        api.forgotPassword(email)
     }
 }
