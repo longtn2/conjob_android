@@ -3,6 +3,7 @@ package com.intern.conjob.data
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.data.model.Token
+import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.TokenResponse
@@ -21,11 +22,11 @@ interface APIService {
     suspend fun register(@Body registerUser: RegisterUser): Response<BaseResponse>
 
     @POST("auth/login")
-    suspend fun login(@Body loginUser: LoginUser): Response<LoginResponse>
+    suspend fun login(@Body loginUser: LoginUser): Response<BaseDataResponse<LoginResponse>>
 
     @POST("auth/forgot")
     suspend fun forgotPassword(@Query("email") email: String): Response<BaseResponse>
 
     @POST("auth/refresh")
-    suspend fun refreshToken(@Body token: Token): Response<TokenResponse>
+    suspend fun refreshToken(@Body token: Token): Response<BaseDataResponse<TokenResponse>>
 }

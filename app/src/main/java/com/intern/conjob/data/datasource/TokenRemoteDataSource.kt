@@ -4,6 +4,7 @@ import com.intern.conjob.arch.extensions.apiCall
 import com.intern.conjob.arch.modules.ApiClient
 import com.intern.conjob.data.APIService
 import com.intern.conjob.data.model.Token
+import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.TokenResponse
 
 class TokenRemoteDataSource(private val api: APIService) {
@@ -22,7 +23,7 @@ class TokenRemoteDataSource(private val api: APIService) {
         }
     }
 
-    suspend fun refreshToken(token: Token): TokenResponse = apiCall {
+    suspend fun refreshToken(token: Token): BaseDataResponse<TokenResponse> = apiCall {
         api.refreshToken(token)
     }
 }
