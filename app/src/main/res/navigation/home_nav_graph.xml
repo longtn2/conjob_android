@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav_graph"
-    app:startDestination="@id/coinFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/coinFragment"
-        android:name="com.intern.conjob.ui.coin.CoinFragment"
-        android:label="CoinFragment"
-        tools:layout="@layout/fragment_coin"
-        app:defaultNavHost="true"/>
+        android:id="@+id/homeFragment"
+        android:name="com.intern.conjob.ui.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>
