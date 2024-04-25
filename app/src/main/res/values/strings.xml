@@ -5,11 +5,16 @@
     <string name="Cancel">Cancel</string>
 
     <!-- Toast -->
-    <string name="toast_login">Login</string>
-    <string name="toast_forgot_password">To Forgot Password Screen</string>
     <string name="toast_google_login">Google Login</string>
     <string name="toast_facebook_login">Facebook Login</string>
-    <string name="toast_register">To Register Screen</string>
+    <string name="toast_matching_details">Details</string>
+    <string name="toast_matching_profile">Profile</string>
+    <string name="toast_matching_interact">Interact</string>
+    <string name="toast_matching_comment">Comment</string>
+    <string name="toast_matching_share">Share</string>
+    <string name="toast_matching_search">Search</string>
+    <string name="toast_matching_accept">Accept</string>
+    <string name="toast_matching_skip">Skip</string>
 
     <!-- Hint Text -->
     <string name="hint_email">Enter your Email</string>
@@ -28,6 +33,13 @@
     <string name="description_login_facebook">Login Facebook</string>
     <string name="description_login_google">Login Google</string>
     <string name="description_avatar">avatar</string>
+    <string name="description_interact">interact</string>
+    <string name="description_comment">comment</string>
+    <string name="description_share">share</string>
+    <string name="description_search">search</string>
+    <string name="description_matching_image">image</string>
+    <string name="description_matching_accept">Accept</string>
+    <string name="description_matching_skip">Skip</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
@@ -81,4 +93,13 @@
     <string name="tab_post">Post</string>
     <string name="tab_notifications">Notifications</string>
     <string name="tab_profile">Profile</string>
+
+    <!--Matching-->
+    <string name="item_matching_user_name">"@"%1$s</string>
+    <string name="item_matching_content">%1$s</string>
+    <string name="item_matching_total_interact">100</string>
+    <string name="item_matching_total_comment">245</string>
+    <string name="item_matching_total_shared">120</string>
+    <string name="matching_accept">Lướt qua phải để tuyển dụng</string>
+    <string name="matching_skip">Lướt qua trái để bỏ qua</string>
 </resources>

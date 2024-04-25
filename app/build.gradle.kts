@@ -6,7 +6,7 @@ plugins {
     kotlin("kapt")
 }
 
-val appName = "AppName"
+val appName = "ConJob"
 
 android {
     namespace = "com.intern.conjob"
@@ -74,7 +74,7 @@ android {
         when (name) {
             "debug" -> {
                 resValue("string", "app_name", "[DEV]-${appName}")
-                buildConfigField("String", "API_URL", "\"https://maggot-intent-cicada.ngrok-free.app/api/v1/\"")
+                buildConfigField("String", "API_URL", "\"https://62f6-117-2-6-32.ngrok-free.app/api/v1/\"")
             }
 
             "staging" -> {
@@ -119,4 +119,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("com.github.Yalantis:Koloda-Android:v0.0.2-alpha")
+    implementation("androidx.media3:media3-exoplayer:1.3.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.3.1")
+    implementation("androidx.media3:media3-ui:1.3.1")
 }

@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import com.intern.conjob.R
 import com.intern.conjob.ui.home.chat.ChatListFragment
-import com.intern.conjob.ui.home.match.MatchingFragment
+import com.intern.conjob.ui.home.matching.MatchingFragment
 import com.intern.conjob.ui.home.notification.NotificationFragment
 import com.intern.conjob.ui.home.post.CreatePostFragment
 import com.intern.conjob.ui.home.profile.ProfileFragment
@@ -24,4 +24,9 @@ enum class ErrorMessage(val message: String) {
     NOT_FOUND_404("NOT FOUND 404"),
     BAD_GATEWAY_502("BAD GATEWAY 502"),
     SERVER_ERROR_500("SERVER ERROR 500")
+}
+
+enum class FileType(val type: String) {
+    IMAGE("Img"),
+    VIDEO("Video")
 }
