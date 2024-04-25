@@ -1,4 +1,4 @@
-package com.intern.conjob.ui.home.matching
+package com.intern.conjob.ui.home.matching.fragment
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -17,6 +17,7 @@ import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
+import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
 import com.yalantis.library.KolodaListener
 import kotlin.math.abs
@@ -47,7 +48,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             adapter?.posts = viewModel.getTempData()
             adapter?.setOnClickListener(object : PostOnClickListener {
                 override fun onDetailClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_details), Toast.LENGTH_SHORT).show()
+                    controller.navigate(R.id.action_homeFragment_to_postDetailFragment)
                 }
 
                 override fun onAvatarClick() {

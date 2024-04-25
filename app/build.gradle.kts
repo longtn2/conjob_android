@@ -74,7 +74,7 @@ android {
         when (name) {
             "debug" -> {
                 resValue("string", "app_name", "[DEV]-${appName}")
-                buildConfigField("String", "API_URL", "\"https://62f6-117-2-6-32.ngrok-free.app/api/v1/\"")
+                buildConfigField("String", "API_URL", "\"https://maggot-intent-cicada.ngrok-free.app/api/v1/\"")
             }
 
             "staging" -> {
