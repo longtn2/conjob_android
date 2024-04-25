@@ -15,4 +15,6 @@
     <color name="font_color">#FF4E4E4E</color>
     <color name="light_blue">#35C2C1</color>
     <color name="white_gray">#DDDDE5</color>
+    <color name="swipe_accept_bg_color">#2952C41A</color>
+    <color name="swipe_skip_bg_color">#1FF5222D</color>
 </resources>
