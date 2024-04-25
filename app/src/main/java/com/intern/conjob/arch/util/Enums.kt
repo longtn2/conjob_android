@@ -30,3 +30,16 @@ enum class FileType(val type: String) {
     IMAGE("Img"),
     VIDEO("Video")
 }
+
+enum class Skill(val skill: String) {
+    DESIGNER("Designer"),
+    EDITOR("Editor"),
+    PHOTOGRAPHER("Chụp ảnh"),
+    DANCER("Dancer"),
+    ACTOR("Diễn viên"),
+    CAMERAMAN("Quay phim"),
+    STREAMER("Streamer"),
+    SINGER("Ca sĩ"),
+    IT("IT"),
+    OTHER("Khác"),
+}

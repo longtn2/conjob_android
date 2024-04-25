@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skill_title"
+        android:textSize="@dimen/fontSize_large"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_60dp"
+        android:layout_marginStart="@dimen/margin_24dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerViewSkill"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSkill"
+        android:layout_width="@dimen/layout_width_0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_48dp"
+        android:layout_margin="@dimen/margin_20_dp"
+        android:insetTop="@dimen/inset_top"
+        android:insetBottom="@dimen/inset_bottom"
+        android:text="@string/skill_button_confirm"
+        android:textSize="@dimen/fontSize_medium"
+        android:textStyle="bold"
+        app:backgroundTint="@color/red700"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewSkill"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/red700" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

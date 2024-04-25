@@ -88,6 +88,10 @@
     <string name="send_code">Send Code</string>
     <string name="forgot_password_detail">Don\'t worry! It occurs. Please enter the email address linked with your account.</string>
 
+    <!--Skill-->
+    <string name="skill_title">Bạn thích lĩnh vực nào?</string>
+    <string name="skill_button_confirm">Xác nhận</string>
+
     <!--Bottom Tab Bar-->
     <string name="tab_home">Home</string>
     <string name="tab_chat">Chat</string>

@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.intern.conjob.ui.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_skillFragment"
+            app:destination="@id/skillFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/postDetailFragment"
         android:name="com.intern.conjob.ui.home.matching.fragment.PostDetailFragment"
-        android:label="PostDetailFragment" />
+        android:label="PostDetailFragment"
+        tools:layout="@layout/fragment_post_details"/>
+    <fragment
+        android:id="@+id/skillFragment"
+        android:name="com.intern.conjob.ui.skill.SkillFragment"
+        android:label="SkillFragment"
+        tools:layout="@layout/fragment_skill"/>
 </navigation>
