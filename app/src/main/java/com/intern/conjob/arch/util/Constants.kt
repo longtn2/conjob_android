@@ -10,4 +10,8 @@ object Constants {
     const val PAGE_LIMIT = 5
     const val TOKEN_KEY = "Token"
     const val REFRESH_TOKEN_KEY = "Refresh_Token"
+    const val EXPAND_TEXT = " Xem thêm"
+    const val EXPAND_DOTS = "..."
+    const val BLUR_EFFECT_RADIUS = 10f
+    const val MIN_SWIPE_PROGRESS = 0.05f
 }
