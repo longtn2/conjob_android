@@ -8,8 +8,7 @@ import com.intern.conjob.arch.util.BottomTabBarItem
 class BottomTabBarViewAdapter(
     fragmentActivity: FragmentActivity,
     private val items: List<BottomTabBarItem>
-) :
-    FragmentStateAdapter(fragmentActivity) {
+) : FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int = items.size
 

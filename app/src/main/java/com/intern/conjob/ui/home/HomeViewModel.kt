@@ -3,7 +3,7 @@ package com.intern.conjob.ui.home
 import com.intern.conjob.arch.util.BottomTabBarItem
 import com.intern.conjob.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel() {
+class HomeViewModel : BaseViewModel() {
     private var tabItems: MutableList<BottomTabBarItem> = mutableListOf()
 
     fun initTabItems(): MutableList<BottomTabBarItem> {
