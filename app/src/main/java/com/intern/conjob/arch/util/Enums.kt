@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import com.intern.conjob.R
 import com.intern.conjob.ui.home.chat.ChatListFragment
-import com.intern.conjob.ui.home.matching.MatchingFragment
+import com.intern.conjob.ui.home.matching.fragment.MatchingFragment
 import com.intern.conjob.ui.home.notification.NotificationFragment
 import com.intern.conjob.ui.home.post.CreatePostFragment
 import com.intern.conjob.ui.home.profile.ProfileFragment
