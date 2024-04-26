@@ -13,4 +13,7 @@ object Constants {
     const val EXPAND_TEXT = " Xem thêm"
     const val EXPAND_DOTS = "..."
     const val BLUR_EFFECT_RADIUS = 10f
+    const val CARD_STACK_VIEW_VISIBLE_COUNT = 3
+    const val CARD_STACK_VIEW_MAX_DEGREE = 45f
+    const val CARD_STACK_VIEW_SWIPE_THRESHOLD = 0.4f
 }

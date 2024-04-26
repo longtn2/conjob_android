@@ -6,11 +6,15 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
+import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
+import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
+import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.ui.MainActivity
@@ -20,7 +24,6 @@ import com.intern.conjob.ui.home.matching.adapter.PostAdapter
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
-
 
 class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private val binding by viewBinding(FragmentMatchingBinding::bind)
@@ -37,86 +40,97 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        initCardStackView()
         binding.imgBtnSearch.setOnClickListener {
             Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun initAdapter() {
-        binding.apply {
-            adapter = PostAdapter()
-            adapter?.posts = viewModel.getTempData()
-            adapter?.setOnClickListener(object : PostOnClickListener {
-                override fun onDetailClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_details), Toast.LENGTH_SHORT).show()
+        adapter = PostAdapter()
+        adapter?.posts = viewModel.getTempData()
+        adapter?.setOnClickListener(object : PostOnClickListener {
+            override fun onDetailClick() {
+                Toast.makeText(context, getString(R.string.toast_matching_details), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAvatarClick() {
+                Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onInteractClick() {
+                Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCommentClick() {
+                Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onShareClick() {
+                Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun initCardStackView() {
+        val cardLayoutManager = CardStackLayoutManager(activity as MainActivity, object: CardStackListener {
+            override fun onCardDragging(direction: Direction?, ratio: Float) {
+                if (cardView!!.x < 0) {
+                    changeStatusVisibility(true)
+                    changeStatusView(false)
+                    cardView!!.foreground = AppCompatResources.getDrawable(
+                        activity as MainActivity,
+                        R.color.swipe_skip_bg_color
+                    )
+                } else {
+                    changeStatusVisibility(true)
+                    changeStatusView(true)
+                    cardView!!.foreground = AppCompatResources.getDrawable(
+                        activity as MainActivity,
+                        R.color.swipe_accept_bg_color
+                    )
                 }
-
-                override fun onAvatarClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
+                binding.apply {
+                    constraintLayoutStatus.x = cardView!!.x
+                    constraintLayoutStatus.y = cardView!!.y
+                    constraintLayoutStatus.rotation = cardView!!.rotation
                 }
+            }
 
-                override fun onInteractClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
+            override fun onCardSwiped(direction: Direction?) {
+                if (cardView!!.x < 0) {
+                    Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
                 }
-
-                override fun onCommentClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
+                if (binding.cardStackView.size <= 0) {
+                    adapter?.posts = viewModel.getTempData()
                 }
+            }
 
-                override fun onShareClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
-                }
-            })
+            override fun onCardRewound() = Unit
 
-            val cardLayoutManager = CardStackLayoutManager(activity as MainActivity, object: CardStackListener {
-                override fun onCardDragging(direction: Direction?, ratio: Float) {
-                    if (cardView!!.x < 0) {
-                        changeStatusVisibility(true)
-                        changeStatusView(false)
-                    } else {
-                        changeStatusVisibility(true)
-                        changeStatusView(true)
-                    }
-                    binding.apply {
-                        constraintLayoutStatus.x = cardView!!.x
-                        constraintLayoutStatus.y = cardView!!.y
-                        constraintLayoutStatus.rotation = cardView!!.rotation
-                    }
-                }
+            override fun onCardCanceled() {
+                changeStatusVisibility(false)
+                cardView!!.foreground = null
+            }
 
-                override fun onCardSwiped(direction: Direction?) {
-                    if (cardView!!.x < 0) {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
-                    }
-                    if (cardStackView.size <= 0) {
-                        adapter?.posts = viewModel.getTempData()
-                    }
-                }
+            override fun onCardAppeared(view: View?, position: Int) {
+                cardView = view
+            }
 
-                override fun onCardRewound() = Unit
+            override fun onCardDisappeared(view: View?, position: Int) {
+                changeStatusVisibility(false)
+                cardView!!.foreground = null
+            }
 
-                override fun onCardCanceled() {
-                    changeStatusVisibility(false)
-                }
-
-                override fun onCardAppeared(view: View?, position: Int) {
-                    cardView = view
-                }
-
-                override fun onCardDisappeared(view: View?, position: Int) {
-                    changeStatusVisibility(false)
-                }
-
-            })
-            cardLayoutManager.setVisibleCount(3)
-            cardLayoutManager.setMaxDegree(45f)
-            cardLayoutManager.setSwipeThreshold(0.3f)
-            cardLayoutManager.setDirections(Direction.FREEDOM)
-            cardStackView.layoutManager = cardLayoutManager
-            cardStackView.adapter = adapter
-        }
+        })
+        cardLayoutManager.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
+        cardLayoutManager.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
+        cardLayoutManager.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
+        cardLayoutManager.setDirections(Direction.FREEDOM)
+        binding.cardStackView.layoutManager = cardLayoutManager
+        binding.cardStackView.adapter = adapter
     }
 
     private fun changeStatusVisibility(isShow: Boolean) {
@@ -146,4 +160,5 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             binding.tvStatus.text = getString(R.string.matching_skip)
         }
     }
+
 }
