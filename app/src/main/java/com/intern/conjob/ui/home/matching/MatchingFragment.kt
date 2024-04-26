@@ -75,33 +75,37 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private fun initCardStackView() {
         val cardLayoutManager = CardStackLayoutManager(activity as MainActivity, object: CardStackListener {
             override fun onCardDragging(direction: Direction?, ratio: Float) {
-                if (cardView!!.x < 0) {
-                    changeStatusVisibility(true)
-                    changeStatusView(false)
-                    cardView!!.foreground = AppCompatResources.getDrawable(
-                        activity as MainActivity,
-                        R.color.swipe_skip_bg_color
-                    )
-                } else {
-                    changeStatusVisibility(true)
-                    changeStatusView(true)
-                    cardView!!.foreground = AppCompatResources.getDrawable(
-                        activity as MainActivity,
-                        R.color.swipe_accept_bg_color
-                    )
-                }
-                binding.apply {
-                    constraintLayoutStatus.x = cardView!!.x
-                    constraintLayoutStatus.y = cardView!!.y
-                    constraintLayoutStatus.rotation = cardView!!.rotation
+                cardView?.let {
+                    if (cardView!!.x < 0) {
+                        changeStatusVisibility(true)
+                        changeStatusView(false)
+                        cardView!!.foreground = AppCompatResources.getDrawable(
+                            activity as MainActivity,
+                            R.color.swipe_skip_bg_color
+                        )
+                    } else {
+                        changeStatusVisibility(true)
+                        changeStatusView(true)
+                        cardView!!.foreground = AppCompatResources.getDrawable(
+                            activity as MainActivity,
+                            R.color.swipe_accept_bg_color
+                        )
+                    }
+                    binding.apply {
+                        constraintLayoutStatus.x = cardView!!.x
+                        constraintLayoutStatus.y = cardView!!.y
+                        constraintLayoutStatus.rotation = cardView!!.rotation
+                    }
                 }
             }
 
             override fun onCardSwiped(direction: Direction?) {
-                if (cardView!!.x < 0) {
-                    Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
+                cardView?.let {
+                    if (cardView!!.x < 0) {
+                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
+                    }
                 }
                 if (binding.cardStackView.size <= 0) {
                     adapter?.posts = viewModel.getTempData()
@@ -112,7 +116,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
             override fun onCardCanceled() {
                 changeStatusVisibility(false)
-                cardView!!.foreground = null
+                cardView?.foreground = null
             }
 
             override fun onCardAppeared(view: View?, position: Int) {
@@ -121,7 +125,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
             override fun onCardDisappeared(view: View?, position: Int) {
                 changeStatusVisibility(false)
-                cardView!!.foreground = null
+                cardView?.foreground = null
             }
 
         })
@@ -137,7 +141,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         if (isShow) {
             binding.constraintLayoutStatus.visibility = View.VISIBLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                cardView!!.setRenderEffect(
+                cardView?.setRenderEffect(
                     RenderEffect.createBlurEffect(
                         BLUR_EFFECT_RADIUS, BLUR_EFFECT_RADIUS, Shader.TileMode.MIRROR
                     )
@@ -146,7 +150,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         } else {
             binding.constraintLayoutStatus.visibility = View.GONE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                cardView!!.setRenderEffect(null)
+                cardView?.setRenderEffect(null)
             }
         }
     }
