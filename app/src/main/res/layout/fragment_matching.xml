@@ -6,12 +6,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.yalantis.library.Koloda
-        android:id="@+id/koloda"
+    <com.yuyakaido.android.cardstackview.CardStackView
+        android:id="@+id/cardStackView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:koloda_card_layout="@layout/item_post"
-        app:koloda_max_visible_cards="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
