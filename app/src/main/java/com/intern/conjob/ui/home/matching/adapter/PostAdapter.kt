@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.annotation.OptIn
+import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
@@ -61,13 +63,17 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             binding.apply {
                 if (post.type == FileType.IMAGE.type) {
                     imgView.visibility = View.VISIBLE
+                    playerView.visibility = View.GONE
                     Glide.with(itemView.context).load(post.url)
                         .override(imageThumbnailSize)
                         .fitCenter()
                         .into(binding.imgView)
                 } else {
-                    videoView.visibility = View.VISIBLE
-                    videoView.setVideoURI(Uri.parse(post.url))
+                    playerView.visibility = View.VISIBLE
+                    imgView.visibility = View.GONE
+                    val player = ExoPlayer.Builder(itemView.context).build()
+                    player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                    playerView.player = player
                 }
                 tvUserName.text = itemView.context.getString(R.string.item_matching_user_name, post.author)
                 tvCaption.text = post.caption
