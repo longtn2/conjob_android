@@ -1,4 +1,4 @@
-package com.intern.conjob.ui.home.matching
+package com.intern.conjob.ui.home.matching.fragment
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -20,6 +20,7 @@ import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
+import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
@@ -47,29 +48,31 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     }
 
     private fun initAdapter() {
-        adapter = PostAdapter()
-        adapter?.posts = viewModel.getTempData()
-        adapter?.setOnClickListener(object : PostOnClickListener {
-            override fun onDetailClick() {
-                Toast.makeText(context, getString(R.string.toast_matching_details), Toast.LENGTH_SHORT).show()
-            }
+        binding.apply {
+            adapter = PostAdapter()
+            adapter?.posts = viewModel.getTempData()
+            adapter?.setOnClickListener(object : PostOnClickListener {
+                override fun onDetailClick() {
+                    controller.navigate(R.id.action_homeFragment_to_postDetailFragment)
+                }
 
-            override fun onAvatarClick() {
-                Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
-            }
+                override fun onAvatarClick() {
+                    Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onInteractClick() {
-                Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
-            }
+                override fun onInteractClick() {
+                    Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onCommentClick() {
-                Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
-            }
+                override fun onCommentClick() {
+                    Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onShareClick() {
-                Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onShareClick() {
+                    Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun initCardStackView() {
