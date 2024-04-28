@@ -4,6 +4,7 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:keepScreenOn="true"
     app:cardBackgroundColor="@color/black"
     app:cardCornerRadius="@dimen/item_matching_card_corner_radius"
     app:cardElevation="@dimen/item_matching_card_elevation">
@@ -17,7 +18,10 @@
             android:id="@+id/playerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:controller_layout_id="@layout/custom_video_controller"
+            app:show_buffering="never"
+            app:keep_content_on_player_reset="true"/>
 
         <ImageView
             android:id="@+id/imgView"

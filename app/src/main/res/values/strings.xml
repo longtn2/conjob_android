@@ -41,6 +41,7 @@
     <string name="description_matching_accept">Accept</string>
     <string name="description_matching_skip">Skip</string>
     <string name="description_more_vert_icon">more</string>
+    <string name="description_video_play_pause">Play/Pause</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>

@@ -15,7 +15,9 @@ import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
+import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
+import com.intern.conjob.arch.util.VideoPlayer
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
@@ -57,81 +59,118 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
 
                 override fun onAvatarClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_profile),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onInteractClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_interact),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onCommentClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_comment),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onShareClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_share),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         }
     }
 
     private fun initCardStackView() {
-        val cardLayoutManager = CardStackLayoutManager(activity as MainActivity, object: CardStackListener {
-            override fun onCardDragging(direction: Direction?, ratio: Float) {
-                cardView?.let {
-                    if (cardView!!.x < 0) {
-                        changeStatusVisibility(true)
-                        changeStatusView(false)
-                        cardView!!.foreground = AppCompatResources.getDrawable(
-                            activity as MainActivity,
-                            R.color.swipe_skip_bg_color
-                        )
-                    } else {
-                        changeStatusVisibility(true)
-                        changeStatusView(true)
-                        cardView!!.foreground = AppCompatResources.getDrawable(
-                            activity as MainActivity,
-                            R.color.swipe_accept_bg_color
-                        )
-                    }
-                    binding.apply {
-                        constraintLayoutStatus.x = cardView!!.x
-                        constraintLayoutStatus.y = cardView!!.y
-                        constraintLayoutStatus.rotation = cardView!!.rotation
-                    }
-                }
-            }
-
-            override fun onCardSwiped(direction: Direction?) {
-                cardView?.let {
-                    if (cardView!!.x < 0) {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
+        val cardLayoutManager =
+            CardStackLayoutManager(activity as MainActivity, object : CardStackListener {
+                override fun onCardDragging(direction: Direction?, ratio: Float) {
+                    cardView?.let {
+                        if (cardView!!.x < 0) {
+                            changeStatusVisibility(true)
+                            changeStatusView(false)
+                            cardView!!.foreground = AppCompatResources.getDrawable(
+                                activity as MainActivity, R.color.swipe_skip_bg_color
+                            )
+                        } else {
+                            changeStatusVisibility(true)
+                            changeStatusView(true)
+                            cardView!!.foreground = AppCompatResources.getDrawable(
+                                activity as MainActivity, R.color.swipe_accept_bg_color
+                            )
+                        }
+                        binding.apply {
+                            constraintLayoutStatus.x = cardView!!.x
+                            constraintLayoutStatus.y = cardView!!.y
+                            constraintLayoutStatus.rotation = cardView!!.rotation
+                        }
                     }
                 }
-                if (binding.cardStackView.size <= 0) {
-                    adapter?.posts = viewModel.getTempData()
+
+                override fun onCardSwiped(direction: Direction?) {
+                    cardView?.let {
+                        if (cardView!!.x < 0) {
+                            Toast.makeText(
+                                activity as MainActivity,
+                                getString(R.string.toast_matching_skip),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                activity as MainActivity,
+                                getString(R.string.toast_matching_accept),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    if (binding.cardStackView.size <= 0) {
+                        adapter?.posts = viewModel.getTempData()
+                    }
                 }
-            }
 
-            override fun onCardRewound() = Unit
+                override fun onCardRewound() = Unit
 
-            override fun onCardCanceled() {
-                changeStatusVisibility(false)
-                cardView?.foreground = null
-            }
+                override fun onCardCanceled() {
+                    changeStatusVisibility(false)
+                    cardView?.foreground = null
+                }
 
-            override fun onCardAppeared(view: View?, position: Int) {
-                cardView = view
-            }
+                override fun onCardAppeared(view: View?, position: Int) {
+                    cardView = view
+                    adapter?.let {
+                        if (adapter!!.posts[position].type == FileType.VIDEO.type) {
+                            VideoPlayer.player?.play()
+                        }
+                    }
+                }
 
-            override fun onCardDisappeared(view: View?, position: Int) {
-                changeStatusVisibility(false)
-                cardView?.foreground = null
-            }
+                override fun onCardDisappeared(view: View?, position: Int) {
+                    changeStatusVisibility(false)
+                    cardView?.foreground = null
+                    adapter?.let {
+                        if (adapter!!.posts[position].type == FileType.VIDEO.type) {
+                            VideoPlayer.player?.currentMediaItemIndex?.let { index ->
+                                VideoPlayer.player?.removeMediaItem(index)
+                            }
+                            VideoPlayer.player?.seekTo(0)
+                            VideoPlayer.player?.playWhenReady = false
+                        }
+                    }
+                }
 
-        })
+            })
         cardLayoutManager.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
         cardLayoutManager.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
         cardLayoutManager.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
