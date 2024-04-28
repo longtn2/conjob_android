@@ -11,7 +11,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
@@ -21,6 +20,7 @@ import com.intern.conjob.arch.util.Constants.EXPAND_DOTS
 import com.intern.conjob.arch.util.Constants.EXPAND_TEXT
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
+import com.intern.conjob.arch.util.VideoPlayer
 import com.intern.conjob.data.model.Post
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.widget.CustomClickableSpan
@@ -52,6 +52,16 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun getItemCount(): Int = posts.size
 
+    override fun onViewAttachedToWindow(holder: PostViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.addPlayer()
+    }
+
+    override fun onViewDetachedFromWindow(holder: PostViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.removePlayer()
+    }
+
     class PostViewHolder(
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -71,15 +81,23 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 } else {
                     playerView.visibility = View.VISIBLE
                     imgView.visibility = View.GONE
-                    val player = ExoPlayer.Builder(itemView.context).build()
-                    player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                    playerView.player = player
+                    VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                    VideoPlayer.player?.prepare()
+                    playerView.player = VideoPlayer.player
                 }
                 tvUserName.text = itemView.context.getString(R.string.item_matching_user_name, post.author)
                 tvCaption.text = post.caption
                 initTextSpan()
                 initListener()
             }
+        }
+
+        fun addPlayer() {
+            binding.playerView.player = VideoPlayer.player
+        }
+
+        fun removePlayer() {
+            binding.playerView.player = null
         }
 
         private fun initTextSpan() {
