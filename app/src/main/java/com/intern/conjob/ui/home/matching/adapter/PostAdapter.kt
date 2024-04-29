@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
-import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
@@ -18,6 +16,7 @@ import com.intern.conjob.arch.extensions.convertDpToPx
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.Constants.EXPAND_DOTS
 import com.intern.conjob.arch.util.Constants.EXPAND_TEXT
+import com.intern.conjob.arch.util.Constants.POST_LIMIT
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
@@ -29,8 +28,13 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     var posts: List<Post> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
+            val addSize = value.size - posts.size
             field = value
-            notifyDataSetChanged()
+            if (posts.size <= POST_LIMIT) {
+                notifyDataSetChanged()
+            } else {
+                notifyItemRangeInserted(value.size - POST_LIMIT, addSize)
+            }
         }
 
     companion object {
@@ -52,23 +56,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun getItemCount(): Int = posts.size
 
-    override fun onViewAttachedToWindow(holder: PostViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        holder.addPlayer()
-    }
-
-    override fun onViewDetachedFromWindow(holder: PostViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        holder.removePlayer()
-    }
-
     class PostViewHolder(
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
 
-        @OptIn(UnstableApi::class)
         fun bindView(post: Post) {
             binding.apply {
                 if (post.type == FileType.IMAGE.type) {
@@ -83,21 +76,16 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     imgView.visibility = View.GONE
                     VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
                     VideoPlayer.player?.prepare()
-                    playerView.player = VideoPlayer.player
                 }
+                Glide.with(itemView.context).load(post.avatar)
+                    .override(imageThumbnailSize)
+                    .fitCenter()
+                    .into(binding.imgAvatar)
                 tvUserName.text = itemView.context.getString(R.string.item_matching_user_name, post.author)
                 tvCaption.text = post.caption
                 initTextSpan()
                 initListener()
             }
-        }
-
-        fun addPlayer() {
-            binding.playerView.player = VideoPlayer.player
-        }
-
-        fun removePlayer() {
-            binding.playerView.player = null
         }
 
         private fun initTextSpan() {

@@ -104,6 +104,7 @@
     <string name="item_matching_total_shared">120</string>
     <string name="matching_accept">Lướt qua phải để tuyển dụng</string>
     <string name="matching_skip">Lướt qua trái để bỏ qua</string>
+    <string name="matching_post_empty">Không có bài đăng nào :(</string>
 
     <!--Post Details-->
     <string name="post_detail_user_name">MonstarTV</string>

@@ -4,21 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.media3.ui.DefaultTimeBar
-        android:id="@+id/exo_progress"
-        android:layout_width="@dimen/layout_width_0dp"
-        android:layout_height="@dimen/custom_video_controller_height"
-        app:bar_height="@dimen/custom_video_controller_bar_height"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:played_color="@color/white"
-        app:scrubber_color="@color/white"
-        app:scrubber_disabled_size="@dimen/custom_video_controller_scrubber_size"
-        app:scrubber_dragged_size="@dimen/custom_video_controller_scrubber_size"
-        app:scrubber_enabled_size="@dimen/custom_video_controller_scrubber_size"
-        app:unplayed_color="@color/gray300" />
-
     <ImageView
         android:id="@+id/exo_play_pause"
         style="@style/ExoStyledControls.Button.Center.PlayPause"

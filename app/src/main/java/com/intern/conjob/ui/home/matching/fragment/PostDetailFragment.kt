@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.viewBinding
+import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
 import com.intern.conjob.databinding.FragmentPostDetailsBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
@@ -42,6 +43,7 @@ class PostDetailFragment : BaseFragment(R.layout.fragment_post_details) {
     private fun initListener() {
         binding.apply {
             imgBtnBackArrow.setOnClickListener {
+                controller.previousBackStackEntry?.savedStateHandle?.set(CLOSE_DETAILS_VIEW_KEY, "")
                 controller.popBackStack()
             }
 
