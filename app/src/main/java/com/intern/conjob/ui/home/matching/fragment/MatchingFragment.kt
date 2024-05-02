@@ -146,7 +146,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             CardStackLayoutManager(activity as MainActivity, object : CardStackListener {
                 @OptIn(UnstableApi::class)
                 override fun onCardDragging(direction: Direction?, ratio: Float) {
-                    cardView?.let {
+                    currentPlayerView?.let {
                         VideoPlayer.player?.pause()
                         currentPlayerView?.hideController()
                     }
@@ -160,8 +160,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 override fun onCardRewound() = Unit
 
                 override fun onCardCanceled() {
-                    cardView?.foreground = null
-                    if (cardView?.tag == FileType.VIDEO) {
+                    currentPlayerView?.let {
                         VideoPlayer.player?.play()
                     }
                     renderBlurEffect(false)
@@ -175,7 +174,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                         adapter?.let {
                             if (it.posts[position].type == FileType.VIDEO.type) {
                                 VideoPlayer.player?.play()
-                                cardView?.tag = FileType.VIDEO
                                 currentPlayerView = cardViewBinding.playerView
                                 currentPlayerView?.player = VideoPlayer.player
                             }
@@ -184,8 +182,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
 
                 override fun onCardDisappeared(view: View?, position: Int) {
-                    cardView?.foreground = null
-                    cardView?.tag = null
                     currentPlayerView?.player = null
                     renderBlurEffect(false)
                     adapter?.let {
