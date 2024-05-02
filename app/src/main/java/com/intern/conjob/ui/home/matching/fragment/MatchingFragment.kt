@@ -82,6 +82,20 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             }
     }
 
+    override fun onPause() {
+        super.onPause()
+        currentPlayerView?.let {
+            VideoPlayer.player?.pause()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentPlayerView?.let {
+            VideoPlayer.player?.play()
+        }
+    }
+
     private fun initAdapter() {
         binding.apply {
             adapter = PostAdapter()
