@@ -15,24 +15,29 @@ import androidx.media3.ui.PlayerView
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
 import com.intern.conjob.arch.extensions.viewBinding
+import com.intern.conjob.arch.util.Constants.APPLY_BUTTON_PRESSED
 import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
 import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
+import com.intern.conjob.arch.util.Constants.SKIP_BUTTON_PRESSED
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
+import com.intern.conjob.data.model.Post
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
+import com.intern.conjob.ui.home.HomeFragmentDirections
 import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -44,6 +49,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private var cardView: View? = null
     private var blurView: View? = null
     private var currentPlayerView: PlayerView? = null
+    private var cardLayoutManager: CardStackLayoutManager? = null
 
     companion object {
         fun newInstance() = MatchingFragment()
@@ -77,6 +83,17 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             CLOSE_DETAILS_VIEW_KEY
         )
             ?.observe(viewLifecycleOwner) {
+                if (it == APPLY_BUTTON_PRESSED) {
+                    cardLayoutManager?.setSwipeAnimationSetting(
+                        SwipeAnimationSetting.Builder().setDirection(Direction.Right).build()
+                    )
+                    binding.cardStackView.swipe()
+                } else if (it == SKIP_BUTTON_PRESSED) {
+                    cardLayoutManager?.setSwipeAnimationSetting(
+                        SwipeAnimationSetting.Builder().setDirection(Direction.Left).build()
+                    )
+                    binding.cardStackView.swipe()
+                }
                 currentPlayerView?.player = VideoPlayer.player
             }
     }
@@ -100,9 +117,9 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             adapter = PostAdapter()
             getPosts()
             adapter?.setOnClickListener(object : PostOnClickListener {
-                override fun onDetailClick() {
+                override fun onDetailClick(post: Post) {
                     currentPlayerView?.player = null
-                    controller.navigate(R.id.action_homeFragment_to_postDetailFragment)
+                    controller.navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(post))
                 }
 
                 override fun onAvatarClick() {
@@ -141,7 +158,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     }
 
     private fun initCardStackView() {
-        val cardLayoutManager =
+        cardLayoutManager =
             CardStackLayoutManager(activity as MainActivity, object : CardStackListener {
                 @OptIn(UnstableApi::class)
                 override fun onCardDragging(direction: Direction?, ratio: Float) {
@@ -194,10 +211,10 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                     }
                 }
             })
-        cardLayoutManager.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
-        cardLayoutManager.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
-        cardLayoutManager.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
-        cardLayoutManager.setDirections(Direction.HORIZONTAL)
+        cardLayoutManager!!.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
+        cardLayoutManager!!.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
+        cardLayoutManager!!.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
+        cardLayoutManager!!.setDirections(Direction.HORIZONTAL)
         binding.cardStackView.layoutManager = cardLayoutManager
         binding.cardStackView.adapter = adapter
     }

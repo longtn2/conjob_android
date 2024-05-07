@@ -110,14 +110,20 @@
 
     <!--Post Details-->
     <string name="post_detail_user_name">MonstarTV</string>
-    <string name="post_detail_create_date">Ngày đăng: 12/04/2024</string>
+    <string name="post_detail_create_date">Ngày đăng: %1$s</string>
     <string name="post_detail_content">Hello mọi người, đây là trang tuyển dụng của công ty mình. Mọi người thấy hứng thú thì apply vào công ty mình nhé! ^^</string>
-    <string name="post_detail_job_title">Tên job:</string>
+    <string name="post_detail_job_title"><b>Tên job:</b></string>
     <string name="post_detail_job">Chạy bộ 12km</string>
-    <string name="post_detail_time_title">Thời gian:</string>
+    <string name="post_detail_time_title"><b>Hạn ứng tuyển:</b></string>
     <string name="post_detail_time">08h30 – 09h00, 24/5/2024</string>
-    <string name="post_detail_quantity_title">Số lượng yêu cầu:</string>
+    <string name="post_detail_quantity_title"><b>Số lượng yêu cầu:</b></string>
     <string name="post_detail_quantity">12</string>
+    <string name="post_detail_description_title"><b>Mô tả:</b></string>
+    <string name="post_detail_description">Xây dựng trang web trong 2 tháng</string>
+    <string name="post_detail_budget_title"><b>Kinh phí:</b></string>
+    <string name="post_detail_budget">1000000</string>
+    <string name="post_detail_location_title"><b>Địa điểm:</b></string>
+    <string name="post_detail_location">Không xác định</string>
     <string name="button_apply">Ứng tuyển</string>
     <string name="button_skip">Bỏ qua</string>
 </resources>
