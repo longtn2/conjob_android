@@ -12,7 +12,6 @@ import com.intern.conjob.data.response.TrendingResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -32,9 +31,8 @@ interface APIService {
     @POST("auth/refresh")
     suspend fun refreshToken(@Body token: Token): Response<BaseDataResponse<TokenResponse>>
 
-    @GET("post")
+    @GET("post/matching")
     suspend fun getPosts(
-        @Header("Authorization") authHeader: String,
         @Query("Page") page: Int,
         @Query("Limit") limit: Int
     ): Response<BaseDataResponse<PostResponse>>

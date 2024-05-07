@@ -9,7 +9,7 @@ import com.intern.conjob.data.response.PostResponse
 import kotlinx.coroutines.flow.Flow
 
 class PostRepository(private val postRemoteDataSource: PostRemoteDataSource) : Repository() {
-    fun getPosts(token: String, page: Int, limit: Int): Flow<FlowResult<BaseDataResponse<PostResponse>>> = safeFlow {
-        postRemoteDataSource.getPosts(token, page, limit)
+    fun getPosts(page: Int, limit: Int): Flow<FlowResult<BaseDataResponse<PostResponse>>> = safeFlow {
+        postRemoteDataSource.getPosts(page, limit)
     }
 }
