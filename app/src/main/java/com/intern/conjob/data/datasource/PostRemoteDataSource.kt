@@ -22,7 +22,7 @@ class PostRemoteDataSource(private val api: APIService) {
         }
     }
 
-    suspend fun getPosts(token: String, page: Int, limit: Int): BaseDataResponse<PostResponse> = apiCall {
-        api.getPosts("Bearer $token", page, limit)
+    suspend fun getPosts(page: Int, limit: Int): BaseDataResponse<PostResponse> = apiCall {
+        api.getPosts(page, limit)
     }
 }

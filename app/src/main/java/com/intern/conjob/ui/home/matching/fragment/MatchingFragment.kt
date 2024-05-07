@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.OptIn
-import androidx.core.view.isEmpty
 import androidx.core.view.size
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.emitErrorModel
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.PlayerView
@@ -26,7 +24,6 @@ import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
-import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.MainActivity
@@ -34,15 +31,12 @@ import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
-import com.intern.conjob.ui.widget.CustomProgressDialog
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import java.net.HttpURLConnection
 
 class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private val binding by viewBinding(FragmentMatchingBinding::bind)
@@ -51,10 +45,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private var cardView: View? = null
     private var blurView: View? = null
     private var currentPlayerView: PlayerView? = null
-
-    private val progressDialog by lazy {
-        CustomProgressDialog.newInstance()
-    }
 
     companion object {
         fun newInstance() = MatchingFragment()
@@ -69,6 +59,14 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
         binding.imgBtnSearch.setOnClickListener {
             Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnRefreshPost.setOnClickListener {
+            if (viewModel.isGetMorePosts()) {
+                getMorePosts()
+            } else {
+                getPosts()
+            }
         }
 
         viewModel.posts.onEach {
@@ -220,7 +218,11 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             }
         }
         if (binding.cardStackView.size <= CARD_STACK_VIEW_VISIBLE_COUNT - 1) {
-            getPosts()
+            getMorePosts()
+        }
+        if (binding.cardStackView.size == 0) {
+            binding.btnRefreshPost.visibility = View.VISIBLE
+            binding.tvEmpty.visibility = View.VISIBLE
         }
     }
 
@@ -242,30 +244,31 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
     private fun getPosts() {
         viewModel.getPosts().onStart {
+            binding.btnRefreshPost.visibility = View.GONE
             binding.tvEmpty.visibility = View.GONE
-            if (binding.cardStackView.isEmpty()) {
-                progressDialog.show(
-                    childFragmentManager,
-                    CustomProgressDialog::class.java.simpleName
-                )
+        }.onSuccess {
+            if (it.data?.items?.isEmpty() == true) {
+                binding.btnRefreshPost.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.VISIBLE
             }
-        }.onCompletion {
-            binding.tvEmpty.visibility = View.VISIBLE
-            progressDialog.dismissAllowingStateLoss()
-        }.onError { errorModel ->
-            when ((errorModel as? ErrorModel.Http.ApiError)?.code) {
-                //Error 401 -> Get new token
-                HttpURLConnection.HTTP_UNAUTHORIZED.toString() -> {
-                    viewModel.getNewToken().onSuccess {
-                        if (it.data != null) {
-                            getPosts()
-                        }
-                    }.launchIn(lifecycleScope)
-                }
-                else -> {
-                    viewModel.emitErrorModel(errorModel)
-                }
+        }.onError(
+            commonAction = {
+                binding.btnRefreshPost.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.VISIBLE
+            },
+            normalAction = {
+                binding.btnRefreshPost.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.VISIBLE
             }
-        }.launchIn(lifecycleScope)
+        ).launchIn(lifecycleScope)
+    }
+
+    private fun getMorePosts() {
+        if (viewModel.canCallApiGetMorePosts()) {
+            viewModel.getMorePosts().onStart {
+                binding.btnRefreshPost.visibility = View.GONE
+                binding.tvEmpty.visibility = View.GONE
+            }.launchIn(lifecycleScope)
+        }
     }
 }

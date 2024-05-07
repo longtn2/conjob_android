@@ -16,6 +16,4 @@ data class Post(
     @SerializedName("url_file") val url: String,
     @SerializedName("create_at") val createAt: String,
     @SerializedName("likes") val likes: Long,
-    @SerializedName("is_deleted") val isDeleted: Boolean,
-    @SerializedName("is_actived") val isActivated: Boolean,
 )
