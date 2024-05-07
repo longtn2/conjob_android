@@ -39,9 +39,9 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
             // Handle Api error
             var errorMessage: String = errorModel.message ?: ErrorModel.LocalErrorException.UN_KNOW_EXCEPTION.message
             when (errorModel.code) {
-                HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> errorMessage = ErrorMessage.NOT_FOUND_404.message
-                HttpURLConnection.HTTP_NOT_FOUND.toString() -> errorMessage = ErrorMessage.BAD_GATEWAY_502.message
-                HttpURLConnection.HTTP_SERVER_ERROR.toString() -> errorMessage = ErrorMessage.SERVER_ERROR_500.message
+                HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> errorMessage = ErrorMessage.BAD_GATEWAY_502.message
+                HttpURLConnection.HTTP_NOT_FOUND.toString() -> errorMessage = ErrorMessage.NOT_FOUND_404.message
+                HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> errorMessage = ErrorMessage.SERVER_ERROR_500.message
             }
             showErrorAlert(
                 message = errorMessage,
