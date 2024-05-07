@@ -5,7 +5,7 @@ import com.intern.conjob.arch.util.SharedPref
 
 class LocalRepository : Repository() {
     fun saveToken(token: String?, refreshToken: String?) {
-        token?.let { SharedPref.getInstance().saveToken(it) }
-        refreshToken?.let { SharedPref.getInstance().saveRefreshToken(it) }
+        token?.let { SharedPref.saveToken(it) }
+        refreshToken?.let { SharedPref.saveRefreshToken(it) }
     }
 }

@@ -6,6 +6,6 @@ import com.intern.conjob.arch.util.SharedPref
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        SharedPref.getInstance().init(applicationContext)
+        SharedPref.init(applicationContext)
     }
 }

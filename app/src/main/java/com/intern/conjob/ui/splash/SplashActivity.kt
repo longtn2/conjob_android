@@ -11,7 +11,7 @@ import com.intern.conjob.ui.onboarding.OnBoardingActivity
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity(R.layout.activity_splash) {
     override fun initialize() {
-        if (SharedPref.getInstance().getToken().isNotEmpty()) {
+        if (SharedPref.getToken()?.isNotEmpty() == true) {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         } else {
             startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
