@@ -1,6 +1,5 @@
 package com.intern.conjob.ui.home.matching
 
-import androidx.lifecycle.bindLoading
 import com.intern.conjob.arch.extensions.FlowResult
 import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.util.Constants.POST_LIMIT
@@ -23,7 +22,7 @@ class MatchingViewModel(
     var posts: StateFlow<List<Post>> = _posts
 
     private var page = 1
-    private var isLoading: Boolean = false
+    var isLoading: Boolean = false
     private var hasReachedEnd = false
 
     fun canCallApiGetMorePosts(): Boolean {
@@ -41,7 +40,7 @@ class MatchingViewModel(
         _posts.value = listOf()
         return postRepository.getPosts(page, POST_LIMIT).onCompletion {
             isLoading = false
-        }.bindLoading(this).onSuccess {
+        }.onSuccess {
             it.data?.items?.let { items ->
                 _posts.value = items
                 page++

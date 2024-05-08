@@ -6,6 +6,30 @@
     android:background="@color/black"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/matching_post_empty"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fontSize_medium"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/btnRefreshPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/white"
+        android:layout_marginTop="@dimen/margin_12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmpty" />
+
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/cardStackView"
         android:layout_width="match_parent"
@@ -39,21 +63,6 @@
         android:src="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/matching_post_empty"
-        android:textColor="@color/white"
-        android:textSize="@dimen/fontSize_medium"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/btnRefreshPost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:visibility="gone"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRefreshPost"
