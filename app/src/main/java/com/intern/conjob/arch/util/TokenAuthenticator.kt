@@ -1,6 +1,7 @@
 package com.intern.conjob.arch.util
 
 import com.intern.conjob.data.datasource.TokenRemoteDataSource
+import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.Token
 import com.intern.conjob.data.repository.TokenRepository
 import okhttp3.Authenticator
@@ -19,20 +20,25 @@ class TokenAuthenticator: Authenticator {
             }
             return INSTANCE!!
         }
+
+        const val AUTHORIZATION = "Authorization"
+        const val BEARER = "Bearer "
+        const val RETRY_COUNT = "RetryCount"
     }
 
     override fun authenticate(route: Route?, response: Response): Request? {
         val request = response.request
         val retryCount = retryCount(request)
         return synchronized(this) {
-            if (retryCount > 2) return null
+            if (retryCount > 2) return@synchronized null
 
             SharedPref.getToken()?.let { savedToken ->
-                val currentToken = request.header("Authorization")
-                currentToken?.subSequence("Bearer ".length, currentToken.length)
+                val currentToken = request.header(AUTHORIZATION)?.let {
+                    it.subSequence(BEARER.length, it.length)
+                }
 
                 if (currentToken != savedToken) {
-                    getNewRequest(request, retryCount + 1, savedToken)
+                    return@synchronized getNewRequest(request, retryCount + 1, savedToken)
                 }
             }
 
@@ -40,21 +46,27 @@ class TokenAuthenticator: Authenticator {
                 if (tokenRepository == null) {
                     tokenRepository = TokenRepository(TokenRemoteDataSource.getInstance())
                 }
-                tokenRepository!!.refreshToken(Token(it)).data?.token?.let { token ->
-                        getNewRequest(request, retryCount + 1, token)
+
+                try {
+                    tokenRepository!!.refreshToken(Token(it)).data?.token?.let { token ->
+                        SharedPref.saveToken(token)
+                        return@synchronized getNewRequest(request, retryCount + 1, token)
+                    }
+                } catch (e: ErrorModel.Http.ApiError) {
+                    return@synchronized null
                 }
             }
 
-            null
+            return@synchronized null
         }
     }
 
-    private fun retryCount(request: Request): Int = request.header("RetryCount")?.toInt() ?: 0
+    private fun retryCount(request: Request): Int = request.header(RETRY_COUNT)?.toInt() ?: 0
 
     private fun getNewRequest(request: Request, retryCount: Int, token: String): Request {
         return request.newBuilder()
-            .header("Authorization", "Bearer $token")
-            .header("RetryCount", "$retryCount")
+            .header(AUTHORIZATION, BEARER + token)
+            .header(RETRY_COUNT, "$retryCount")
             .build()
     }
 }

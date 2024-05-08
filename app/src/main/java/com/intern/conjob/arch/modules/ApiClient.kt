@@ -21,7 +21,7 @@ open class ApiClient {
             val requestBuilder = original.newBuilder()
                 .method(original.method, original.body)
             val request = requestBuilder
-                .addHeader("Authorization", "Bearer ${SharedPref.getToken()}")
+                .addHeader(TokenAuthenticator.AUTHORIZATION, TokenAuthenticator.BEARER + SharedPref.getToken())
                 .build()
             chain.withConnectTimeout(40, TimeUnit.SECONDS)
                 .withWriteTimeout(40, TimeUnit.SECONDS)
