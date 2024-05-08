@@ -32,15 +32,16 @@ class TokenAuthenticator: Authenticator {
                 currentToken?.subSequence("Bearer ".length, currentToken.length)
 
                 if (currentToken != savedToken) {
-                    getNewRequest(request, retryCount, savedToken)
+                    getNewRequest(request, retryCount + 1, savedToken)
                 }
             }
+
             SharedPref.getRefreshToken()?.let {
                 if (tokenRepository == null) {
                     tokenRepository = TokenRepository(TokenRemoteDataSource.getInstance())
                 }
                 tokenRepository!!.refreshToken(Token(it)).data?.token?.let { token ->
-                        getNewRequest(request, retryCount, token)
+                        getNewRequest(request, retryCount + 1, token)
                 }
             }
 
