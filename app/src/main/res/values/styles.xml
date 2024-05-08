@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabTextColor">@color/font_color</item>
+        <item name="tabIconTint">@color/bottom_bar_color</item>
+        <item name="tabIndicator">@drawable/custom_tab_indicator</item>
+        <item name="tabIndicatorColor">@color/red50</item>
+        <item name="tabBackground">@color/white</item>
+        <item name="tabIndicatorHeight">@dimen/bottom_tab_indicator_height</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorGravity">center</item>
+        <item name="tabRippleColor">@color/transparent</item>
+    </style>
+</resources>

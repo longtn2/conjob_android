@@ -2,6 +2,7 @@
     <string name="app_name">ConJob</string>
     <string name="app">ConJob</string>
     <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
 
     <!-- Toast -->
     <string name="toast_login">Login</string>
@@ -26,6 +27,7 @@
     <string name="description_date_picker">Date picker</string>
     <string name="description_login_facebook">Login Facebook</string>
     <string name="description_login_google">Login Google</string>
+    <string name="description_avatar">avatar</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
@@ -73,4 +75,10 @@
     <string name="send_code">Send Code</string>
     <string name="forgot_password_detail">Don\'t worry! It occurs. Please enter the email address linked with your account.</string>
 
+    <!--Bottom Tab Bar-->
+    <string name="tab_home">Home</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_post">Post</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="tab_profile">Profile</string>
 </resources>

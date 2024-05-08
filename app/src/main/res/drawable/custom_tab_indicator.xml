@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:end="@dimen/bottom_tab_indicator_inset"
+        android:start="@dimen/bottom_tab_indicator_inset">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/bottom_tab_indicator_corner_radius" />
+        </shape>
+    </item>
+</layer-list>
