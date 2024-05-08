@@ -106,6 +106,7 @@
     <string name="matching_skip">Lướt qua trái để bỏ qua</string>
     <string name="matching_post_empty">Không có bài đăng nào :(</string>
     <string name="matching_post_refresh">Làm mới</string>
+    <string name="matching_post_loading">Đang tìm kiếm…</string>
 
     <!--Post Details-->
     <string name="post_detail_user_name">MonstarTV</string>

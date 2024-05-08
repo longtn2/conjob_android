@@ -14,7 +14,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.PlayerView
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
-import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
@@ -58,7 +57,8 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         initCardStackView()
 
         binding.imgBtnSearch.setOnClickListener {
-            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT)
+                .show()
         }
 
         binding.btnRefreshPost.setOnClickListener {
@@ -74,7 +74,8 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         controller.currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
-            CLOSE_DETAILS_VIEW_KEY)
+            CLOSE_DETAILS_VIEW_KEY
+        )
             ?.observe(viewLifecycleOwner) {
                 currentPlayerView?.player = VideoPlayer.player
             }
@@ -220,10 +221,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         if (binding.cardStackView.size <= CARD_STACK_VIEW_VISIBLE_COUNT - 1) {
             getMorePosts()
         }
-        if (binding.cardStackView.size == 0) {
-            binding.btnRefreshPost.visibility = View.VISIBLE
-            binding.tvEmpty.visibility = View.VISIBLE
-        }
+        showEmptyPost()
     }
 
     private fun renderBlurEffect(isShow: Boolean) {
@@ -244,21 +242,13 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
     private fun getPosts() {
         viewModel.getPosts().onStart {
-            binding.btnRefreshPost.visibility = View.GONE
-            binding.tvEmpty.visibility = View.GONE
-        }.onSuccess {
-            if (it.data?.items?.isEmpty() == true) {
-                binding.btnRefreshPost.visibility = View.VISIBLE
-                binding.tvEmpty.visibility = View.VISIBLE
-            }
+            showLoadingPost()
         }.onError(
             commonAction = {
-                binding.btnRefreshPost.visibility = View.VISIBLE
-                binding.tvEmpty.visibility = View.VISIBLE
+                showEmptyPost()
             },
             normalAction = {
-                binding.btnRefreshPost.visibility = View.VISIBLE
-                binding.tvEmpty.visibility = View.VISIBLE
+                showEmptyPost()
             }
         ).launchIn(lifecycleScope)
     }
@@ -266,9 +256,29 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private fun getMorePosts() {
         if (viewModel.canCallApiGetMorePosts()) {
             viewModel.getMorePosts().onStart {
-                binding.btnRefreshPost.visibility = View.GONE
-                binding.tvEmpty.visibility = View.GONE
-            }.launchIn(lifecycleScope)
+                showLoadingPost()
+            }.onError(
+                commonAction = {
+                    showEmptyPost()
+                },
+                normalAction = {
+                    showEmptyPost()
+                }
+            ).launchIn(lifecycleScope)
         }
+    }
+
+    private fun showEmptyPost() {
+        if (binding.cardStackView.size == 0 && !viewModel.isLoading) {
+            binding.btnRefreshPost.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+            binding.tvEmpty.text = getString(R.string.matching_post_empty)
+        }
+    }
+
+    private fun showLoadingPost() {
+        binding.btnRefreshPost.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.tvEmpty.text = getString(R.string.matching_post_loading)
     }
 }
