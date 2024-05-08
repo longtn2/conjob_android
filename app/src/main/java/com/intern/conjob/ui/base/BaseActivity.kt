@@ -18,6 +18,8 @@ import com.intern.conjob.arch.extensions.showErrorAlert
 import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.ui.widget.CustomProgressDialog
 import com.intern.conjob.R
+import com.intern.conjob.arch.util.ErrorMessage
+import java.net.HttpURLConnection
 
 /**
  *
@@ -35,6 +37,17 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
         //Handle Logic
         if (errorModel is ErrorModel.Http.ApiError) {
             // Handle Api error
+            var errorMessage: String = errorModel.message ?: ErrorModel.LocalErrorException.UN_KNOW_EXCEPTION.message
+            when (errorModel.code) {
+                HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> errorMessage = ErrorMessage.BAD_GATEWAY_502.message
+                HttpURLConnection.HTTP_NOT_FOUND.toString() -> errorMessage = ErrorMessage.NOT_FOUND_404.message
+                HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> errorMessage = ErrorMessage.SERVER_ERROR_500.message
+            }
+            showErrorAlert(
+                message = errorMessage,
+                buttonTitleRes = R.string.OK, onOkClicked = {
+                }
+            )
         } else if (errorModel is ErrorModel.LocalError) {
             showErrorAlert(
                 message = (errorModel as? ErrorModel.LocalError)?.errorMessage.toString(),

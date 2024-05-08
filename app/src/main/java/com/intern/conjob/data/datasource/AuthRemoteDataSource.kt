@@ -4,6 +4,7 @@ import com.intern.conjob.arch.extensions.apiCall
 import com.intern.conjob.arch.modules.ApiClient
 import com.intern.conjob.data.APIService
 import com.intern.conjob.data.model.LoginUser
+import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.LoginResponse
 
@@ -31,5 +32,9 @@ class AuthRemoteDataSource(
 
     suspend fun forgotPassword(email: String): BaseResponse = apiCall {
         api.forgotPassword(email)
+    }
+
+    suspend fun register(registerUser: RegisterUser): BaseResponse = apiCall {
+        api.register(registerUser)
     }
 }
