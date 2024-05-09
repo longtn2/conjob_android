@@ -57,13 +57,19 @@ class PostDetailFragment : BaseFragment(R.layout.fragment_post_details) {
             TabLayoutMediator(tabLayoutPost, viewPagerPost, true) { tab, _ ->
                 tab.icon = getDrawable(activity as MainActivity, R.drawable.custom_tab_selector)
             }.attach()
-            tabLayoutPost.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            tabLayoutPost.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     val post = tab?.position?.let { adapter?.posts?.get(it) }
                     post?.createAt?.let {
-                        tvPostDate.text = getString(R.string.post_detail_create_date, SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
-                            SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                        } ?: "")
+                        tvPostDate.text = getString(
+                            R.string.post_detail_create_date,
+                            SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)
+                                ?.let { it1 ->
+                                    SimpleDateFormat(
+                                        Constants.POST_VIEW_DATE_FORMAT,
+                                        Locale.US
+                                    ).format(it1)
+                                } ?: "")
                     }
                     tvTotalInteract.text = post?.likes?.format()
                     tvCaption.text = post?.caption
@@ -117,13 +123,19 @@ class PostDetailFragment : BaseFragment(R.layout.fragment_post_details) {
 
             btnApply.setOnClickListener {
                 VideoPlayer.removePostDetailVideo()
-                controller.previousBackStackEntry?.savedStateHandle?.set(CLOSE_DETAILS_VIEW_KEY, APPLY_BUTTON_PRESSED)
+                controller.previousBackStackEntry?.savedStateHandle?.set(
+                    CLOSE_DETAILS_VIEW_KEY,
+                    APPLY_BUTTON_PRESSED
+                )
                 controller.popBackStack()
             }
 
             btnSkip.setOnClickListener {
                 VideoPlayer.removePostDetailVideo()
-                controller.previousBackStackEntry?.savedStateHandle?.set(CLOSE_DETAILS_VIEW_KEY, SKIP_BUTTON_PRESSED)
+                controller.previousBackStackEntry?.savedStateHandle?.set(
+                    CLOSE_DETAILS_VIEW_KEY,
+                    SKIP_BUTTON_PRESSED
+                )
                 controller.popBackStack()
             }
         }
@@ -134,21 +146,23 @@ class PostDetailFragment : BaseFragment(R.layout.fragment_post_details) {
             tvCaption.text = args.post.caption
             Glide.with(activity as MainActivity).load(args.post.avatar)
                 .override((activity as MainActivity).convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE))
-                .fitCenter()
-                .into(imgAvatar)
+                .fitCenter().into(imgAvatar)
             args.post.createAt?.let {
-                tvPostDate.text = getString(R.string.post_detail_create_date, SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
-                    SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                } ?: "")
+                tvPostDate.text = getString(
+                    R.string.post_detail_create_date,
+                    SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
+                        SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
+                    } ?: "")
             }
             tvUserName.text = args.post.author
             tvJob.text = args.post.job?.title
             tvJobDescription.text = args.post.job?.description
             tvTotalInteract.text = args.post.likes.format()
             args.post.job?.expiredDay?.let {
-                tvTime.text = SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
-                    SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                } ?: ""
+                tvTime.text =
+                    SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
+                        SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
+                    } ?: ""
             }
             tvLocation.text = args.post.job?.location
             tvBudget.text = args.post.job?.budget?.format() ?: ""

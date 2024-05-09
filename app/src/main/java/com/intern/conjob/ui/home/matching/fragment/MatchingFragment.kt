@@ -217,10 +217,10 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                     }
                 }
             })
-        cardLayoutManager!!.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
-        cardLayoutManager!!.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
-        cardLayoutManager!!.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
-        cardLayoutManager!!.setDirections(Direction.HORIZONTAL)
+        cardLayoutManager?.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
+        cardLayoutManager?.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
+        cardLayoutManager?.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
+        cardLayoutManager?.setDirections(Direction.HORIZONTAL)
         binding.cardStackView.layoutManager = cardLayoutManager
         binding.cardStackView.adapter = adapter
     }
