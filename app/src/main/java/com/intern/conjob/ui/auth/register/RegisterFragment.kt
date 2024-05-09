@@ -1,4 +1,4 @@
-package com.intern.conjob.ui.auth.register.fragment
+package com.intern.conjob.ui.auth.register
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.emitErrorModel
 import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
@@ -24,7 +23,7 @@ import com.intern.conjob.arch.util.isValidPhone
 import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.databinding.FragmentRegisterBinding
-import com.intern.conjob.ui.auth.register.RegisterViewModel
+import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.onboarding.OnBoardingActivity
@@ -49,30 +48,33 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private fun initListener() {
         binding.apply {
             btnContinue.setOnClickListener {
-                viewModel.register(RegisterUser(
-                    edtPassword.text.toString(),
-                    edtFirstName.text.toString(),
-                    edtLastName.text.toString(),
-                    edtEmail.text.toString(),
-                    edtPhone.text.toString(),
-                    getGenderString(),
-                    SimpleDateFormat(DATE_FORMAT, Locale.US).format(calendar.time),
-                    edtAddress.text.toString(),
-                )).onSuccess {
-                    Toast.makeText(activity, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
+                viewModel.register(
+                    RegisterUser(
+                        edtPassword.text.toString(),
+                        edtFirstName.text.toString(),
+                        edtLastName.text.toString(),
+                        edtEmail.text.toString(),
+                        edtPhone.text.toString(),
+                        getGenderString(),
+                        SimpleDateFormat(DATE_FORMAT, Locale.US).format(calendar.time),
+                        edtAddress.text.toString(),
+                    )
+                ).onSuccess {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.register_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     controller.navigate(R.id.action_RegisterFragment_to_LoginFragment)
-                }.onError(
-                    normalAction = {
-                        if ((it as ErrorModel.Http.ApiError).code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
-                            txtInputLayoutEmail.error = it.message
-                        } else {
-                            viewModel.emitErrorModel(it)
-                        }
-                    },
-                    commonAction = {
-                        viewModel.emitErrorModel(it)
+                }.onError(normalAction = {
+                    if ((it as ErrorModel.Http.ApiError).code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
+                        txtInputLayoutEmail.error = it.message
+                    } else {
+                        (activity as MainActivity).handleCommonError(it)
                     }
-                ).launchIn(lifecycleScope)
+                }, commonAction = {
+                    (activity as MainActivity).handleCommonError(it)
+                }).launchIn(lifecycleScope)
             }
 
             imgBtnBackArrow.setOnClickListener {
@@ -92,13 +94,10 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private fun isEnableButton() {
         binding.apply {
             btnContinue.isEnabled =
-                (edtFirstName.text.toString().isValidName() &&
-                 edtLastName.text.toString().isValidName() &&
-                 edtPhone.text.toString().isValidPhone() &&
-                 !edtBirthday.text.isNullOrEmpty() &&
-                 !edtAddress.text.isNullOrEmpty() &&
-                 edtEmail.text.toString().isValidEmail() &&
-                 edtPassword.text.toString().isValidPassword())
+                (edtFirstName.text.toString().isValidName() && edtLastName.text.toString()
+                    .isValidName() && edtPhone.text.toString()
+                    .isValidPhone() && !edtBirthday.text.isNullOrEmpty() && !edtAddress.text.isNullOrEmpty() && edtEmail.text.toString()
+                    .isValidEmail() && edtPassword.text.toString().isValidPassword())
         }
     }
 
@@ -106,21 +105,24 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         binding.apply {
             edtFirstName.doAfterTextChanged {
                 isEnableButton()
-                txtInputLayoutFirstName.error = if (it.isNullOrEmpty()) getString(R.string.validate_first_name_null)
+                txtInputLayoutFirstName.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_first_name_null)
                     else getString(R.string.validate_first_name)
                 txtInputLayoutFirstName.isErrorEnabled = !it.toString().isValidName()
             }
 
             edtLastName.doAfterTextChanged {
                 isEnableButton()
-                txtInputLayoutLastName.error = if (it.isNullOrEmpty()) getString(R.string.validate_last_name_null)
+                txtInputLayoutLastName.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_last_name_null)
                     else getString(R.string.validate_last_name)
                 txtInputLayoutLastName.isErrorEnabled = !it.toString().isValidName()
             }
 
             edtPhone.doAfterTextChanged {
                 isEnableButton()
-                txtInputLayoutPhone.error = if (it.isNullOrEmpty()) getString(R.string.validate_phone_null)
+                txtInputLayoutPhone.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_phone_null)
                     else getString(R.string.validate_phone)
                 txtInputLayoutPhone.isErrorEnabled = !it.toString().isValidPhone()
             }
@@ -129,7 +131,8 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
             edtEmail.doAfterTextChanged {
                 isEnableButton()
-                txtInputLayoutEmail.error = if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
+                txtInputLayoutEmail.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_email_null)
                     else getString(R.string.validate_email)
                 txtInputLayoutEmail.isErrorEnabled = !it.toString().isValidEmail()
             }
@@ -144,7 +147,8 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
             edtPassword.doAfterTextChanged {
                 isEnableButton()
-                txtInputLayoutPassword.error = if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
+                txtInputLayoutPassword.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_password_null)
                     else getString(R.string.validate_password_require)
                 txtInputLayoutPassword.isErrorEnabled = !it.toString().isValidPassword()
             }

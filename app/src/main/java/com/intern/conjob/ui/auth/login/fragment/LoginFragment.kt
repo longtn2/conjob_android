@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.emitErrorModel
 import androidx.lifecycle.lifecycleScope
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
@@ -39,7 +38,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         binding.apply {
             btnLogin.isEnabled =
                 (edtEmail.text.toString().isValidEmail() &&
-                 edtPassword.text.toString().isValidPassword())
+                        edtPassword.text.toString().isValidPassword())
         }
     }
 
@@ -56,7 +55,12 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                         edtEmail.text.toString()
                     )
                 ).onSuccess {
-                    (activity as OnBoardingActivity).startActivity(Intent(context, MainActivity::class.java))
+                    (activity as OnBoardingActivity).startActivity(
+                        Intent(
+                            context,
+                            MainActivity::class.java
+                        )
+                    )
                     (activity as OnBoardingActivity).finish()
                 }.onError(
                     commonAction = {
@@ -64,11 +68,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                             tvLoginValidate.visibility = View.VISIBLE
                             tvLoginValidate.text = it.message
                         } else {
-                            viewModel.emitErrorModel(it)
+                            (activity as MainActivity).handleCommonError(it)
                         }
                     },
                     normalAction = {
-                        viewModel.emitErrorModel(it)
+                        (activity as MainActivity).handleCommonError(it)
                     }
                 ).launchIn(lifecycleScope)
             }
@@ -78,11 +82,19 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
 
             btnGoogle.setOnClickListener {
-                Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_google_login), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity as OnBoardingActivity,
+                    getString(R.string.toast_google_login),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             btnFacebook.setOnClickListener {
-                Toast.makeText(activity as OnBoardingActivity, getString(R.string.toast_facebook_login), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity as OnBoardingActivity,
+                    getString(R.string.toast_facebook_login),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             btnRegister.setOnClickListener {

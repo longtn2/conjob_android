@@ -6,6 +6,7 @@ import com.intern.conjob.arch.extensions.safeFlow
 import com.intern.conjob.data.datasource.AuthRemoteDataSource
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
+import com.intern.conjob.data.model.Token
 import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.LoginResponse
@@ -22,5 +23,9 @@ class AuthRepository(private val authRemoteDataSource: AuthRemoteDataSource) : R
 
     fun register(registerUser: RegisterUser): Flow<FlowResult<BaseResponse>> = safeFlow {
         authRemoteDataSource.register(registerUser)
+    }
+
+    fun logout(token: Token): Flow<FlowResult<BaseResponse>> = safeFlow {
+        authRemoteDataSource.logout(token)
     }
 }
