@@ -41,7 +41,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private val binding by viewBinding(FragmentMatchingBinding::bind)
     private val viewModel by viewModels<MatchingViewModel>()
     private var adapter: PostAdapter? = null
-    private var cardView: View? = null
     private var blurView: View? = null
     private var currentPlayerView: PlayerView? = null
 
@@ -153,7 +152,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
 
                 override fun onCardSwiped(direction: Direction?) {
-                    cardSwiped()
+                    cardSwiped(direction)
                 }
 
                 override fun onCardRewound() = Unit
@@ -166,9 +165,8 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
 
                 override fun onCardAppeared(view: View?, position: Int) {
-                    cardView = view
-                    cardView?.let { cv ->
-                        val cardViewBinding = ItemPostBinding.bind(cv)
+                    view?.let { cardView ->
+                        val cardViewBinding = ItemPostBinding.bind(cardView)
                         blurView = cardViewBinding.constraintLayout
                         adapter?.let {
                             if (it.posts[position].type == FileType.VIDEO.type) {
@@ -184,7 +182,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                     currentPlayerView?.player = null
                     renderBlurEffect(false)
                     adapter?.let {
-                        if (adapter!!.posts[position].type == FileType.VIDEO.type) {
+                        if (it.posts[position].type == FileType.VIDEO.type) {
                             VideoPlayer.player?.currentMediaItemIndex?.let { index ->
                                 VideoPlayer.player?.removeMediaItem(index)
                             }
@@ -202,21 +200,25 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         binding.cardStackView.adapter = adapter
     }
 
-    private fun cardSwiped() {
-        cardView?.let {
-            if (cardView!!.x < 0) {
-                Toast.makeText(
-                    activity as MainActivity,
-                    getString(R.string.toast_matching_skip),
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
+    private fun cardSwiped(direction: Direction?) {
+        when (direction) {
+            Direction.Right -> {
                 Toast.makeText(
                     activity as MainActivity,
                     getString(R.string.toast_matching_accept),
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+            Direction.Left -> {
+                Toast.makeText(
+                    activity as MainActivity,
+                    getString(R.string.toast_matching_skip),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else -> Unit
         }
         if (binding.cardStackView.size <= CARD_STACK_VIEW_VISIBLE_COUNT - 1) {
             getMorePosts()
