@@ -3,6 +3,7 @@
     <string name="app">ConJob</string>
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
+    <string name="empty">Trống</string>
 
     <!-- Toast -->
     <string name="toast_google_login">Google Login</string>
@@ -15,6 +16,9 @@
     <string name="toast_matching_accept">Accept</string>
     <string name="toast_matching_skip">Skip</string>
     <string name="toast_post_detail_more">More</string>
+    <string name="toast_settings">Settings</string>
+    <string name="toast_avatar">Change Avatar</string>
+    <string name="toast_edit_profile">Edit Profile</string>
 
     <!-- Hint Text -->
     <string name="hint_email">Enter your Email</string>
@@ -33,6 +37,7 @@
     <string name="description_login_facebook">Login Facebook</string>
     <string name="description_login_google">Login Google</string>
     <string name="description_avatar">avatar</string>
+    <string name="description_cover">cover image</string>
     <string name="description_interact">interact</string>
     <string name="description_comment">comment</string>
     <string name="description_share">share</string>
@@ -42,6 +47,7 @@
     <string name="description_matching_skip">Skip</string>
     <string name="description_more_vert_icon">more</string>
     <string name="description_video_play_pause">Play/Pause</string>
+    <string name="description_settings">settings</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
@@ -109,7 +115,6 @@
     <string name="matching_post_loading">Đang tìm kiếm…</string>
 
     <!--Post Details-->
-    <string name="post_detail_user_name">MonstarTV</string>
     <string name="post_detail_create_date">Ngày đăng: %1$s</string>
     <string name="post_detail_content">Hello mọi người, đây là trang tuyển dụng của công ty mình. Mọi người thấy hứng thú thì apply vào công ty mình nhé! ^^</string>
     <string name="post_detail_job_title"><b>Tên job:</b></string>
@@ -126,4 +131,15 @@
     <string name="post_detail_location">Không xác định</string>
     <string name="button_apply">Ứng tuyển</string>
     <string name="button_skip">Bỏ qua</string>
+
+    <!--Profile-->
+    <string name="user_name">%1$s %2$s</string>
+    <string name="profile_phone_number"><b>Số điện thoại: </b> ***********</string>
+    <string name="profile_date_of_birth"><b>Ngày sinh: </b> ***********</string>
+    <string name="profile_address"><b>Địa chỉ: </b> ***********</string>
+    <string name="profile_edit">Chỉnh sửa thông tin cá nhân</string>
+
+    <!--Settings-->
+    <string name="settings_title"><b>Cài đặt</b></string>
+    <string name="logout">Đăng xuất</string>
 </resources>
