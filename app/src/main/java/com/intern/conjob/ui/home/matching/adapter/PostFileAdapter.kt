@@ -64,10 +64,12 @@ class PostFileAdapter : RecyclerView.Adapter<PostFileAdapter.FileViewHolder>() {
                     videoPost.visibility = View.VISIBLE
                     imgPost.visibility = View.GONE
                     if (position != 0) {
-                        VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                        mediaItemIndex = VideoPlayer.player?.mediaItemCount!! - 1
-                        VideoPlayer.postDetailVideos.add(mediaItemIndex)
-                        VideoPlayer.player?.prepare()
+                        VideoPlayer.player?.let { player ->
+                            player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                            mediaItemIndex = player.mediaItemCount - 1
+                            VideoPlayer.postDetailVideos.add(mediaItemIndex)
+                            player.prepare()
+                        }
                     }
                 }
             }
@@ -77,7 +79,7 @@ class PostFileAdapter : RecyclerView.Adapter<PostFileAdapter.FileViewHolder>() {
         fun addPlayer() {
             if (binding.videoPost.visibility == View.VISIBLE) {
                 binding.videoPost.player = VideoPlayer.player
-                if (!VideoPlayer.player?.isPlaying!!) {
+                if (VideoPlayer.player?.isPlaying == false) {
                     VideoPlayer.player?.seekTo(mediaItemIndex, 0)
                     VideoPlayer.player?.play()
                 }

@@ -27,7 +27,9 @@ class PostDetailViewModel(
 
     fun getPostsByJobID(jobId: Long): Flow<FlowResult<BaseDataResponse<JobResponse>>> {
         return postRepository.getPostsByJobID(jobId).onSuccess {
-            _posts.value = it.data?.posts!!
+            it.data?.posts?.let { posts ->
+                _posts.value = posts
+            }
         }
     }
 }
