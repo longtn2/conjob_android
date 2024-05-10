@@ -20,9 +20,15 @@ open class ApiClient {
             val original = chain.request()
             val requestBuilder = original.newBuilder()
                 .method(original.method, original.body)
-            val request = requestBuilder
-                .addHeader(TokenAuthenticator.AUTHORIZATION, TokenAuthenticator.BEARER + SharedPref.getToken())
-                .build()
+
+            val request = if (original.url.toString().contains(BuildConfig.API_URL)) {
+                requestBuilder
+                    .addHeader(TokenAuthenticator.AUTHORIZATION, TokenAuthenticator.BEARER + SharedPref.getToken())
+                    .build()
+            } else {
+                requestBuilder.build()
+            }
+
             chain.withConnectTimeout(40, TimeUnit.SECONDS)
                 .withWriteTimeout(40, TimeUnit.SECONDS)
                 .withReadTimeout(40, TimeUnit.SECONDS)
