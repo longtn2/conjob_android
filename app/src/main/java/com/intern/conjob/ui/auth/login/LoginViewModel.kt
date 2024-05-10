@@ -19,8 +19,8 @@ class LoginViewModel(
     fun login(loginUser: LoginUser): Flow<FlowResult<BaseDataResponse<LoginResponse>>> =
         loginRepository.login(loginUser).bindLoading(this).onSuccess {
             LocalRepository().saveToken(
-                it.data!!.token,
-                it.data.refreshToken
+                it.data?.token,
+                it.data?.refreshToken
             )
         }
 }
