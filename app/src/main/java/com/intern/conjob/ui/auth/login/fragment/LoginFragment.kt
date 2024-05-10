@@ -68,11 +68,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                             tvLoginValidate.visibility = View.VISIBLE
                             tvLoginValidate.text = it.message
                         } else {
-                            (activity as MainActivity).handleCommonError(it)
+                            (activity as OnBoardingActivity).handleCommonError(it)
                         }
                     },
                     normalAction = {
-                        (activity as MainActivity).handleCommonError(it)
+                        (activity as OnBoardingActivity).handleCommonError(it)
                     }
                 ).launchIn(lifecycleScope)
             }

@@ -12,14 +12,14 @@ import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.isValidEmail
 import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.databinding.FragmentForgotPasswordBinding
-import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.auth.login.ForgotPasswordViewModel
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
+import com.intern.conjob.ui.onboarding.OnBoardingActivity
 import kotlinx.coroutines.flow.launchIn
 import java.net.HttpURLConnection
 
-class ForgotPasswordFragment: BaseFragment(R.layout.fragment_forgot_password) {
+class ForgotPasswordFragment : BaseFragment(R.layout.fragment_forgot_password) {
     private val binding by viewBinding(FragmentForgotPasswordBinding::bind)
     private val viewModel by viewModels<ForgotPasswordViewModel>()
 
@@ -44,11 +44,11 @@ class ForgotPasswordFragment: BaseFragment(R.layout.fragment_forgot_password) {
                             if ((it as? ErrorModel.Http.ApiError)?.code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
                                 txtInputLayoutEmail.error = it.message
                             } else {
-                                (activity as MainActivity).handleCommonError(it)
+                                (activity as OnBoardingActivity).handleCommonError(it)
                             }
                         },
                         commonAction = {
-                            (activity as MainActivity).handleCommonError(it)
+                            (activity as OnBoardingActivity).handleCommonError(it)
                         }
                     ).launchIn(lifecycleScope)
             }

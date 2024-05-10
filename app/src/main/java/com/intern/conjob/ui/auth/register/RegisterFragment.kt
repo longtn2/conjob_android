@@ -23,7 +23,6 @@ import com.intern.conjob.arch.util.isValidPhone
 import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.databinding.FragmentRegisterBinding
-import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.onboarding.OnBoardingActivity
@@ -70,10 +69,10 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                     if ((it as ErrorModel.Http.ApiError).code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
                         txtInputLayoutEmail.error = it.message
                     } else {
-                        (activity as MainActivity).handleCommonError(it)
+                        (activity as OnBoardingActivity).handleCommonError(it)
                     }
                 }, commonAction = {
-                    (activity as MainActivity).handleCommonError(it)
+                    (activity as OnBoardingActivity).handleCommonError(it)
                 }).launchIn(lifecycleScope)
             }
 
