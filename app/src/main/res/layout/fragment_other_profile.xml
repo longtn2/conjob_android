@@ -14,7 +14,7 @@
             android:layout_height="@dimen/layout_height_0dp"
             android:contentDescription="@string/description_cover"
             android:scaleType="centerCrop"
-            android:src="@drawable/avatar"
+            android:src="@color/red700"
             app:layout_constraintDimensionRatio="20:12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,23 @@
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
                     android:text="@string/profile_phone_number"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:text="@string/profile_gender"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_email"
                     android:textSize="@dimen/fontSize_small" />
 
             </LinearLayout>

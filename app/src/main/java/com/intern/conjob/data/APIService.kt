@@ -10,6 +10,7 @@ import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.PostResponse
 import com.intern.conjob.data.response.TokenResponse
 import com.intern.conjob.data.response.TrendingResponse
+import com.intern.conjob.data.response.UserInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -35,6 +36,14 @@ interface APIService {
 
     @POST("auth/logout")
     suspend fun logout(@Body token: Token): Response<BaseResponse>
+
+    @GET("user/info/{id}")
+    suspend fun getUserInfo(
+        @Path("id") id: Long
+    ): Response<BaseDataResponse<UserInfoResponse>>
+
+    @GET("user/profile")
+    suspend fun getProfile(): Response<BaseDataResponse<UserInfoResponse>>
 
     @GET("post/matching")
     suspend fun getPosts(
