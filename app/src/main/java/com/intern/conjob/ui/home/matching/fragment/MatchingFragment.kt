@@ -1,5 +1,6 @@
 package com.intern.conjob.ui.home.matching.fragment
 
+import android.content.Intent
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
@@ -20,9 +21,11 @@ import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
 import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
+import com.intern.conjob.arch.util.ErrorMessage
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
+import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.MainActivity
@@ -30,12 +33,15 @@ import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
+import com.intern.conjob.ui.onboarding.OnBoardingActivity
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import java.net.HttpURLConnection
 
 class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private val binding by viewBinding(FragmentMatchingBinding::bind)
@@ -176,6 +182,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                             }
                         }
                     }
+                    binding.btnRefreshPost.visibility = View.GONE
                 }
 
                 override fun onCardDisappeared(view: View?, position: Int) {
@@ -245,12 +252,14 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private fun getPosts() {
         viewModel.getPosts().onStart {
             showLoadingPost()
+        }.onCompletion {
+            showEmptyPost()
         }.onError(
             commonAction = {
-                showEmptyPost()
+                handleGetPostError(it)
             },
             normalAction = {
-                showEmptyPost()
+                handleGetPostError(it)
             }
         ).launchIn(lifecycleScope)
     }
@@ -259,12 +268,14 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         if (viewModel.canCallApiGetMorePosts()) {
             viewModel.getMorePosts().onStart {
                 showLoadingPost()
+            }.onCompletion {
+                showEmptyPost()
             }.onError(
                 commonAction = {
-                    showEmptyPost()
+                    handleGetPostError(it)
                 },
                 normalAction = {
-                    showEmptyPost()
+                    handleGetPostError(it)
                 }
             ).launchIn(lifecycleScope)
         }
@@ -274,7 +285,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         if (binding.cardStackView.size == 0 && !viewModel.isLoading) {
             binding.btnRefreshPost.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
-            binding.tvEmpty.text = getString(R.string.matching_post_empty)
         }
     }
 
@@ -282,5 +292,23 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         binding.btnRefreshPost.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
         binding.tvEmpty.text = getString(R.string.matching_post_loading)
+    }
+
+    private fun handleGetPostError(errorModel: ErrorModel) {
+        if (errorModel is ErrorModel.Http.ApiError) {
+            when (errorModel.code) {
+                HttpURLConnection.HTTP_UNAUTHORIZED.toString() -> {
+                    (activity as MainActivity).startActivity(Intent(activity as MainActivity, OnBoardingActivity::class.java))
+                    (activity as MainActivity).finish()
+                }
+                HttpURLConnection.HTTP_FORBIDDEN.toString() -> binding.tvEmpty.text = ErrorMessage.VERIFY_EMAIL_FORBIDDEN_403.message
+                HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> binding.tvEmpty.text = ErrorMessage.SERVER_ERROR_500.message
+                else -> {
+                    binding.tvEmpty.text = getString(R.string.matching_post_empty)
+                }
+            }
+        } else if (errorModel is ErrorModel.LocalError) {
+            binding.tvEmpty.text = errorModel.errorMessage
+        }
     }
 }
