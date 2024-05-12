@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.convertDpToPx
-import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.ProfileTabItem
@@ -22,6 +21,7 @@ import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.home.profile.adapter.ProfileTabAdapter
 import com.intern.conjob.ui.home.profile.ProfileViewModel
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -39,26 +39,29 @@ class ProfileFragment: BaseFragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
         initListener()
-        viewModel.getUserProfile().onSuccess {
+
+        viewModel.user.onEach { data ->
             binding.apply {
-                it.data?.let { data ->
-                    tvUserName.text = getString(R.string.user_name, data.lastName, data.firstName)
-                    tvPhone.text = HtmlCompat.fromHtml(getString(R.string.profile_phone_number_data, data.phoneNumber), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvAddress.text = HtmlCompat.fromHtml(getString(R.string.profile_address_data, data.address), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvDob.text = HtmlCompat.fromHtml(getString(R.string.profile_date_of_birth_data, data.dob?.let { dob ->
-                        SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).parse(dob)?.let { it1 ->
-                            SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                        }
-                    } ?: ""), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvGender.text = HtmlCompat.fromHtml(getString(R.string.profile_gender_data, data.gender), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvEmail.text = HtmlCompat.fromHtml(getString(R.string.profile_email_data, data.email), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    val imageSize = (activity as MainActivity).convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
-                    Glide.with(activity as MainActivity).load(data.avatar)
-                        .override(imageSize)
-                        .into(imgAvatar)
-                }
+                tvUserName.text = getString(R.string.user_name, data.lastName, data.firstName)
+                tvPhone.text = HtmlCompat.fromHtml(getString(R.string.profile_phone_number_data, data.phoneNumber), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvAddress.text = HtmlCompat.fromHtml(getString(R.string.profile_address_data, data.address), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvDob.text = HtmlCompat.fromHtml(getString(R.string.profile_date_of_birth_data, data.dob?.let { dob ->
+                    SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).parse(dob)?.let { it1 ->
+                        SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
+                    }
+                } ?: ""), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvGender.text = HtmlCompat.fromHtml(getString(R.string.profile_gender_data, data.gender), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                tvEmail.text = HtmlCompat.fromHtml(getString(R.string.profile_email_data, data.email), HtmlCompat.FROM_HTML_MODE_COMPACT)
+                val imageSize = (activity as MainActivity).convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
+                Glide.with(activity as MainActivity).load(data.avatar)
+                    .override(imageSize)
+                    .into(imgAvatar)
             }
         }.launchIn(lifecycleScope)
+
+        if (!viewModel.getUserFromLocal()) {
+            viewModel.getUserProfile().launchIn(lifecycleScope)
+        }
     }
 
     private fun initViewPager() {
