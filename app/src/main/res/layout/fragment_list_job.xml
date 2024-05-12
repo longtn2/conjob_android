@@ -25,7 +25,7 @@
         android:drawablePadding="@dimen/padding_8dp"
         android:gravity="center_vertical"
         android:padding="@dimen/padding_12dp"
-        android:text="@string/select_job"
+        android:text="@string/create_job_title"
         android:textSize="@dimen/fontSize_small"
         app:drawableStartCompat="@drawable/ic_plus_light" />
 
