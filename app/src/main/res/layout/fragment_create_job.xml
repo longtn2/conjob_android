@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray50"
+        android:elevation="@dimen/item_matching_card_elevation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:title="@string/create_job_title"
+        app:titleCentered="true">
+
+        <TextView
+            android:id="@+id/tvCreateJob"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_48dp"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:enabled="false"
+            android:gravity="end|center"
+            android:text="@string/Create"
+            android:textColor="@color/custom_text_button_color"
+            android:textSize="@dimen/fontSize_medium" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_job_title"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_job_description"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/publish_post_caption_height"
+                    android:gravity="top"
+                    android:inputType="text"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutBudget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_budget"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutDescription">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvJobTypeHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_16dp"
+                android:text="@string/job_type_default"
+                android:textColor="@color/gray400"
+                android:textSize="@dimen/fontSize_small"
+                app:layout_constraintBottom_toBottomOf="@+id/spinnerJobType"
+                app:layout_constraintStart_toStartOf="@+id/spinnerJobType"
+                app:layout_constraintTop_toTopOf="@+id/spinnerJobType" />
+
+            <Spinner
+                android:id="@+id/spinnerJobType"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/custom_dropdown_height"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:background="@drawable/custom_dropdown"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:popupBackground="@color/gray50"
+                android:spinnerMode="dropdown"
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutBudget" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_location"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerJobType">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutExpiredDay"
+                android:layout_width="@dimen/layout_width_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_expired_day"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:layout_constraintEnd_toStartOf="@id/imgDatePicker"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtInputLayoutLocation">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtExpiredDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="date"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imgDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:contentDescription="@string/description_logo"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="@+id/txtInputLayoutExpiredDay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtInputLayoutExpiredDay"
+                app:layout_constraintTop_toTopOf="@+id/txtInputLayoutExpiredDay" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_quantity"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutExpiredDay">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

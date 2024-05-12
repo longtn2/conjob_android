@@ -9,7 +9,7 @@ object Constants {
     const val GENDER_MALE = "Male"
     const val GENDER_FEMALE = "Female"
     const val GENDER_OTHER = "Other"
-    const val PAGE_LIMIT = 5
+    const val PAGE_LIMIT = 4
     const val TOKEN_KEY = "Token"
     const val REFRESH_TOKEN_KEY = "Refresh_Token"
     const val EXPAND_TEXT = " Xem thêm"
@@ -20,6 +20,7 @@ object Constants {
     const val CARD_STACK_VIEW_SWIPE_THRESHOLD = 0.35f
     const val POST_LIMIT = 8
     const val CLOSE_DETAILS_VIEW_KEY = "Close_Detail"
+    const val JOB_ID_KEY = "Job_Id"
     const val SKIP_BUTTON_PRESSED = "SKIP"
     const val APPLY_BUTTON_PRESSED = "APPLY"
     const val ONE_BILLION = 1000000000.0
@@ -28,4 +29,6 @@ object Constants {
     const val NUMBER_BILLION_FORMAT = "%.1fB"
     const val NUMBER_MILLION_FORMAT = "%.1fM"
     const val NUMBER_THOUSAND_FORMAT = "%.1fK"
+    const val MEDIA_IMAGE = "Image"
+    const val MEDIA_VIDEO = "Video"
 }
