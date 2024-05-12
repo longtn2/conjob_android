@@ -7,19 +7,25 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
-import com.intern.conjob.arch.extensions.showToastOnClick
+import com.intern.conjob.arch.extensions.showErrorAlert
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants
+import com.intern.conjob.arch.util.FileUtils
+import com.intern.conjob.data.model.CreatePost
 import com.intern.conjob.databinding.FragmentPublishPostBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.home.post.PublishPostViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import java.io.File
 
 class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
     private val binding by viewBinding(FragmentPublishPostBinding::bind)
@@ -27,7 +33,7 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
     private var mediaPicker: ActivityResultLauncher<PickVisualMediaRequest>? = null
     private var player: ExoPlayer? = null
 
-    override fun getViewModel(): BaseViewModel = BaseViewModel()
+    override fun getViewModel(): BaseViewModel = viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,24 +70,7 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tvPublishPost.showToastOnClick(
-            activity as MainActivity, getString(R.string.publish_post)
-        )
-
-        binding.toolBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.tvChooseJob.setOnClickListener {
-            findNavController().navigate(PublishPostFragmentDirections.actionPublishPostFragmentToListJobFragment())
-        }
-
-        binding.cardViewMedia.setOnClickListener {
-            mediaPicker?.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
-            )
-        }
+        initListener()
 
         binding.edtCaption.doAfterTextChanged {
             isEnableButton()
@@ -91,6 +80,53 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
             Constants.JOB_ID_KEY
         )?.observe(viewLifecycleOwner) {
             viewModel.selectedJobId = it
+        }
+
+        viewModel.createPostProgress.onEach {
+            if (it == 3) {
+                findNavController().popBackStack()
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun initListener() {
+        binding.apply {
+            tvPublishPost.setOnClickListener {
+                viewModel.fileUri?.let { uri ->
+                    viewModel.file = File(FileUtils.getPath(uri, activity as MainActivity) ?: "")
+                    viewModel.file?.let {  file ->
+                        if (!file.path.isNullOrEmpty()) {
+                            viewModel.createPost(
+                                CreatePost(
+                                    title = edtTitle.text.toString(),
+                                    caption = edtCaption.text.toString(),
+                                    fileName = file.name,
+                                    fileType = file.extension)
+                            ).launchIn(lifecycleScope)
+                        } else {
+                            (activity as MainActivity).showErrorAlert(
+                                message = Constants.FILE_NOT_EXIST,
+                                buttonTitleRes = R.string.OK, onOkClicked = {
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+
+            toolBar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+
+            tvChooseJob.setOnClickListener {
+                findNavController().navigate(PublishPostFragmentDirections.actionPublishPostFragmentToListJobFragment())
+            }
+
+            cardViewMedia.setOnClickListener {
+                mediaPicker?.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
+                )
+            }
         }
     }
 

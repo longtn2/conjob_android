@@ -1,12 +1,16 @@
 package com.intern.conjob.data
 
 import com.intern.conjob.data.model.UploadFile
+import com.intern.conjob.data.model.CreateJob
+import com.intern.conjob.data.model.CreatePost
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.data.model.Token
 import com.intern.conjob.data.model.User
 import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.BaseResponse
+import com.intern.conjob.data.response.CreatePostResponse
+import com.intern.conjob.data.response.GetAllJobResponse
 import com.intern.conjob.data.response.JobResponse
 import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.PostResponse
@@ -17,6 +21,7 @@ import com.intern.conjob.data.response.UserInfoResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -73,8 +78,34 @@ interface APIService {
         @Query("Limit") limit: Int
     ): Response<BaseDataResponse<PostResponse>>
 
+    @POST("post")
+    suspend fun createPost(
+        @Body createPost: CreatePost
+    ): Response<BaseDataResponse<CreatePostResponse>>
+
+    @POST("add-job")
+    suspend fun addJobToPost(
+        @Field("job_id") jobId: Long,
+        @Field("post_id") postId: Long
+    ): Response<BaseResponse>
+
     @GET("job/get/{id}")
     suspend fun getJob(
         @Path("id") id: Long
     ): Response<BaseDataResponse<JobResponse>>
+
+    @POST("job")
+    suspend fun createJob(
+        @Body createJob: CreateJob
+    ): Response<BaseResponse>
+
+    @GET("getAll")
+    suspend fun getAllJob(): Response<BaseDataResponse<GetAllJobResponse>>
+
+    @PUT
+    suspend fun uploadFile(
+        @Url url: String,
+        @Body file: RequestBody
+    ): Response<BaseResponse>
+
 }
