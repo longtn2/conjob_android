@@ -57,7 +57,6 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
                     binding.playerViewPreview.player = player
                 }
                 isEnableButton()
-                binding.imgPreviewIcon.visibility = View.GONE
                 binding.tvChooseMediaHint.visibility = View.GONE
             }
         }
@@ -74,7 +73,7 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
             findNavController().popBackStack()
         }
 
-        binding.cardViewCreateJob.setOnClickListener {
+        binding.tvChooseJob.setOnClickListener {
             findNavController().navigate(PublishPostFragmentDirections.actionPublishPostFragmentToListJobFragment())
         }
 

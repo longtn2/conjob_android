@@ -13,49 +13,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_left_arrow"
         app:title="@string/list_job"
-        app:titleCentered="true"/>
+        app:titleCentered="true" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewCreateJob"
+    <TextView
+        android:id="@+id/tvCreateJob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_16dp"
-        android:backgroundTint="@color/gray50">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/padding_12dp">
-
-            <ImageView
-                android:id="@+id/imgCreateJob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/create_job_title"
-                android:src="@drawable/ic_plus_light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvCreateJob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12dp"
-                android:text="@string/create_job_title"
-                android:textSize="@dimen/fontSize_small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imgCreateJob"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginVertical="@dimen/margin_12dp"
+        android:background="@drawable/custom_border"
+        android:drawablePadding="@dimen/padding_8dp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_12dp"
+        android:text="@string/select_job"
+        android:textSize="@dimen/fontSize_small"
+        app:drawableStartCompat="@drawable/ic_plus_light" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewJob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_16dp"/>
+        android:layout_marginHorizontal="@dimen/margin_16dp" />
 
 </LinearLayout>

@@ -45,7 +45,7 @@ class ListJobFragment: BaseFragment(R.layout.fragment_list_job) {
                 }
             }
 
-            cardViewCreateJob.setOnClickListener {
+            tvCreateJob.setOnClickListener {
                 findNavController().navigate(ListJobFragmentDirections.actionListJobFragmentToCreateJobFragment())
             }
 
