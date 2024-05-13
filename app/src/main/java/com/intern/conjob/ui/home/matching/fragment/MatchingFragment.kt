@@ -196,6 +196,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                             VideoPlayer.player?.seekTo(0)
                             currentPlayerView = null
                         }
+                        it.notifyItemChanged(0)
                     }
                 }
             })
