@@ -1,6 +1,5 @@
 package com.intern.conjob.ui.home.profile
 
-import androidx.lifecycle.bindCommonError
 import androidx.lifecycle.viewModelScope
 import com.intern.conjob.arch.extensions.FlowResult
 import com.intern.conjob.arch.extensions.onSuccess
@@ -27,7 +26,7 @@ class ProfileViewModel(
     val user: StateFlow<User> = _user
 
     fun getUserProfile(): Flow<FlowResult<BaseDataResponse<UserInfoResponse>>> {
-        return userRepository.getProfile().bindCommonError(this)
+        return userRepository.getProfile()
             .onSuccess {
                 it.data?.let { data ->
                     _user.value = User(
