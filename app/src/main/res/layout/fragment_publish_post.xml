@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray50"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_close"
         app:title="@string/publish_post_title"
         app:titleCentered="true">
@@ -31,150 +31,120 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewPost"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_0dp"
             android:layout_margin="@dimen/margin_8dp"
-            android:backgroundTint="@color/gray50">
+            android:background="@drawable/custom_border"
+            android:padding="@dimen/padding_16dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding_16dp">
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_floating_title"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputLayoutTitle"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_floating_title"
-                    android:textColorHint="@color/gray400"
-                    app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxStrokeColor="@color/gray100"
-                    app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
-                    app:hintTextColor="@color/gray400"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:inputType="text"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:minHeight="@dimen/edt_min_height_48dp"
-                        android:paddingHorizontal="@dimen/padding_8dp"
-                        android:textSize="@dimen/fontSize_small" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputLayoutCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:hint="@string/hint_floating_caption"
+                android:textColorHint="@color/gray400"
+                app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
+                app:boxStrokeColor="@color/gray100"
+                app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+                app:hintTextColor="@color/gray400"
+                app:layout_constraintTop_toBottomOf="@id/txtInputLayoutTitle">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtInputLayoutCaption"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCaption"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    android:hint="@string/hint_floating_caption"
-                    android:textColorHint="@color/gray400"
-                    app:boxCornerRadiusBottomEnd="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusBottomStart="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusTopEnd="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxCornerRadiusTopStart="@dimen/publish_post_edit_text_corner_radius"
-                    app:boxStrokeColor="@color/gray100"
-                    app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
-                    app:hintTextColor="@color/gray400"
-                    app:layout_constraintTop_toBottomOf="@id/txtInputLayoutTitle">
+                    android:layout_height="@dimen/publish_post_caption_height"
+                    android:gravity="top"
+                    android:inputType="text"
+                    android:minHeight="@dimen/edt_min_height_48dp"
+                    android:paddingHorizontal="@dimen/padding_8dp"
+                    android:textSize="@dimen/fontSize_small" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtCaption"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/publish_post_caption_height"
-                        android:gravity="top"
-                        android:inputType="text"
-                        android:minHeight="@dimen/edt_min_height_48dp"
-                        android:paddingHorizontal="@dimen/padding_8dp"
-                        android:textSize="@dimen/fontSize_small" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tvChooseJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:background="@drawable/custom_border"
+                android:drawablePadding="@dimen/padding_8dp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/padding_12dp"
+                android:text="@string/select_job"
+                android:textSize="@dimen/fontSize_small"
+                app:drawableStartCompat="@drawable/ic_plus_light"
+                app:layout_constraintTop_toBottomOf="@id/txtInputLayoutCaption" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardViewCreateJob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    android:backgroundTint="@color/gray50"
-                    app:layout_constraintTop_toBottomOf="@id/txtInputLayoutCaption"
-                    app:strokeColor="@color/gray400">
-
-                    <TextView
-                        android:id="@+id/tvCreateJob"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_12dp"
-                        android:drawablePadding="@dimen/padding_8dp"
-                        android:gravity="center"
-                        android:text="@string/select_job"
-                        android:textSize="@dimen/fontSize_small"
-                        app:drawableStartCompat="@drawable/ic_plus_light" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardViewMedia"
-                    android:layout_width="@dimen/layout_width_0dp"
-                    android:layout_height="@dimen/publish_post_file_preview_height"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    android:backgroundTint="@color/gray50"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardViewCreateJob"
-                    app:strokeColor="@color/gray400">
-
-                    <ImageView
-                        android:id="@+id/imgPreview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/description_file_preview"
-                        android:visibility="gone" />
-
-                    <androidx.media3.ui.PlayerView
-                        android:id="@+id/playerViewPreview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <ImageView
-                    android:id="@+id/imgPreviewIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/description_file_preview"
-                    android:src="@drawable/ic_camera"
-                    app:layout_constraintBottom_toTopOf="@+id/tvChooseMediaHint"
-                    app:layout_constraintEnd_toEndOf="@+id/cardViewMedia"
-                    app:layout_constraintStart_toStartOf="@+id/cardViewMedia"
-                    app:layout_constraintTop_toTopOf="@+id/cardViewMedia"
-                    app:layout_constraintVertical_chainStyle="packed" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewMedia"
+                android:layout_width="@dimen/layout_width_0dp"
+                android:layout_height="@dimen/publish_post_file_preview_height"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:backgroundTint="@color/gray50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvChooseJob"
+                app:strokeColor="@color/gray400">
 
                 <TextView
                     android:id="@+id/tvChooseMediaHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/publish_post_choose_file_hint"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardViewMedia"
-                    app:layout_constraintEnd_toEndOf="@+id/cardViewMedia"
-                    app:layout_constraintStart_toStartOf="@+id/cardViewMedia"
-                    app:layout_constraintTop_toBottomOf="@+id/imgPreviewIcon" />
+                    app:drawableTopCompat="@drawable/ic_camera" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imgPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/description_file_preview"
+                    android:visibility="gone" />
 
-        </com.google.android.material.card.MaterialCardView>
+                <androidx.media3.ui.PlayerView
+                    android:id="@+id/playerViewPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
