@@ -5,6 +5,7 @@ import com.intern.conjob.arch.modules.ApiClient
 import com.intern.conjob.data.APIService
 import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
+import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.LoginResponse
 
@@ -26,7 +27,7 @@ class AuthRemoteDataSource(
         }
     }
 
-    suspend fun login(loginUser: LoginUser): LoginResponse = apiCall {
+    suspend fun login(loginUser: LoginUser): BaseDataResponse<LoginResponse> = apiCall {
         api.login(loginUser)
     }
 
