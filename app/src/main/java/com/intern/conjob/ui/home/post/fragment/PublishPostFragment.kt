@@ -93,28 +93,8 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
     private fun initListener() {
         binding.apply {
             tvPublishPost.setOnClickListener {
-                viewModel.fileUri?.let { uri ->
-                    viewModel.file = File(FileUtils.getPath(uri, activity as MainActivity) ?: "")
-                    viewModel.file?.let {  file ->
-                        if (!file.path.isNullOrEmpty()) {
-                            if (PermissionUtils.checkImagePermission(activity as MainActivity)
-                                && PermissionUtils.checkVideoPermission(activity as MainActivity)) {
-                                viewModel.createPost(
-                                    CreatePost(
-                                        title = edtTitle.text.toString(),
-                                        caption = edtCaption.text.toString(),
-                                        fileName = file.name,
-                                        fileType = file.extension)
-                                ).launchIn(lifecycleScope)
-                            }
-                        } else {
-                            (activity as MainActivity).showErrorAlert(
-                                message = Constants.FILE_NOT_EXIST,
-                                buttonTitleRes = R.string.OK, onOkClicked = {
-                                }
-                            )
-                        }
-                    }
+                if (!viewModel.isLoading()) {
+                    createPost()
                 }
             }
 
@@ -138,6 +118,32 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
         binding.apply {
             tvPublishPost.isEnabled =
                 (viewModel.fileUri != null && !edtCaption.text.isNullOrEmpty())
+        }
+    }
+
+    private fun createPost() {
+        viewModel.fileUri?.let { uri ->
+            viewModel.file = File(FileUtils.getPath(uri, activity as MainActivity) ?: "")
+            viewModel.file?.let {  file ->
+                if (!file.path.isNullOrEmpty()) {
+                    if (PermissionUtils.checkImagePermission(activity as MainActivity)
+                        && PermissionUtils.checkVideoPermission(activity as MainActivity)) {
+                        viewModel.createPost(
+                            CreatePost(
+                                title = binding.edtTitle.text.toString(),
+                                caption = binding.edtCaption.text.toString(),
+                                fileName = file.name,
+                                fileType = file.extension)
+                        ).launchIn(lifecycleScope)
+                    }
+                } else {
+                    (activity as MainActivity).showErrorAlert(
+                        message = Constants.FILE_NOT_EXIST,
+                        buttonTitleRes = R.string.OK, onOkClicked = {
+                        }
+                    )
+                }
+            }
         }
     }
 

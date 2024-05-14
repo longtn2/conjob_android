@@ -29,6 +29,12 @@ class PublishPostViewModel(
     var selectedJobId: Long? = null
     var fileUri: Uri? = null
     var file: File? = null
+    private var isCreatePost = false
+    private var isUploadFile = false
+
+    fun isLoading(): Boolean {
+        return isCreatePost || isUploadFile
+    }
 
     fun createPost(createPost: CreatePost): Flow<FlowResult<BaseDataResponse<CreatePostResponse>>> {
         return postRepository.createPost(createPost)
