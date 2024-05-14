@@ -55,7 +55,6 @@
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"
             android:textSize="@dimen/fontSize_24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +109,23 @@
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
                     android:text="@string/profile_phone_number"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:text="@string/profile_gender"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_email"
                     android:textSize="@dimen/fontSize_small" />
 
             </LinearLayout>

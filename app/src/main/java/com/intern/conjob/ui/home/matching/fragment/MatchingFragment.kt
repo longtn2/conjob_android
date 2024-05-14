@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.PlayerView
+import androidx.navigation.fragment.findNavController
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
 import com.intern.conjob.arch.extensions.viewBinding
@@ -55,6 +56,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private var blurView: View? = null
     private var currentPlayerView: PlayerView? = null
     private var cardLayoutManager: CardStackLayoutManager? = null
+    private var currentUserId: Long? = null
 
     companion object {
         fun newInstance() = MatchingFragment()
@@ -68,8 +70,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         initCardStackView()
 
         binding.imgBtnSearch.setOnClickListener {
-            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT).show()
         }
 
         binding.btnRefreshPost.setOnClickListener {
@@ -84,7 +85,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
             adapter?.posts = it
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        controller.currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
             CLOSE_DETAILS_VIEW_KEY
         )
             ?.observe(viewLifecycleOwner) {
@@ -128,11 +129,9 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
 
                 override fun onAvatarClick() {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.toast_matching_profile),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    currentUserId?.let {
+                        controller.navigate(HomeFragmentDirections.actionHomeFragmentToOtherProfileFragment(it))
+                    }
                 }
 
                 override fun onInteractClick() {
@@ -197,6 +196,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                                 currentPlayerView = cardViewBinding.playerView
                                 currentPlayerView?.player = VideoPlayer.player
                             }
+                            currentUserId = it.posts[position].job?.userId
                         }
                     }
                     binding.btnRefreshPost.visibility = View.GONE
@@ -214,6 +214,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                             currentPlayerView = null
                         }
                         it.notifyItemChanged(0)
+                        currentUserId = null
                     }
                 }
             })
