@@ -11,10 +11,11 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/profile_background_height"
+            android:layout_height="@dimen/layout_height_0dp"
             android:contentDescription="@string/description_cover"
             android:scaleType="centerCrop"
-            android:src="@color/red700"
+            android:src="@drawable/avatar"
+            app:layout_constraintDimensionRatio="20:12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,15 +42,16 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ImageButton
-            android:id="@+id/imgBtnSettings"
+            android:id="@+id/imgBtnBackArrow"
             android:layout_width="@dimen/button_48dp"
             android:layout_height="@dimen/button_48dp"
             android:layout_margin="@dimen/margin_8dp"
             android:background="@null"
-            android:contentDescription="@string/description_settings"
-            android:src="@drawable/ic_settings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="@string/description_back_arrow_icon"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tvUserName"
@@ -62,19 +64,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardViewAvatar" />
 
-        <TextView
-            android:id="@+id/tvEditProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
-            android:text="@string/profile_edit"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/fontSize_small"
-            app:drawableStartCompat="@drawable/ic_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUserName" />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewUserInformation"
             android:layout_width="match_parent"
@@ -82,7 +71,7 @@
             android:layout_margin="@dimen/margin_8dp"
             android:backgroundTint="@color/gray50"
             app:cardCornerRadius="@dimen/profile_card_corner_radius"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile">
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName">
 
             <LinearLayout
                 android:layout_width="match_parent"

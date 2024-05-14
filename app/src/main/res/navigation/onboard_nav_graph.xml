@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/RegisterFragment"
-        android:name="com.intern.conjob.ui.auth.register.fragment.RegisterFragment"
+        android:name="com.intern.conjob.ui.auth.register.RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_RegisterFragment_to_LoginFragment"

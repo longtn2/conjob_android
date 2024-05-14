@@ -24,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="@dimen/bottom_tab_elevation"
         app:strokeWidth="@dimen/bottom_tab_stroke_width">
 
         <com.google.android.material.tabs.TabLayout

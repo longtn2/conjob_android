@@ -50,7 +50,7 @@
         android:layout_marginStart="@dimen/margin_12dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginBottom="@dimen/margin_16dp"
-        android:text="@string/post_detail_user_name"
+        android:text="@string/user_name"
         app:layout_constraintBottom_toBottomOf="@id/imgBtnBackArrow"
         app:layout_constraintEnd_toStartOf="@id/imgBtnMore"
         app:layout_constraintHorizontal_chainStyle="packed"

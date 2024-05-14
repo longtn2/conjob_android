@@ -7,7 +7,7 @@ import com.intern.conjob.ui.home.chat.ChatListFragment
 import com.intern.conjob.ui.home.matching.fragment.MatchingFragment
 import com.intern.conjob.ui.home.notification.NotificationFragment
 import com.intern.conjob.ui.home.post.CreatePostFragment
-import com.intern.conjob.ui.home.profile.ProfileFragment
+import com.intern.conjob.ui.home.profile.fragment.ProfileFragment
 
 enum class BottomTabBarItem(
     val fragment: Fragment,
@@ -30,4 +30,12 @@ enum class ErrorMessage(val message: String) {
 enum class FileType(val type: String) {
     IMAGE("Img"),
     VIDEO("Video")
+}
+
+enum class ProfileTabItem(
+    val tabTitle: String
+) {
+    PostTab("Bài đăng"),
+    SkillTab("Kỹ năng"),
+    JobTab("Công việc")
 }

@@ -33,6 +33,9 @@ interface APIService {
     @POST("auth/refresh")
     suspend fun refreshToken(@Body token: Token): Response<BaseDataResponse<TokenResponse>>
 
+    @POST("auth/logout")
+    suspend fun logout(@Body token: Token): Response<BaseResponse>
+
     @GET("post/matching")
     suspend fun getPosts(
         @Query("Page") page: Int,
