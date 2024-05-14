@@ -46,4 +46,5 @@ object Constants {
     const val READ_EXTERNAL_STORAGE_CODE = 100
     const val READ_MEDIA_IMAGES_CODE = 101
     const val READ_MEDIA_VIDEO_CODE = 102
+    const val FILE_NOT_EXIST = "Lỗi ảnh/video không tồn tại"
 }
