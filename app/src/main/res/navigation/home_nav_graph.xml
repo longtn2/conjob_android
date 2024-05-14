@@ -28,6 +28,13 @@
                 android:name="userId"
                 app:argType="long"/>
         </action>
+
+        <action
+            android:id="@+id/action_homeFragment_to_publishPostFragment"
+            app:destination="@id/publishPostFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_top" />
+
     </fragment>
 
     <fragment
@@ -43,6 +50,7 @@
         android:id="@+id/settingsFragment"
         android:name="com.intern.conjob.ui.settings.SettingsFragment"
         android:label="SettingsFragment"/>
+
     <fragment
         android:id="@+id/otherProfileFragment"
         android:name="com.intern.conjob.ui.home.profile.fragment.OtherProfileFragment"
@@ -50,6 +58,31 @@
         <argument
             android:name="userId"
             app:argType="long"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createJobFragment"
+        android:name="com.intern.conjob.ui.home.post.fragment.CreateJobFragment"
+        android:label="CreateJobFragment" />
+
+    <fragment
+        android:id="@+id/publishPostFragment"
+        android:name="com.intern.conjob.ui.home.post.fragment.PublishPostFragment"
+        android:label="PublishPostFragment" >
+        <action
+            android:id="@+id/action_publishPostFragment_to_listJobFragment"
+            app:destination="@id/listJobFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listJobFragment"
+        android:name="com.intern.conjob.ui.home.post.fragment.ListJobFragment"
+        android:label="ListJobFragment" >
+
+        <action
+            android:id="@+id/action_listJobFragment_to_createJobFragment"
+            app:destination="@id/createJobFragment" />
+
     </fragment>
 
 </navigation>
