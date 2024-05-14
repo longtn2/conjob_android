@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:strokeColor="@color/white"
-            app:strokeWidth="3dp">
+            app:strokeWidth="@dimen/profile_avatar_stroke_width">
 
             <ImageView
                 android:id="@+id/imgAvatar"
@@ -81,7 +81,8 @@
             android:layout_margin="@dimen/margin_8dp"
             android:backgroundTint="@color/gray50"
             app:cardCornerRadius="@dimen/profile_card_corner_radius"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile">
+            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,11 +134,13 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewProfileTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
             android:backgroundTint="@color/gray50"
-            app:layout_constraintTop_toBottomOf="@id/cardViewUserInformation">
+            app:layout_constraintTop_toBottomOf="@id/cardViewUserInformation"
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
