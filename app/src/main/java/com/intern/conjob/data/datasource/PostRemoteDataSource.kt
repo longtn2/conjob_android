@@ -43,7 +43,7 @@ class PostRemoteDataSource(private val api: APIService) {
         api.addJobToPost(jobId, postId)
     }
 
-    suspend fun uploadFile(url: String, file: RequestBody): BaseResponse = apiCall {
+    suspend fun uploadFile(url: String, file: RequestBody): Unit = apiCall {
         api.uploadFile(url, file)
     }
 }

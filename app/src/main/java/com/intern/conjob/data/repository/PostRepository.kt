@@ -30,7 +30,7 @@ class PostRepository(private val postRemoteDataSource: PostRemoteDataSource) : R
         postRemoteDataSource.addJobToPost(jobId, postId)
     }
 
-    fun uploadFile(url: String, file: RequestBody): Flow<FlowResult<BaseResponse>> = safeFlow {
+    fun uploadFile(url: String, file: RequestBody): Flow<FlowResult<Unit>> = safeFlow {
         postRemoteDataSource.uploadFile(url, file)
     }
 

@@ -24,49 +24,23 @@ import java.io.File
 class PublishPostViewModel(
     private val postRepository: PostRepository = PostRepository(PostRemoteDataSource.getInstance())
 ) : BaseViewModel() {
-    private var _createPostProgress: MutableStateFlow<Int> = MutableStateFlow(0)
-    val createPostProgress: StateFlow<Int> = _createPostProgress
+    private var _createPostProgress: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val createPostProgress: StateFlow<Boolean> = _createPostProgress
     var selectedJobId: Long? = null
     var fileUri: Uri? = null
     var file: File? = null
 
     fun createPost(createPost: CreatePost): Flow<FlowResult<BaseDataResponse<CreatePostResponse>>> {
-        _createPostProgress.value = 0
         return postRepository.createPost(createPost)
             .bindLoading(this)
             .bindCommonError(this)
             .onSuccess {
-                _createPostProgress.value = 1
-
-                if (it.data?.id == null) {
-                    _createPostProgress.value++
-                } else {
-                    addJobToPost(it.data.id)
-                }
-
                 it.data?.url?.let { url ->
                     file?.let { file ->
                         uploadFile(url, file)
                     }
                 }
             }
-    }
-
-    private fun addJobToPost(postId: Long) {
-        when (selectedJobId) {
-            null -> _createPostProgress.value++
-            else -> {
-                selectedJobId?.let {
-                    postRepository.addJobToPost(it, postId)
-                        .bindLoading(this)
-                        .bindCommonError(this)
-                        .onSuccess {
-                            _createPostProgress.value++
-                        }
-                        .launchIn(viewModelScope)
-                }
-            }
-        }
     }
 
     private fun uploadFile(url: String, file: File) {
@@ -76,7 +50,7 @@ class PublishPostViewModel(
             .bindLoading(this)
             .bindCommonError(this)
             .onSuccess {
-                _createPostProgress.value++
+                _createPostProgress.value = true
             }
             .launchIn(viewModelScope)
     }

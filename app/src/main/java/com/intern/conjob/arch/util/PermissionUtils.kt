@@ -10,16 +10,7 @@ object PermissionUtils {
 
     fun checkImagePermission(activity: Activity): Boolean {
         return if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-            if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                    activity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    Constants.READ_EXTERNAL_STORAGE_CODE
-                )
-                false
-            } else {
-                true
-            }
+            checkStoragePermission(activity)
         } else {
              if (activity.checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(
@@ -31,6 +22,36 @@ object PermissionUtils {
             } else {
                 true
             }
+        }
+    }
+
+    fun checkVideoPermission(activity: Activity): Boolean {
+        return if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            checkStoragePermission(activity)
+        } else {
+            if (activity.checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
+                    Constants.READ_EXTERNAL_STORAGE_CODE
+                )
+                false
+            } else {
+                true
+            }
+        }
+    }
+
+    private fun checkStoragePermission(activity: Activity): Boolean {
+        return if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                Constants.READ_EXTERNAL_STORAGE_CODE
+            )
+            false
+        } else {
+            true
         }
     }
 }

@@ -17,6 +17,7 @@ import com.intern.conjob.arch.extensions.showErrorAlert
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.FileUtils
+import com.intern.conjob.arch.util.PermissionUtils
 import com.intern.conjob.data.model.CreatePost
 import com.intern.conjob.databinding.FragmentPublishPostBinding
 import com.intern.conjob.ui.MainActivity
@@ -83,7 +84,7 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
         }
 
         viewModel.createPostProgress.onEach {
-            if (it == 3) {
+            if (it) {
                 findNavController().popBackStack()
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -96,13 +97,16 @@ class PublishPostFragment : BaseFragment(R.layout.fragment_publish_post) {
                     viewModel.file = File(FileUtils.getPath(uri, activity as MainActivity) ?: "")
                     viewModel.file?.let {  file ->
                         if (!file.path.isNullOrEmpty()) {
-                            viewModel.createPost(
-                                CreatePost(
-                                    title = edtTitle.text.toString(),
-                                    caption = edtCaption.text.toString(),
-                                    fileName = file.name,
-                                    fileType = file.extension)
-                            ).launchIn(lifecycleScope)
+                            if (PermissionUtils.checkImagePermission(activity as MainActivity)
+                                && PermissionUtils.checkVideoPermission(activity as MainActivity)) {
+                                viewModel.createPost(
+                                    CreatePost(
+                                        title = edtTitle.text.toString(),
+                                        caption = edtCaption.text.toString(),
+                                        fileName = file.name,
+                                        fileType = file.extension)
+                                ).launchIn(lifecycleScope)
+                            }
                         } else {
                             (activity as MainActivity).showErrorAlert(
                                 message = Constants.FILE_NOT_EXIST,

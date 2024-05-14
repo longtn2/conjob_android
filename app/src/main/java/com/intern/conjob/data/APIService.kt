@@ -10,7 +10,6 @@ import com.intern.conjob.data.model.User
 import com.intern.conjob.data.response.BaseDataResponse
 import com.intern.conjob.data.response.BaseResponse
 import com.intern.conjob.data.response.CreatePostResponse
-import com.intern.conjob.data.response.GetAllJobResponse
 import com.intern.conjob.data.response.JobResponse
 import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.PostResponse
@@ -99,13 +98,10 @@ interface APIService {
         @Body createJob: CreateJob
     ): Response<BaseResponse>
 
-    @GET("getAll")
-    suspend fun getAllJob(): Response<BaseDataResponse<GetAllJobResponse>>
-
     @PUT
     suspend fun uploadFile(
         @Url url: String,
         @Body file: RequestBody
-    ): Response<BaseResponse>
+    ): Response<Unit>
 
 }
