@@ -22,10 +22,12 @@ import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
 import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
 import com.intern.conjob.arch.util.Constants.SKIP_BUTTON_PRESSED
+import com.intern.conjob.arch.util.ErrorMessage
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
 import com.intern.conjob.data.model.Post
+import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.databinding.FragmentMatchingBinding
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.MainActivity

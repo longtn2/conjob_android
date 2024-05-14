@@ -11,10 +11,10 @@ data class Post(
     @SerializedName("author") val author: String,
     @SerializedName("avatar_author") val avatar: String,
     @SerializedName("job") val job: Job? = null,
-    @SerializedName("type_file") val type: String,
-    @SerializedName("name_file") val name: String,
-    @SerializedName("url_file") val url: String,
-    @SerializedName("create_at") val createAt: String? = null,
+    @SerializedName("file_type") val type: String,
+    @SerializedName("file_name") val name: String,
+    @SerializedName("file_url") val url: String,
+    @SerializedName("created_at") val createAt: String? = null,
     @SerializedName("likes") val likes: Long,
 ): java.io.Serializable {
     override fun hashCode(): Int {

@@ -75,8 +75,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 } else {
                     playerView.visibility = View.VISIBLE
                     imgView.visibility = View.GONE
-                    VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                    VideoPlayer.player?.prepare()
+                    try {
+                        VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                        VideoPlayer.player?.prepare()
+                    } catch (e: NullPointerException) {
+                        //
+                    }
                 }
                 Glide.with(itemView.context).load(post.avatar)
                     .override(imageThumbnailSize)

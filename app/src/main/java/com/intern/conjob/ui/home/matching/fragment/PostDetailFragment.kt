@@ -155,18 +155,28 @@ class PostDetailFragment : BaseFragment(R.layout.fragment_post_details) {
                     } ?: "")
             }
             tvUserName.text = args.post.author
-            tvJob.text = args.post.job?.title
-            tvJobDescription.text = args.post.job?.description
             tvTotalInteract.text = args.post.likes.format()
-            args.post.job?.expiredDay?.let {
-                tvTime.text =
-                    SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
-                        SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                    } ?: ""
+
+            if (args.post.job != null) {
+                tvJob.text = args.post.job?.title
+                tvJobDescription.text = args.post.job?.description
+                args.post.job?.expiredDay?.let {
+                    tvTime.text =
+                        SimpleDateFormat(Constants.DATE_TIME_FORMAT, Locale.US).parse(it)?.let { it1 ->
+                            SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
+                        } ?: ""
+                }
+                tvLocation.text = args.post.job?.location
+                tvBudget.text = args.post.job?.budget?.format() ?: ""
+                tvQuantity.text = args.post.job?.quantity.toString()
+            } else {
+                tvJobTitle.visibility = View.GONE
+                tvJobDescriptionTitle.visibility = View.GONE
+                tvTimeTitle.visibility = View.GONE
+                tvLocationTitle.visibility = View.GONE
+                tvBudgetTitle.visibility = View.GONE
+                tvQuantityTitle.visibility = View.GONE
             }
-            tvLocation.text = args.post.job?.location
-            tvBudget.text = args.post.job?.budget?.format() ?: ""
-            tvQuantity.text = args.post.job?.quantity.toString()
         }
     }
 
