@@ -297,6 +297,8 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                     handleGetPostError(it)
                 }
             ).launchIn(lifecycleScope)
+        } else {
+            binding.tvEmpty.text = getString(R.string.matching_post_empty)
         }
     }
 
@@ -322,6 +324,8 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                 }
                 HttpURLConnection.HTTP_FORBIDDEN.toString() -> binding.tvEmpty.text = ErrorMessage.VERIFY_EMAIL_FORBIDDEN_403.message
                 HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> binding.tvEmpty.text = ErrorMessage.SERVER_ERROR_500.message
+                HttpURLConnection.HTTP_NOT_FOUND.toString() -> binding.tvEmpty.text = ErrorMessage.NOT_FOUND_404.message
+                HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> binding.tvEmpty.text = ErrorMessage.BAD_GATEWAY_502.message
                 else -> {
                     binding.tvEmpty.text = getString(R.string.matching_post_empty)
                 }
