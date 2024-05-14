@@ -14,7 +14,7 @@ data class Post(
     @SerializedName("file_type") val type: String,
     @SerializedName("file_name") val name: String,
     @SerializedName("file_url") val url: String,
-    @SerializedName("create_at") val createAt: String? = null,
+    @SerializedName("created_at") val createAt: String? = null,
     @SerializedName("likes") val likes: Long,
 ): java.io.Serializable {
     override fun hashCode(): Int {

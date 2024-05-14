@@ -65,10 +65,14 @@ class PostFileAdapter : RecyclerView.Adapter<PostFileAdapter.FileViewHolder>() {
                     imgPost.visibility = View.GONE
                     if (position != 0) {
                         VideoPlayer.player?.let { player ->
-                            player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                            mediaItemIndex = player.mediaItemCount - 1
-                            VideoPlayer.postDetailVideos.add(mediaItemIndex)
-                            player.prepare()
+                            try {
+                                player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                                mediaItemIndex = player.mediaItemCount - 1
+                                VideoPlayer.postDetailVideos.add(mediaItemIndex)
+                                player.prepare()
+                            } catch (e: NullPointerException) {
+                                //
+                            }
                         }
                     }
                 }
