@@ -41,8 +41,8 @@
     <string name="hint_floating_location">Nơi làm việc<font fgcolor='#C5091F'>*</font></string>
     <string name="hint_floating_quantity">Số lượng ứng viên<font fgcolor='#C5091F'>*</font></string>
     <string name="hint_floating_expired_day">Hạn cuối ứng tuyển<font fgcolor='#C5091F'>*</font></string>
-    <string name="hint_floating_first_name">Tên</string>
-    <string name="hint_floating_last_name">Họ</string>
+    <string name="hint_floating_first_name">Họ</string>
+    <string name="hint_floating_last_name">Tên</string>
     <string name="hint_floating_email">Email</string>
     <string name="hint_floating_address">Đỉa chỉ</string>
     <string name="hint_floating_phone">Số điện thoại</string>

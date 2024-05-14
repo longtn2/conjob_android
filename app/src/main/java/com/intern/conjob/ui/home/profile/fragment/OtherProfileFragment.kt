@@ -55,7 +55,7 @@ class OtherProfileFragment : BaseFragment(R.layout.fragment_other_profile) {
         binding.apply {
             viewModel.getUserInfoById(args.userId).onSuccess {
                 it.data?.let { data ->
-                    tvUserName.text = getString(R.string.user_name, data.lastName, data.firstName)
+                    tvUserName.text = getString(R.string.user_name, data.firstName, data.lastName)
                     tvPhone.text = HtmlCompat.fromHtml(
                         getString(
                             R.string.profile_phone_number_data,

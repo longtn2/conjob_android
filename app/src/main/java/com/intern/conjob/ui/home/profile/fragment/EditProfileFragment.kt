@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -17,6 +18,8 @@ import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.FileUtils
 import com.intern.conjob.arch.util.PermissionUtils
+import com.intern.conjob.arch.util.isValidName
+import com.intern.conjob.arch.util.isValidPhone
 import com.intern.conjob.data.model.UploadFile
 import com.intern.conjob.data.model.User
 import com.intern.conjob.databinding.FragmentEditProfileBinding
@@ -101,7 +104,7 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
     private fun initListener() {
         binding.apply {
             btnConfirm.setOnClickListener {
-                if (viewModel.isLoading()) {
+                if (!viewModel.isLoading()) {
                     viewModel.initState()
                     uploadAvatar()
                     val user = User(
@@ -152,6 +155,33 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
                 Constants.GENDER_MALE.uppercase() -> radioGroup.check(R.id.radioBtnMale)
                 Constants.GENDER_FEMALE.uppercase() -> radioGroup.check(R.id.radioBtnFemale)
                 else -> radioGroup.check(R.id.radioBtnOther)
+            }
+
+            initValidate()
+        }
+    }
+
+    private fun initValidate() {
+        binding.apply {
+            edtFirstName.doAfterTextChanged {
+                txtInputLayoutFirstName.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_first_name_null)
+                    else getString(R.string.validate_first_name)
+                txtInputLayoutFirstName.isErrorEnabled = !it.toString().isValidName()
+            }
+
+            edtLastName.doAfterTextChanged {
+                txtInputLayoutLastName.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_last_name_null)
+                    else getString(R.string.validate_last_name)
+                txtInputLayoutLastName.isErrorEnabled = !it.toString().isValidName()
+            }
+
+            edtPhone.doAfterTextChanged {
+                txtInputLayoutPhone.error =
+                    if (it.isNullOrEmpty()) getString(R.string.validate_phone_null)
+                    else getString(R.string.validate_phone)
+                txtInputLayoutPhone.isErrorEnabled = !it.toString().isValidPhone()
             }
         }
     }

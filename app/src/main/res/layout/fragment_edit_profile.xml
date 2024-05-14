@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolBar"
             app:strokeColor="@color/white"
-            app:strokeWidth="3dp">
+            app:strokeWidth="@dimen/avatar_stroke_width">
 
             <ImageView
                 android:id="@+id/imgAvatar"
