@@ -17,6 +17,7 @@ import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.FileUtils
+import com.intern.conjob.arch.util.PermissionUtils
 import com.intern.conjob.data.model.UploadFile
 import com.intern.conjob.data.model.User
 import com.intern.conjob.databinding.FragmentEditProfileBinding
@@ -58,6 +59,10 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
 
         viewModel.updateState.onEach {
             if (it == 2) {
+                controller.previousBackStackEntry?.savedStateHandle?.set(
+                    Constants.UPDATE_USER_KEY,
+                    true
+                )
                 findNavController().popBackStack()
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -155,17 +160,20 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
             viewModel.updateState()
         } else {
             viewModel.avatar?.let {
-                val file = File(FileUtils.getPath(it, activity as MainActivity) ?: "")
-                if (!file.path.isNullOrEmpty()) {
-                    viewModel.uploadAvatarInfo(
-                        UploadFile(
-                            file.name, file.extension
-                        )
-                    ).onSuccess { response ->
-                        response.data?.url?.let { url ->
-                            viewModel.uploadAvatar(url, file).launchIn(lifecycleScope)
-                        }
-                    }.launchIn(lifecycleScope)
+                if (PermissionUtils.checkImagePermission(activity as MainActivity)) {
+                    val file = File(FileUtils.getPath(it, activity as MainActivity) ?: "")
+                    if (!file.path.isNullOrEmpty()) {
+                        viewModel.uploadAvatarInfo(
+                            UploadFile(
+                                file.name,
+                                file.extension
+                            )
+                        ).onSuccess { response ->
+                            response.data?.url?.let { url ->
+                                viewModel.uploadAvatar(url, file).launchIn(lifecycleScope)
+                            }
+                        }.launchIn(lifecycleScope)
+                    }
                 }
             }
         }

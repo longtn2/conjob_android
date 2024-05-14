@@ -47,7 +47,7 @@ class EditProfileViewModel(
         }
     }
 
-    fun uploadAvatar(url: String, file: File): Flow<FlowResult<BaseResponse>> {
+    fun uploadAvatar(url: String, file: File): Flow<FlowResult<Unit>> {
         val image = file.asRequestBody(Constants.IMAGE.toMediaTypeOrNull())
         return userRepository.uploadAvatar(url, image).bindLoading(this).bindCommonError(this).onSuccess {
             _updateState.value++

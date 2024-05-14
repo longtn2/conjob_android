@@ -43,4 +43,7 @@ object Constants {
     const val IS_EXTERNAL_STORAGE_DOCUMENT = "com.android.externalstorage.documents"
     const val IS_DOWNLOADS_DOCUMENT = "com.android.providers.downloads.documents"
     const val IS_MEDIA_DOCUMENT = "com.android.providers.media.documents"
+    const val READ_EXTERNAL_STORAGE_CODE = 100
+    const val READ_MEDIA_IMAGES_CODE = 101
+    const val READ_MEDIA_VIDEO_CODE = 102
 }

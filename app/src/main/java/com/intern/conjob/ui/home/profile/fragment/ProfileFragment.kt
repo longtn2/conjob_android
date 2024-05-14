@@ -48,15 +48,12 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             initViews(it)
         }.launchIn(lifecycleScope)
 
-        viewModel.getUserProfile().onError(normalAction = {
-            viewModel.getUserFromLocal()
-        }, commonAction = {
-            viewModel.getUserFromLocal()
-        }).launchIn(lifecycleScope)
+        getProfile()
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<User>(Constants.UPDATE_USER_KEY)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(Constants.UPDATE_USER_KEY)
             ?.observe(viewLifecycleOwner) {
-                initViews(it)
+                if (it == true)
+                    getProfile()
             }
     }
 
@@ -127,5 +124,13 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             Glide.with(activity as MainActivity).load(data.avatar).override(imageSize)
                 .into(imgAvatar)
         }
+    }
+
+    private fun getProfile() {
+        viewModel.getUserProfile().onError(normalAction = {
+            viewModel.getUserFromLocal()
+        }, commonAction = {
+            viewModel.getUserFromLocal()
+        }).launchIn(lifecycleScope)
     }
 }

@@ -38,7 +38,7 @@ class UserRepository(
         userRemoteDataSource.updateProfile(user)
     }
 
-    fun uploadAvatar(url: String, image: RequestBody): Flow<FlowResult<BaseResponse>> = safeFlow {
+    fun uploadAvatar(url: String, image: RequestBody): Flow<FlowResult<Unit>> = safeFlow {
         userRemoteDataSource.uploadAvatar(url, image)
     }
 

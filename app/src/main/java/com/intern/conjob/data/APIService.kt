@@ -60,7 +60,7 @@ interface APIService {
     suspend fun uploadAvatar(
         @Url url: String,
         @Body file: RequestBody
-    ): Response<BaseResponse>
+    ): Response<Unit>
 
     @POST("user/upload-avatar")
     suspend fun uploadAvatarInfo(
