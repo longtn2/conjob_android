@@ -47,7 +47,7 @@ class EditProfileViewModel(
     }
 
     fun isLoading(): Boolean {
-        return !isUpdateProfile && !isUpdateAvatar && !isUploadAvatar
+        return isUpdateProfile || isUpdateAvatar || isUploadAvatar
     }
 
     fun updateProfile(user: User): Flow<FlowResult<BaseResponse>> {

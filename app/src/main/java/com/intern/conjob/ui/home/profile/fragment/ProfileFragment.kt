@@ -94,7 +94,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         binding.apply {
             cardViewUserInformation.visibility = View.VISIBLE
             cardViewProfileTab.visibility = View.VISIBLE
-            tvUserName.text = getString(R.string.user_name, data.lastName, data.firstName)
+            tvUserName.text = getString(R.string.user_name, data.firstName, data.lastName)
             tvPhone.text = HtmlCompat.fromHtml(
                 getString(R.string.profile_phone_number_data, data.phoneNumber),
                 HtmlCompat.FROM_HTML_MODE_COMPACT
