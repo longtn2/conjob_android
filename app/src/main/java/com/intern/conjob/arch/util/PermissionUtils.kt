@@ -16,7 +16,7 @@ object PermissionUtils {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                    Constants.READ_EXTERNAL_STORAGE_CODE
+                    Constants.READ_MEDIA_IMAGES_CODE
                 )
                 false
             } else {
@@ -29,11 +29,11 @@ object PermissionUtils {
         return if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
             checkStoragePermission(activity)
         } else {
-            if (activity.checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+            if (activity.checkSelfPermission(Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(
                     activity,
-                    arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                    Constants.READ_EXTERNAL_STORAGE_CODE
+                    arrayOf(Manifest.permission.READ_MEDIA_VIDEO),
+                    Constants.READ_MEDIA_VIDEO_CODE
                 )
                 false
             } else {
