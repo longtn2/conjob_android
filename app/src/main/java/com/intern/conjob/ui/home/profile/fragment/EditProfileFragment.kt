@@ -8,7 +8,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
@@ -63,7 +62,7 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
                     Constants.UPDATE_USER_KEY,
                     true
                 )
-                findNavController().popBackStack()
+                controller.popBackStack()
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -102,27 +101,29 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
     private fun initListener() {
         binding.apply {
             btnConfirm.setOnClickListener {
-                viewModel.initState()
-                uploadAvatar()
-                val user = User(
-                    firstName = edtFirstName.text.toString(),
-                    lastName = edtLastName.text.toString(),
-                    dob = SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).format(calendar.time),
-                    address = edtAddress.text.toString(),
-                    phoneNumber = edtPhone.text.toString(),
-                    gender = getGenderString().lowercase(),
-                    email = args.user.email,
-                    avatar = args.user.avatar
-                )
-                if (user != args.user) {
-                    viewModel.updateProfile(user).launchIn(lifecycleScope)
-                } else {
-                    viewModel.updateState()
+                if (viewModel.isLoading()) {
+                    viewModel.initState()
+                    uploadAvatar()
+                    val user = User(
+                        firstName = edtFirstName.text.toString(),
+                        lastName = edtLastName.text.toString(),
+                        dob = SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).format(calendar.time),
+                        address = edtAddress.text.toString(),
+                        phoneNumber = edtPhone.text.toString(),
+                        gender = getGenderString().lowercase(),
+                        email = args.user.email,
+                        avatar = args.user.avatar
+                    )
+                    if (user != args.user) {
+                        viewModel.updateProfile(user).launchIn(lifecycleScope)
+                    } else {
+                        viewModel.updateState()
+                    }
                 }
             }
 
             toolBar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                controller.popBackStack()
             }
 
             imgAvatar.setOnClickListener {

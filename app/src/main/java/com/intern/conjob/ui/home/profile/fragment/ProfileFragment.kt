@@ -81,7 +81,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             }
 
             tvEditProfile.setOnClickListener {
-                controller.navigate(
+                findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToEditProfileFragment(
                         viewModel.user.value
                     )
