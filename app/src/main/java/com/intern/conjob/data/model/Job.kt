@@ -20,4 +20,4 @@ data class Job(
     @SerializedName("created_by") val createdBy: Long? = null,
     @SerializedName("created_at") val createdAt: String? = null,
     @SerializedName("updated_at") val updatedAt: String? = null,
-)
+): java.io.Serializable
