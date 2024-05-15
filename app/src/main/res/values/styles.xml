@@ -12,4 +12,12 @@
         <item name="tabIndicatorGravity">center</item>
         <item name="tabRippleColor">@color/transparent</item>
     </style>
+
+    <style name="ThemeTabLayoutPost" parent="Widget.Design.TabLayout">
+        <item name="tabIndicator">@null</item>
+        <item name="tabBackground">@null</item>
+        <item name="tabGravity">center</item>
+        <item name="tabPaddingStart">@dimen/post_detail_tab_padding</item>
+        <item name="tabPaddingEnd">@dimen/post_detail_tab_padding</item>
+    </style>
 </resources>
