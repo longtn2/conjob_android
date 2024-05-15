@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/black"
+    app:cardCornerRadius="@dimen/item_matching_card_corner_radius"
+    app:cardElevation="@dimen/item_matching_card_elevation">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_matching_image"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/tvUserName"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewAvatar"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                app:cardCornerRadius="@dimen/avatar_card_corner_radius"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/avatar_stroke_width">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/description_avatar"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:id="@+id/imgBtnInteract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/description_interact"
+                android:src="@drawable/ic_heart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:text="@string/item_matching_total_interact"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize_small" />
+
+            <ImageButton
+                android:id="@+id/imgBtnComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/description_comment"
+                android:src="@drawable/ic_chat"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:text="@string/item_matching_total_comment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize_small" />
+
+            <ImageButton
+                android:id="@+id/imgBtnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/description_share"
+                android:src="@drawable/ic_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:text="@string/item_matching_total_shared"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize_small" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:text="@string/item_matching_user_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontSize_medium"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvCaption"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/item_matching_content_margin_bottom"
+            android:maxLines="2"
+            android:text="@string/item_matching_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontSize_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
