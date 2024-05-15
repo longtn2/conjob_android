@@ -29,3 +29,8 @@ fun String.isValidName(): Boolean {
 fun String.isValidPhone(): Boolean {
     return Pattern.compile("(84|0)[3|5|7|8|9]([0-9]{8})").matcher(this).matches()
 }
+
+//gồm một số lớn hơn 0
+fun String.isValidQuantity(): Boolean {
+    return Pattern.compile("[0-9]+").matcher(this).matches() && this.toLong() > 0
+}

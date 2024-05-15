@@ -7,7 +7,6 @@ class HomeViewModel : BaseViewModel() {
     private var tabItems: List<BottomTabBarItem> = listOf(
         BottomTabBarItem.TAB1,
         BottomTabBarItem.TAB2,
-        BottomTabBarItem.TAB3,
         BottomTabBarItem.TAB4,
         BottomTabBarItem.TAB5
     )

@@ -49,11 +49,13 @@
     <dimen name="custom_button_corners_radius">6dp</dimen>
     <dimen name="custom_dropdown_corner_radius">6dp</dimen>
     <dimen name="custom_border_stroke_width">1dp</dimen>
-    <dimen name="custom_border_corners_radius">6dp</dimen>
+    <dimen name="custom_border_corners_radius">12dp</dimen>
     <dimen name="custom_button_border_radius">9dp</dimen>
     <dimen name="custom_selected_dot_radius">30dp</dimen>
     <dimen name="custom_selected_dot_height">8dp</dimen>
     <dimen name="custom_selected_dot_width">16dp</dimen>
+    <dimen name="custom_dropdown_border_radius">12dp</dimen>
+    <dimen name="custom_dropdown_height">56dp</dimen>
 
     <!--Custom Video Controller-->
     <dimen name="custom_video_controller_height">12dp</dimen>
@@ -91,7 +93,16 @@
     <dimen name="profile_avatar_margin_top">-75dp</dimen>
     <dimen name="profile_avatar_card_corner_radius">60dp</dimen>
     <dimen name="profile_tab_indicator_height">2dp</dimen>
+    <dimen name="edit_text_corner_radius">12dp</dimen>
     <dimen name="profile_background_height">175dp</dimen>
+    <dimen name="profile_avatar_stroke_width">3dp</dimen>
+
+    <!--Publish Post-->
+    <dimen name="publish_post_edit_text_corner_radius">12dp</dimen>
+    <dimen name="publish_post_caption_height">200dp</dimen>
+    <dimen name="publish_post_tab_indicator_height">2dp</dimen>
+    <dimen name="publish_post_file_preview_height">300dp</dimen>
+    <dimen name="publish_post_file_preview_width">1750dp</dimen>
 
     <!--Icon-->
     <dimen name="splash_icon">150dp</dimen>
@@ -122,4 +133,7 @@
     <dimen name="ic_edit">20dp</dimen>
     <dimen name="ic_conjob_height">14dp</dimen>
     <dimen name="ic_conjob_width">40dp</dimen>
+    <dimen name="ic_camera_height">38dp</dimen>
+    <dimen name="ic_camera_width">40dp</dimen>
+    <dimen name="ic_details">32dp</dimen>
 </resources>

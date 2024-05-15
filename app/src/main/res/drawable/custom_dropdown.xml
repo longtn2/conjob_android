@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners
+                android:radius="@dimen/custom_dropdown_border_radius" />
+            <stroke
+                android:color="@color/gray400"
+                android:width="@dimen/custom_border_stroke_width"/>
+        </shape>
+    </item>
+</selector>

@@ -66,7 +66,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                     ).show()
                     controller.navigate(R.id.action_RegisterFragment_to_LoginFragment)
                 }.onError(normalAction = {
-                    if ((it as ErrorModel.Http.ApiError).code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
+                    if ((it as? ErrorModel.Http.ApiError)?.code == HttpURLConnection.HTTP_BAD_REQUEST.toString()) {
                         txtInputLayoutEmail.error = it.message
                     } else {
                         (activity as OnBoardingActivity).handleCommonError(it)
