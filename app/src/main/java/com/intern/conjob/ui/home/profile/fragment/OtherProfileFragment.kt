@@ -55,19 +55,43 @@ class OtherProfileFragment : BaseFragment(R.layout.fragment_other_profile) {
         binding.apply {
             viewModel.getUserInfoById(args.userId).onSuccess {
                 it.data?.let { data ->
-                    tvUserName.text = getString(R.string.user_name, data.lastName, data.firstName)
-                    tvPhone.text = HtmlCompat.fromHtml(getString(R.string.profile_phone_number_data, data.phoneNumber), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvAddress.text = HtmlCompat.fromHtml(getString(R.string.profile_address_data, data.address), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvDob.text = HtmlCompat.fromHtml(getString(R.string.profile_date_of_birth_data, data.dob?.let { dob ->
-                        SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).parse(dob)?.let { it1 ->
-                            SimpleDateFormat(Constants.POST_VIEW_DATE_FORMAT, Locale.US).format(it1)
-                        }
-                    } ?: ""), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvGender.text = HtmlCompat.fromHtml(getString(R.string.profile_gender_data, data.gender), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    tvEmail.text = HtmlCompat.fromHtml(getString(R.string.profile_email_data, data.email), HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    val imageSize = (activity as MainActivity).convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
-                    Glide.with(activity as MainActivity).load(data.avatar)
-                        .override(imageSize)
+                    tvUserName.text = getString(R.string.user_name, data.firstName, data.lastName)
+                    tvPhone.text = HtmlCompat.fromHtml(
+                        getString(
+                            R.string.profile_phone_number_data,
+                            data.phoneNumber
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    tvAddress.text = HtmlCompat.fromHtml(
+                        getString(R.string.profile_address_data, data.address),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    tvDob.text = HtmlCompat.fromHtml(
+                        getString(
+                            R.string.profile_date_of_birth_data,
+                            data.dob?.let { dob ->
+                                SimpleDateFormat(Constants.DATE_FORMAT, Locale.US).parse(dob)
+                                    ?.let { it1 ->
+                                        SimpleDateFormat(
+                                            Constants.POST_VIEW_DATE_FORMAT,
+                                            Locale.US
+                                        ).format(it1)
+                                    }
+                            } ?: ""),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    tvGender.text = HtmlCompat.fromHtml(
+                        getString(R.string.profile_gender_data, data.gender),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    tvEmail.text = HtmlCompat.fromHtml(
+                        getString(R.string.profile_email_data, data.email),
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    val imageSize =
+                        (activity as MainActivity).convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
+                    Glide.with(activity as MainActivity).load(data.avatar).override(imageSize)
                         .into(imgAvatar)
                 }
             }.launchIn(lifecycleScope)

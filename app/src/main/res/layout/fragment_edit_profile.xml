@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_left_arrow"
+            app:title="@string/edit_profile_title"
+            app:titleCentered="true" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewAvatar"
+            android:layout_width="@dimen/profile_avatar_size"
+            android:layout_height="@dimen/profile_avatar_size"
+            android:layout_marginTop="@dimen/margin_12dp"
+            app:cardCornerRadius="@dimen/profile_avatar_card_corner_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar"
+            app:strokeColor="@color/white"
+            app:strokeWidth="@dimen/avatar_stroke_width">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/description_avatar"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:hint="@string/hint_floating_first_name"
+            android:textColorHint="@color/gray400"
+            app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/edit_text_corner_radius"
+            app:boxStrokeColor="@color/gray100"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@null"
+            app:errorTextColor="@color/red700"
+            app:hintTextColor="@color/gray400"
+            app:layout_constraintTop_toBottomOf="@id/cardViewAvatar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:hint="@string/hint_floating_last_name"
+            android:textColorHint="@color/gray400"
+            app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/edit_text_corner_radius"
+            app:boxStrokeColor="@color/gray100"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@null"
+            app:errorTextColor="@color/red700"
+            app:hintTextColor="@color/gray400"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutFirstName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutLastName">
+
+            <RadioButton
+                android:id="@+id/radioBtnMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_male" />
+
+            <RadioButton
+                android:id="@+id/radioBtnFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:text="@string/gender_female" />
+
+            <RadioButton
+                android:id="@+id/radioBtnOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:text="@string/gender_other" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:hint="@string/hint_floating_phone"
+            android:textColorHint="@color/gray400"
+            app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/edit_text_corner_radius"
+            app:boxStrokeColor="@color/gray100"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@null"
+            app:errorTextColor="@color/red700"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutBirthday"
+            android:layout_width="@dimen/layout_width_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/edit_text_corner_radius"
+            app:errorIconDrawable="@null"
+            app:errorTextColor="@color/red"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@id/imgDatePicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutPhone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/hint_birthday"
+                android:inputType="date"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textColorHint="@color/gray400"
+                android:textSize="@dimen/fontSize_small" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imgDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:contentDescription="@string/description_logo"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtInputLayoutBirthday"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputLayoutPhone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLayoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:hint="@string/hint_floating_address"
+            android:textColorHint="@color/gray400"
+            app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/edit_text_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/edit_text_corner_radius"
+            app:boxStrokeColor="@color/gray100"
+            app:boxStrokeWidthFocused="@dimen/text_input_layout_stroke_focused"
+            app:errorIconDrawable="@null"
+            app:errorTextColor="@color/red700"
+            app:hintTextColor="@color/gray400"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutBirthday">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minHeight="@dimen/edt_min_height_48dp"
+                android:paddingHorizontal="@dimen/padding_8dp"
+                android:textSize="@dimen/fontSize_small" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_48dp"
+            android:layout_margin="@dimen/margin_16dp"
+            android:backgroundTint="@color/red"
+            android:insetTop="@dimen/inset_top"
+            android:insetBottom="@dimen/inset_bottom"
+            android:paddingHorizontal="@dimen/padding_32dp"
+            android:text="@string/button_edit_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontSize_medium"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputLayoutAddress"
+            app:strokeColor="@color/red700" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
