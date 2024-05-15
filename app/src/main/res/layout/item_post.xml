@@ -68,6 +68,7 @@
                 android:src="@drawable/ic_heart" />
 
             <TextView
+                android:id="@+id/tvTotalInteract"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"
@@ -86,6 +87,7 @@
                 app:tint="@color/white" />
 
             <TextView
+                android:id="@+id/tvTotalComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"
@@ -103,6 +105,7 @@
                 android:src="@drawable/ic_share" />
 
             <TextView
+                android:id="@+id/tvTotalShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"

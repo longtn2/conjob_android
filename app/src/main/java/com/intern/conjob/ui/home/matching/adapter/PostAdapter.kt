@@ -20,6 +20,7 @@ import com.intern.conjob.arch.util.Constants.POST_LIMIT
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
 import com.intern.conjob.arch.util.VideoPlayer
+import com.intern.conjob.arch.util.format
 import com.intern.conjob.data.model.Post
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.widget.CustomClickableSpan
@@ -74,8 +75,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 } else {
                     playerView.visibility = View.VISIBLE
                     imgView.visibility = View.GONE
-                    VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                    VideoPlayer.player?.prepare()
+                    try {
+                        VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                        VideoPlayer.player?.prepare()
+                    } catch (e: NullPointerException) {
+                        //
+                    }
                 }
                 Glide.with(itemView.context).load(post.avatar)
                     .override(imageThumbnailSize)
@@ -83,12 +88,13 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     .into(binding.imgAvatar)
                 tvUserName.text = itemView.context.getString(R.string.item_matching_user_name, post.author)
                 tvCaption.text = post.caption
-                initTextSpan()
+                tvTotalInteract.text = post.likes.format()
+                initTextSpan(post)
                 initListener()
             }
         }
 
-        private fun initTextSpan() {
+        private fun initTextSpan(post: Post) {
             binding.apply {
                 tvCaption.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
@@ -104,7 +110,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                         val textSpan = SpannableStringBuilder(tvCaption.text)
                         textSpan.setSpan(object : CustomClickableSpan(itemView.context.getColor(R.color.white)) {
                             override fun onClick(widget: View) {
-                                clickListener?.onDetailClick()
+                                clickListener?.onDetailClick(post)
                             }
                         }, textSpan.indexOf(EXPAND_TEXT), textSpan.indexOf(EXPAND_TEXT) + EXPAND_TEXT.length, 0)
                         tvCaption.movementMethod = LinkMovementMethod.getInstance()

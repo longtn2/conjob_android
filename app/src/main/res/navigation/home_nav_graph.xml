@@ -10,11 +10,19 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_postDetailFragment"
-            app:destination="@id/postDetailFragment" />
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="post"
+                app:argType="com.intern.conjob.data.model.Post"/>
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/postDetailFragment"
         android:name="com.intern.conjob.ui.home.matching.fragment.PostDetailFragment"
-        android:label="PostDetailFragment" />
+        android:label="PostDetailFragment">
+        <argument
+            android:name="post"
+            app:argType="com.intern.conjob.data.model.Post"/>
+    </fragment>
 </navigation>
