@@ -1,5 +1,6 @@
 package com.intern.conjob.ui.base
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
@@ -19,6 +20,8 @@ import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.ui.widget.CustomProgressDialog
 import com.intern.conjob.R
 import com.intern.conjob.arch.util.ErrorMessage
+import com.intern.conjob.ui.MainActivity
+import com.intern.conjob.ui.onboarding.OnBoardingActivity
 import java.net.HttpURLConnection
 
 /**
@@ -42,6 +45,12 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
                 HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> errorMessage = ErrorMessage.BAD_GATEWAY_502.message
                 HttpURLConnection.HTTP_NOT_FOUND.toString() -> errorMessage = ErrorMessage.NOT_FOUND_404.message
                 HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> errorMessage = ErrorMessage.SERVER_ERROR_500.message
+                HttpURLConnection.HTTP_UNAUTHORIZED.toString() -> {
+                    if (this is MainActivity) {
+                        startActivity(Intent(this, OnBoardingActivity::class.java))
+                        finish()
+                    }
+                }
             }
             showErrorAlert(
                 message = errorMessage,
