@@ -5,6 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:statusBarColor">@null</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/red700</item>
+        <item name="colorAccent">@color/red700</item>
     </style>
 
     <style name="Theme.ConJob" parent="Base.Theme.ConJob" />

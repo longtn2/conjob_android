@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intern.conjob.R
@@ -19,8 +16,11 @@ import com.intern.conjob.arch.extensions.convertDpToPx
 import com.intern.conjob.arch.util.Constants
 import com.intern.conjob.arch.util.Constants.EXPAND_DOTS
 import com.intern.conjob.arch.util.Constants.EXPAND_TEXT
+import com.intern.conjob.arch.util.Constants.POST_LIMIT
 import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
+import com.intern.conjob.arch.util.VideoPlayer
+import com.intern.conjob.arch.util.format
 import com.intern.conjob.data.model.Post
 import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.widget.CustomClickableSpan
@@ -29,8 +29,13 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     var posts: List<Post> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
+            val addSize = value.size - posts.size
             field = value
-            notifyDataSetChanged()
+            if (posts.size <= POST_LIMIT) {
+                notifyDataSetChanged()
+            } else {
+                notifyItemRangeInserted(value.size - POST_LIMIT, addSize)
+            }
         }
 
     companion object {
@@ -58,7 +63,6 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
         private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
 
-        @OptIn(UnstableApi::class)
         fun bindView(post: Post) {
             binding.apply {
                 if (post.type == FileType.IMAGE.type) {
@@ -71,18 +75,22 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 } else {
                     playerView.visibility = View.VISIBLE
                     imgView.visibility = View.GONE
-                    val player = ExoPlayer.Builder(itemView.context).build()
-                    player.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
-                    playerView.player = player
+                    VideoPlayer.player?.addMediaItem(MediaItem.fromUri(Uri.parse(post.url)))
+                    VideoPlayer.player?.prepare()
                 }
+                Glide.with(itemView.context).load(post.avatar)
+                    .override(imageThumbnailSize)
+                    .fitCenter()
+                    .into(binding.imgAvatar)
                 tvUserName.text = itemView.context.getString(R.string.item_matching_user_name, post.author)
                 tvCaption.text = post.caption
-                initTextSpan()
+                tvTotalInteract.text = post.likes.format()
+                initTextSpan(post)
                 initListener()
             }
         }
 
-        private fun initTextSpan() {
+        private fun initTextSpan(post: Post) {
             binding.apply {
                 tvCaption.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
@@ -98,7 +106,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                         val textSpan = SpannableStringBuilder(tvCaption.text)
                         textSpan.setSpan(object : CustomClickableSpan(itemView.context.getColor(R.color.white)) {
                             override fun onClick(widget: View) {
-                                clickListener?.onDetailClick()
+                                clickListener?.onDetailClick(post)
                             }
                         }, textSpan.indexOf(EXPAND_TEXT), textSpan.indexOf(EXPAND_TEXT) + EXPAND_TEXT.length, 0)
                         tvCaption.movementMethod = LinkMovementMethod.getInstance()

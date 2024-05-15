@@ -12,4 +12,37 @@
         <item name="tabIndicatorGravity">center</item>
         <item name="tabRippleColor">@color/transparent</item>
     </style>
+
+    <style name="ThemeTabLayoutPost" parent="Widget.Design.TabLayout">
+        <item name="tabIndicator">@null</item>
+        <item name="tabBackground">@null</item>
+        <item name="tabGravity">center</item>
+        <item name="tabPaddingStart">@dimen/post_detail_tab_padding</item>
+        <item name="tabPaddingEnd">@dimen/post_detail_tab_padding</item>
+    </style>
+
+    <style name="ThemeTabLayoutProfile">
+        <item name="tabSelectedTextColor">@color/red700</item>
+        <item name="tabTextColor">@color/font_color</item>
+        <item name="tabIconTint">@color/bottom_bar_color</item>
+        <item name="tabIndicatorColor">@color/red700</item>
+        <item name="tabBackground">@color/white</item>
+        <item name="tabRippleColor">@color/transparent</item>
+        <item name="textAllCaps">false</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabIndicatorHeight">@dimen/profile_tab_indicator_height</item>
+    </style>
+
+    <style name="ThemeTabLayoutPublishPost">
+        <item name="tabSelectedTextColor">@color/red700</item>
+        <item name="tabTextColor">@color/font_color</item>
+        <item name="tabIconTint">@color/bottom_bar_color</item>
+        <item name="tabIndicatorColor">@color/red700</item>
+        <item name="tabBackground">@color/white</item>
+        <item name="tabRippleColor">@color/transparent</item>
+        <item name="textAllCaps">false</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabIndicatorHeight">@dimen/publish_post_tab_indicator_height</item>
+    </style>
+
 </resources>

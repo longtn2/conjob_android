@@ -3,6 +3,7 @@ plugins {
     id ("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.4.30"
     id("kotlin-parcelize")
+    id ("androidx.navigation.safeargs")
     kotlin("kapt")
 }
 
@@ -74,7 +75,7 @@ android {
         when (name) {
             "debug" -> {
                 resValue("string", "app_name", "[DEV]-${appName}")
-                buildConfigField("String", "API_URL", "\"https://62f6-117-2-6-32.ngrok-free.app/api/v1/\"")
+                buildConfigField("String", "API_URL", "\"https://maggot-intent-cicada.ngrok-free.app/api/v1/\"")
             }
 
             "staging" -> {
@@ -123,4 +124,7 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-dash:1.3.1")
     implementation("androidx.media3:media3-ui:1.3.1")
     implementation ("com.github.yuyakaido:CardStackView:v2.3.4")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 }

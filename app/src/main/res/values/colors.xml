@@ -11,8 +11,14 @@
     <color name="white_transparent">#1FFFFFFF</color>
     <color name="dark_transparent">#80000000</color>
     <color name="gray">#FF585858</color>
+    <color name="gray50">#FDFDFD</color>
+    <color name="gray100">#EDEDF2</color>
+    <color name="gray200">#DDDDE5</color>
+    <color name="gray300">#B8B8BF</color>
+    <color name="gray400">#949499</color>
     <color name="light_gray">#FFB6B6B6</color>
-    <color name="font_color">#FF4E4E4E</color>
+    <color name="font_color">#636366</color>
+    <color name="blue">#5E7BE4</color>
     <color name="light_blue">#35C2C1</color>
     <color name="white_gray">#DDDDE5</color>
     <color name="swipe_accept_bg_color">#2952C41A</color>

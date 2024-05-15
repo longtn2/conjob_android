@@ -1,37 +1,65 @@
 package com.intern.conjob.ui.home.matching
 
+import com.intern.conjob.arch.extensions.FlowResult
+import com.intern.conjob.arch.extensions.onSuccess
+import com.intern.conjob.arch.util.Constants.POST_LIMIT
+import com.intern.conjob.data.datasource.PostRemoteDataSource
 import com.intern.conjob.data.model.Post
+import com.intern.conjob.data.repository.PostRepository
+import com.intern.conjob.data.response.BaseDataResponse
+import com.intern.conjob.data.response.PostResponse
 import com.intern.conjob.ui.base.BaseViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onCompletion
 
-class MatchingViewModel : BaseViewModel() {
+class MatchingViewModel(
+    private val postRepository: PostRepository = PostRepository(PostRemoteDataSource.getInstance())
+) : BaseViewModel() {
 
-    //Mock data
-    fun getTempData(): List<Post> {
-        return listOf(
-            Post(
-                0,
-                "",
-                "Opacity hand hand fill move style bullet. Export flows line strikethrough flows #UIUX #trending #social #job #more",
-                "NhaTuyenDungA",
-                "https://cdn.eva.vn/upload/2-2020/images/2020-05-05/don-xin-viec-ba-dao-6-1588672247-471-width1212height798.jpg",
-                "Img"
-            ),
-            Post(
-                1,
-                "",
-                "Hello mọi người, đây là trang tuyển dụng của công ty mình. Mọi người thấy hứng thú thì apply vào công ty mình nhé! ^^",
-                "NhaTuyenDungB",
-                "https://jobsgo.vn/blog/wp-content/uploads/2023/03/stt-tuyen-dung-hay-content-tuyen-dung-hai-huoc.png",
-                "Img"
-            ),
-            Post(
-                3,
-                "",
-                "Hello mọi người, đây là trang tuyển dụng của công ty mình. Mọi người thấy hứng thú thì apply vào công ty mình nhé! ^^",
-                "NhaTuyenDungC",
-                "https://videos.pexels.com/video-files/7232007/7232007-uhd_2160_3840_25fps.mp4",
-                "Video"
-            )
-        )
+    private val _posts: MutableStateFlow<List<Post>> = MutableStateFlow(listOf())
+    var posts: StateFlow<List<Post>> = _posts
+
+    private var page = 1
+    var isLoading: Boolean = false
+    private var hasReachedEnd = false
+
+    fun canCallApiGetMorePosts(): Boolean {
+        return !isLoading && !hasReachedEnd
+    }
+
+    fun isGetMorePosts(): Boolean {
+        return _posts.value.isNotEmpty() && !hasReachedEnd
+    }
+
+    fun getPosts(): Flow<FlowResult<BaseDataResponse<PostResponse>>> {
+        page = 1
+        isLoading = true
+        hasReachedEnd = false
+        _posts.value = listOf()
+        return postRepository.getPosts(page, POST_LIMIT).onCompletion {
+            isLoading = false
+        }.onSuccess {
+            it.data?.items?.let { items ->
+                _posts.value = items
+                page++
+            }
+        }
+    }
+
+    fun getMorePosts(): Flow<FlowResult<BaseDataResponse<PostResponse>>> {
+        val data = _posts.value.toMutableList()
+        isLoading = true
+        return postRepository.getPosts(page, POST_LIMIT).onCompletion {
+            isLoading = false
+        }.onSuccess {
+            it.data?.items?.let { items ->
+                data.addAll(items)
+                _posts.value = data.toList()
+                page++
+                hasReachedEnd = items.size < POST_LIMIT
+            }
+        }
     }
 }

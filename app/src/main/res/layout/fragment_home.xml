@@ -24,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="@dimen/bottom_tab_elevation"
         app:strokeWidth="@dimen/bottom_tab_stroke_width">
 
         <com.google.android.material.tabs.TabLayout
@@ -31,7 +32,34 @@
             style="@style/ThemeTabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabGravity="fill" />
+            app:tabGravity="fill">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_home"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_chat"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_plus"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_notification"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_profile"/>
+
+        </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

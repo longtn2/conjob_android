@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray50"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:title="@string/list_job"
+        app:titleCentered="true" />
+
+    <TextView
+        android:id="@+id/tvCreateJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginVertical="@dimen/margin_12dp"
+        android:background="@drawable/custom_border"
+        android:drawablePadding="@dimen/padding_8dp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_12dp"
+        android:text="@string/select_job"
+        android:textSize="@dimen/fontSize_small"
+        app:drawableStartCompat="@drawable/ic_plus_light" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp" />
+
+</LinearLayout>
