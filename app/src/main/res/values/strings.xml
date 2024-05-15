@@ -41,6 +41,7 @@
     <string name="description_matching_accept">Accept</string>
     <string name="description_matching_skip">Skip</string>
     <string name="description_more_vert_icon">more</string>
+    <string name="description_video_play_pause">Play/Pause</string>
 
     <!--Onboard-->
     <string name="button_login">Login</string>
@@ -103,6 +104,9 @@
     <string name="item_matching_total_shared">120</string>
     <string name="matching_accept">Lướt qua phải để tuyển dụng</string>
     <string name="matching_skip">Lướt qua trái để bỏ qua</string>
+    <string name="matching_post_empty">Không có bài đăng nào :(</string>
+    <string name="matching_post_refresh">Làm mới</string>
+    <string name="matching_post_loading">Đang tìm kiếm…</string>
 
     <!--Post Details-->
     <string name="post_detail_user_name">MonstarTV</string>

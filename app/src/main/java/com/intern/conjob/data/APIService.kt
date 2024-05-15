@@ -4,8 +4,9 @@ import com.intern.conjob.data.model.LoginUser
 import com.intern.conjob.data.model.RegisterUser
 import com.intern.conjob.data.model.Token
 import com.intern.conjob.data.response.BaseDataResponse
-import com.intern.conjob.data.response.LoginResponse
 import com.intern.conjob.data.response.BaseResponse
+import com.intern.conjob.data.response.LoginResponse
+import com.intern.conjob.data.response.PostResponse
 import com.intern.conjob.data.response.TokenResponse
 import com.intern.conjob.data.response.TrendingResponse
 import retrofit2.Response
@@ -29,4 +30,10 @@ interface APIService {
 
     @POST("auth/refresh")
     suspend fun refreshToken(@Body token: Token): Response<BaseDataResponse<TokenResponse>>
+
+    @GET("post/matching")
+    suspend fun getPosts(
+        @Query("Page") page: Int,
+        @Query("Limit") limit: Int
+    ): Response<BaseDataResponse<PostResponse>>
 }

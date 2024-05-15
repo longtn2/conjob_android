@@ -1,36 +1,54 @@
 package com.intern.conjob.ui.home.matching.fragment
 
+import android.content.Intent
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.annotation.OptIn
 import androidx.core.view.size
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.ui.PlayerView
 import com.intern.conjob.R
+import com.intern.conjob.arch.extensions.onError
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_MAX_DEGREE
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_SWIPE_THRESHOLD
 import com.intern.conjob.arch.util.Constants.CARD_STACK_VIEW_VISIBLE_COUNT
+import com.intern.conjob.arch.util.Constants.CLOSE_DETAILS_VIEW_KEY
+import com.intern.conjob.arch.util.ErrorMessage
+import com.intern.conjob.arch.util.FileType
 import com.intern.conjob.arch.util.PostOnClickListener
+import com.intern.conjob.arch.util.VideoPlayer
+import com.intern.conjob.data.error.ErrorModel
 import com.intern.conjob.databinding.FragmentMatchingBinding
+import com.intern.conjob.databinding.ItemPostBinding
 import com.intern.conjob.ui.MainActivity
 import com.intern.conjob.ui.base.BaseFragment
 import com.intern.conjob.ui.base.BaseViewModel
 import com.intern.conjob.ui.home.matching.MatchingViewModel
 import com.intern.conjob.ui.home.matching.adapter.PostAdapter
+import com.intern.conjob.ui.onboarding.OnBoardingActivity
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import java.net.HttpURLConnection
 
 class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private val binding by viewBinding(FragmentMatchingBinding::bind)
     private val viewModel by viewModels<MatchingViewModel>()
     private var adapter: PostAdapter? = null
-    private var cardView: View? = null
+    private var blurView: View? = null
+    private var currentPlayerView: PlayerView? = null
 
     companion object {
         fun newInstance() = MatchingFragment()
@@ -42,130 +60,260 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initCardStackView()
+
         binding.imgBtnSearch.setOnClickListener {
-            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_matching_search), Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        binding.btnRefreshPost.setOnClickListener {
+            if (viewModel.isGetMorePosts()) {
+                getMorePosts()
+            } else {
+                getPosts()
+            }
+        }
+
+        viewModel.posts.onEach {
+            adapter?.posts = it
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        controller.currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
+            CLOSE_DETAILS_VIEW_KEY
+        )
+            ?.observe(viewLifecycleOwner) {
+                currentPlayerView?.player = VideoPlayer.player
+            }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        currentPlayerView?.let {
+            VideoPlayer.player?.pause()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentPlayerView?.let {
+            VideoPlayer.player?.play()
         }
     }
 
     private fun initAdapter() {
         binding.apply {
             adapter = PostAdapter()
-            adapter?.posts = viewModel.getTempData()
+            getPosts()
             adapter?.setOnClickListener(object : PostOnClickListener {
                 override fun onDetailClick() {
+                    currentPlayerView?.player = null
                     controller.navigate(R.id.action_homeFragment_to_postDetailFragment)
                 }
 
                 override fun onAvatarClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_profile), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_profile),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onInteractClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_interact), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_interact),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onCommentClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_comment), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_comment),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onShareClick() {
-                    Toast.makeText(context, getString(R.string.toast_matching_share), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_matching_share),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         }
     }
 
     private fun initCardStackView() {
-        val cardLayoutManager = CardStackLayoutManager(activity as MainActivity, object: CardStackListener {
-            override fun onCardDragging(direction: Direction?, ratio: Float) {
-                cardView?.let {
-                    if (cardView!!.x < 0) {
-                        changeStatusVisibility(true)
-                        changeStatusView(false)
-                        cardView!!.foreground = AppCompatResources.getDrawable(
-                            activity as MainActivity,
-                            R.color.swipe_skip_bg_color
-                        )
-                    } else {
-                        changeStatusVisibility(true)
-                        changeStatusView(true)
-                        cardView!!.foreground = AppCompatResources.getDrawable(
-                            activity as MainActivity,
-                            R.color.swipe_accept_bg_color
-                        )
+        val cardLayoutManager =
+            CardStackLayoutManager(activity as MainActivity, object : CardStackListener {
+                @OptIn(UnstableApi::class)
+                override fun onCardDragging(direction: Direction?, ratio: Float) {
+                    currentPlayerView?.let {
+                        VideoPlayer.player?.pause()
+                        currentPlayerView?.hideController()
                     }
-                    binding.apply {
-                        constraintLayoutStatus.x = cardView!!.x
-                        constraintLayoutStatus.y = cardView!!.y
-                        constraintLayoutStatus.rotation = cardView!!.rotation
+                    renderBlurEffect(true)
+                }
+
+                override fun onCardSwiped(direction: Direction?) {
+                    cardSwiped(direction)
+                }
+
+                override fun onCardRewound() = Unit
+
+                override fun onCardCanceled() {
+                    currentPlayerView?.let {
+                        VideoPlayer.player?.play()
+                    }
+                    renderBlurEffect(false)
+                }
+
+                override fun onCardAppeared(view: View?, position: Int) {
+                    view?.let { cardView ->
+                        val cardViewBinding = ItemPostBinding.bind(cardView)
+                        blurView = cardViewBinding.constraintLayout
+                        adapter?.let {
+                            if (it.posts[position].type == FileType.VIDEO.type) {
+                                VideoPlayer.player?.play()
+                                currentPlayerView = cardViewBinding.playerView
+                                currentPlayerView?.player = VideoPlayer.player
+                            }
+                        }
+                    }
+                    binding.btnRefreshPost.visibility = View.GONE
+                }
+
+                override fun onCardDisappeared(view: View?, position: Int) {
+                    currentPlayerView?.player = null
+                    renderBlurEffect(false)
+                    adapter?.let {
+                        if (it.posts[position].type == FileType.VIDEO.type) {
+                            VideoPlayer.player?.currentMediaItemIndex?.let { index ->
+                                VideoPlayer.player?.removeMediaItem(index)
+                            }
+                            VideoPlayer.player?.seekTo(0)
+                            currentPlayerView = null
+                        }
+                        it.notifyItemChanged(0)
                     }
                 }
-            }
-
-            override fun onCardSwiped(direction: Direction?) {
-                cardView?.let {
-                    if (cardView!!.x < 0) {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_skip), Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(activity as MainActivity, getString(R.string.toast_matching_accept), Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if (binding.cardStackView.size <= 0) {
-                    adapter?.posts = viewModel.getTempData()
-                }
-            }
-
-            override fun onCardRewound() = Unit
-
-            override fun onCardCanceled() {
-                changeStatusVisibility(false)
-                cardView?.foreground = null
-            }
-
-            override fun onCardAppeared(view: View?, position: Int) {
-                cardView = view
-            }
-
-            override fun onCardDisappeared(view: View?, position: Int) {
-                changeStatusVisibility(false)
-                cardView?.foreground = null
-            }
-
-        })
+            })
         cardLayoutManager.setVisibleCount(CARD_STACK_VIEW_VISIBLE_COUNT)
         cardLayoutManager.setMaxDegree(CARD_STACK_VIEW_MAX_DEGREE)
         cardLayoutManager.setSwipeThreshold(CARD_STACK_VIEW_SWIPE_THRESHOLD)
-        cardLayoutManager.setDirections(Direction.FREEDOM)
+        cardLayoutManager.setDirections(Direction.HORIZONTAL)
         binding.cardStackView.layoutManager = cardLayoutManager
         binding.cardStackView.adapter = adapter
     }
 
-    private fun changeStatusVisibility(isShow: Boolean) {
+    private fun cardSwiped(direction: Direction?) {
+        when (direction) {
+            Direction.Right -> {
+                Toast.makeText(
+                    activity as MainActivity,
+                    getString(R.string.toast_matching_accept),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            Direction.Left -> {
+                Toast.makeText(
+                    activity as MainActivity,
+                    getString(R.string.toast_matching_skip),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else -> Unit
+        }
+        if (binding.cardStackView.size <= CARD_STACK_VIEW_VISIBLE_COUNT - 1) {
+            getMorePosts()
+        }
+        showEmptyPost()
+    }
+
+    private fun renderBlurEffect(isShow: Boolean) {
         if (isShow) {
-            binding.constraintLayoutStatus.visibility = View.VISIBLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                cardView?.setRenderEffect(
+                blurView?.setRenderEffect(
                     RenderEffect.createBlurEffect(
                         BLUR_EFFECT_RADIUS, BLUR_EFFECT_RADIUS, Shader.TileMode.MIRROR
                     )
                 )
             }
         } else {
-            binding.constraintLayoutStatus.visibility = View.GONE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                cardView?.setRenderEffect(null)
+                blurView?.setRenderEffect(null)
             }
         }
     }
 
-    private fun changeStatusView(isAccept: Boolean) {
-        if (isAccept) {
-            binding.imgStatus.setImageResource(R.drawable.ic_matching_accept)
-            binding.tvStatus.text = getString(R.string.matching_accept)
+    private fun getPosts() {
+        viewModel.getPosts().onStart {
+            showLoadingPost()
+        }.onCompletion {
+            showEmptyPost()
+        }.onError(
+            commonAction = {
+                handleGetPostError(it)
+            },
+            normalAction = {
+                handleGetPostError(it)
+            }
+        ).launchIn(lifecycleScope)
+    }
+
+    private fun getMorePosts() {
+        if (viewModel.canCallApiGetMorePosts()) {
+            viewModel.getMorePosts().onStart {
+                showLoadingPost()
+            }.onCompletion {
+                showEmptyPost()
+            }.onError(
+                commonAction = {
+                    handleGetPostError(it)
+                },
+                normalAction = {
+                    handleGetPostError(it)
+                }
+            ).launchIn(lifecycleScope)
         } else {
-            binding.imgStatus.setImageResource(R.drawable.ic_matching_skip)
-            binding.tvStatus.text = getString(R.string.matching_skip)
+            binding.tvEmpty.text = getString(R.string.matching_post_empty)
         }
     }
 
+    private fun showEmptyPost() {
+        if (binding.cardStackView.size == 0 && !viewModel.isLoading) {
+            binding.btnRefreshPost.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun showLoadingPost() {
+        binding.btnRefreshPost.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.tvEmpty.text = getString(R.string.matching_post_loading)
+    }
+
+    private fun handleGetPostError(errorModel: ErrorModel) {
+        if (errorModel is ErrorModel.Http.ApiError) {
+            when (errorModel.code) {
+                HttpURLConnection.HTTP_UNAUTHORIZED.toString() -> {
+                    (activity as MainActivity).startActivity(Intent(activity as MainActivity, OnBoardingActivity::class.java))
+                    (activity as MainActivity).finish()
+                }
+                HttpURLConnection.HTTP_FORBIDDEN.toString() -> binding.tvEmpty.text = ErrorMessage.VERIFY_EMAIL_FORBIDDEN_403.message
+                HttpURLConnection.HTTP_INTERNAL_ERROR.toString() -> binding.tvEmpty.text = ErrorMessage.SERVER_ERROR_500.message
+                HttpURLConnection.HTTP_NOT_FOUND.toString() -> binding.tvEmpty.text = ErrorMessage.NOT_FOUND_404.message
+                HttpURLConnection.HTTP_BAD_GATEWAY.toString() -> binding.tvEmpty.text = ErrorMessage.BAD_GATEWAY_502.message
+                else -> {
+                    binding.tvEmpty.text = getString(R.string.matching_post_empty)
+                }
+            }
+        } else if (errorModel is ErrorModel.LocalError) {
+            binding.tvEmpty.text = errorModel.errorMessage
+        }
+    }
 }
