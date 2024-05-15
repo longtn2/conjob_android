@@ -61,7 +61,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
+        private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.POST_IMAGE_SIZE)
 
         fun bindView(post: Post) {
             binding.apply {

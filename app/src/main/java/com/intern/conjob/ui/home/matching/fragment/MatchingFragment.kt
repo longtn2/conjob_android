@@ -16,6 +16,7 @@ import androidx.media3.ui.PlayerView
 import androidx.navigation.fragment.findNavController
 import com.intern.conjob.R
 import com.intern.conjob.arch.extensions.onError
+import com.intern.conjob.arch.extensions.onSuccess
 import com.intern.conjob.arch.extensions.viewBinding
 import com.intern.conjob.arch.util.Constants.APPLY_BUTTON_PRESSED
 import com.intern.conjob.arch.util.Constants.BLUR_EFFECT_RADIUS
@@ -44,7 +45,6 @@ import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import java.net.HttpURLConnection
@@ -83,6 +83,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
 
         viewModel.posts.onEach {
             adapter?.posts = it
+            binding.btnRefreshPost.visibility = View.GONE
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
@@ -199,7 +200,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
                             currentUserId = it.posts[position].job?.userId
                         }
                     }
-                    binding.btnRefreshPost.visibility = View.GONE
                 }
 
                 override fun onCardDisappeared(view: View?, position: Int) {
@@ -229,19 +229,11 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private fun cardSwiped(direction: Direction?) {
         when (direction) {
             Direction.Right -> {
-                Toast.makeText(
-                    activity as MainActivity,
-                    getString(R.string.toast_matching_accept),
-                    Toast.LENGTH_SHORT
-                ).show()
+                //skip
             }
 
             Direction.Left -> {
-                Toast.makeText(
-                    activity as MainActivity,
-                    getString(R.string.toast_matching_skip),
-                    Toast.LENGTH_SHORT
-                ).show()
+                //accept
             }
 
             else -> Unit
@@ -271,8 +263,10 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     private fun getPosts() {
         viewModel.getPosts().onStart {
             showLoadingPost()
-        }.onCompletion {
-            showEmptyPost()
+        }.onSuccess {
+            if (it.data?.items.isNullOrEmpty()) {
+                showEmptyPost()
+            }
         }.onError(
             commonAction = {
                 handleGetPostError(it)
@@ -287,8 +281,10 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         if (viewModel.canCallApiGetMorePosts()) {
             viewModel.getMorePosts().onStart {
                 showLoadingPost()
-            }.onCompletion {
-                showEmptyPost()
+            }.onSuccess {
+                if (it.data?.items.isNullOrEmpty()) {
+                    showEmptyPost()
+                }
             }.onError(
                 commonAction = {
                     handleGetPostError(it)
@@ -303,7 +299,7 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
     }
 
     private fun showEmptyPost() {
-        if (binding.cardStackView.size == 0 && !viewModel.isLoading) {
+        if (binding.cardStackView.size == 0) {
             binding.btnRefreshPost.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
         }
@@ -333,5 +329,6 @@ class MatchingFragment : BaseFragment(R.layout.fragment_matching) {
         } else if (errorModel is ErrorModel.LocalError) {
             binding.tvEmpty.text = errorModel.errorMessage
         }
+        showEmptyPost()
     }
 }

@@ -50,7 +50,7 @@ class PostFileAdapter : RecyclerView.Adapter<PostFileAdapter.FileViewHolder>() {
     class FileViewHolder(private val binding: ItemPostFileBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.IMAGE_THUMBNAIL_SIZE)
+        private val imageThumbnailSize = itemView.context.convertDpToPx(Constants.POST_IMAGE_SIZE)
         private var mediaItemIndex = 0
 
         fun bindView(post: Post, position: Int) {
