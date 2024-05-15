@@ -41,6 +41,11 @@
     <string name="hint_floating_location">Nơi làm việc<font fgcolor='#C5091F'>*</font></string>
     <string name="hint_floating_quantity">Số lượng ứng viên<font fgcolor='#C5091F'>*</font></string>
     <string name="hint_floating_expired_day">Hạn cuối ứng tuyển<font fgcolor='#C5091F'>*</font></string>
+    <string name="hint_floating_first_name">Họ</string>
+    <string name="hint_floating_last_name">Tên</string>
+    <string name="hint_floating_email">Email</string>
+    <string name="hint_floating_address">Đỉa chỉ</string>
+    <string name="hint_floating_phone">Số điện thoại</string>
 
     <!--Description-->
     <string name="description_logo">App logo</string>
@@ -92,9 +97,9 @@
     <string name="validate_password_require">8 or more characters, contains uppercase letters, lowercase letters, numbers, and symbols</string>
     <string name="validate_password_null">Please enter your Password</string>
     <string name="policy"><![CDATA[By clicking Agree & Join, you agree to ConJob\'s User Agreement, Policy and ]]> <a>Cookie Policy.</a> </string>
-    <string name="gender_male">Male</string>
-    <string name="gender_female">Female</string>
-    <string name="gender_other">Other</string>
+    <string name="gender_male">Nam</string>
+    <string name="gender_female">Nữ</string>
+    <string name="gender_other">Khác</string>
     <string name="register_success">Register success!</string>
 
     <!-- Login -->
@@ -151,7 +156,16 @@
     <string name="profile_phone_number"><b>Số điện thoại: </b> ***********</string>
     <string name="profile_date_of_birth"><b>Ngày sinh: </b> ***********</string>
     <string name="profile_address"><b>Địa chỉ: </b> ***********</string>
+    <string name="profile_gender"><b>Giới tính: </b> *****</string>
+    <string name="profile_email"><b>Email: </b> ***********</string>
+    <string name="profile_phone_number_data"><![CDATA[<b>Số điện thoại: </b> %1$s]]></string>
+    <string name="profile_date_of_birth_data"><![CDATA[<b>Ngày sinh: </b> %1$s]]></string>
+    <string name="profile_address_data"><![CDATA[<b>Địa chỉ: </b> %1$s]]></string>
+    <string name="profile_gender_data"><![CDATA[<b>Giới tính: </b> %1$s]]></string>
+    <string name="profile_email_data"><![CDATA[<b>Email: </b> %1$s]]></string>
     <string name="profile_edit">Chỉnh sửa thông tin cá nhân</string>
+    <string name="edit_profile_title"><b>Chỉnh sửa thông tin</b></string>
+    <string name="button_edit_confirm">Xác nhận</string>
 
     <!--Settings-->
     <string name="settings_title"><b>Cài đặt</b></string>

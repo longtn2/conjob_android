@@ -93,7 +93,9 @@
     <dimen name="profile_avatar_margin_top">-75dp</dimen>
     <dimen name="profile_avatar_card_corner_radius">60dp</dimen>
     <dimen name="profile_tab_indicator_height">2dp</dimen>
+    <dimen name="edit_text_corner_radius">12dp</dimen>
     <dimen name="profile_background_height">175dp</dimen>
+    <dimen name="profile_avatar_stroke_width">3dp</dimen>
 
     <!--Publish Post-->
     <dimen name="publish_post_edit_text_corner_radius">12dp</dimen>

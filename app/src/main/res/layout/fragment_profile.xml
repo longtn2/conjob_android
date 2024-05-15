@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:strokeColor="@color/white"
-            app:strokeWidth="3dp">
+            app:strokeWidth="@dimen/profile_avatar_stroke_width">
 
             <ImageView
                 android:id="@+id/imgAvatar"
@@ -55,7 +55,6 @@
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"
             android:textSize="@dimen/fontSize_24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +81,8 @@
             android:layout_margin="@dimen/margin_8dp"
             android:backgroundTint="@color/gray50"
             app:cardCornerRadius="@dimen/profile_card_corner_radius"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile">
+            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +110,23 @@
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
                     android:text="@string/profile_phone_number"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:text="@string/profile_gender"
+                    android:textSize="@dimen/fontSize_small" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_email"
                     android:textSize="@dimen/fontSize_small" />
 
             </LinearLayout>
@@ -118,11 +134,13 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewProfileTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
             android:backgroundTint="@color/gray50"
-            app:layout_constraintTop_toBottomOf="@id/cardViewUserInformation">
+            app:layout_constraintTop_toBottomOf="@id/cardViewUserInformation"
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

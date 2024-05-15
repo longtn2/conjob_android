@@ -7,14 +7,14 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.intern.conjob.ui.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
 
         <action
             android:id="@+id/action_homeFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment">
             <argument
                 android:name="post"
-                app:argType="com.intern.conjob.data.model.Post"/>
+                app:argType="com.intern.conjob.data.model.Post" />
         </action>
 
         <action
@@ -26,7 +26,7 @@
             app:destination="@id/otherProfileFragment">
             <argument
                 android:name="userId"
-                app:argType="long"/>
+                app:argType="long" />
         </action>
 
         <action
@@ -34,6 +34,15 @@
             app:destination="@id/publishPostFragment"
             app:enterAnim="@anim/from_bottom"
             app:exitAnim="@anim/to_top" />
+
+
+        <action
+            android:id="@+id/action_homeFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment">
+            <argument
+                android:name="user"
+                app:argType="com.intern.conjob.data.model.User" />
+        </action>
 
     </fragment>
 
@@ -43,21 +52,21 @@
         android:label="PostDetailFragment">
         <argument
             android:name="post"
-            app:argType="com.intern.conjob.data.model.Post"/>
+            app:argType="com.intern.conjob.data.model.Post" />
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.intern.conjob.ui.settings.SettingsFragment"
-        android:label="SettingsFragment"/>
+        android:label="SettingsFragment" />
 
     <fragment
         android:id="@+id/otherProfileFragment"
         android:name="com.intern.conjob.ui.home.profile.fragment.OtherProfileFragment"
-        android:label="OtherProfileFragment" >
+        android:label="OtherProfileFragment">
         <argument
             android:name="userId"
-            app:argType="long"/>
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -83,6 +92,15 @@
             android:id="@+id/action_listJobFragment_to_createJobFragment"
             app:destination="@id/createJobFragment" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.intern.conjob.ui.home.profile.fragment.EditProfileFragment"
+        android:label="EditProfileFragment">
+        <argument
+            android:name="user"
+            app:argType="com.intern.conjob.data.model.User" />
     </fragment>
 
 </navigation>

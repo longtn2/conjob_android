@@ -8,4 +8,8 @@ class LocalRepository : Repository() {
         token?.let { SharedPref.saveToken(it) }
         refreshToken?.let { SharedPref.saveRefreshToken(it) }
     }
+
+    fun saveLocalUserId(userId: Long) {
+        SharedPref.saveUserId(userId)
+    }
 }
